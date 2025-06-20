@@ -143,6 +143,7 @@
 
   environment.systemPackages = with pkgs; [
     unrar p7zip unzip yt-dlp wget librewolf scrcpy tmux zsh git tree
+    htop btop
     kdePackages.konsole gparted vlc
     openvpn gnome-boxes bottles
     obs-studio vesktop qbittorrent gimp xournalpp easyeffects inkscape input-remapper
