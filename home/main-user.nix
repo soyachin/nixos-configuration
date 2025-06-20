@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, unstable, ... }: {
 
   home.username = "hojas";
   home.homeDirectory = "/home/hojas";
@@ -20,7 +20,6 @@
     obsidian
     freeoffice
     openutau
-    spotify 
 
     clang  # Para soporte C/C++
     nil # Soporte para nix
@@ -44,6 +43,8 @@
     mopidy
     ncmpcpp
     lazygit
+    unstable.spotify
   ];
+
 
  }
