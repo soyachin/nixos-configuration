@@ -175,6 +175,7 @@
           gst_all_1.gst-vaapi
           #...
           ffmpeg_6-full
+          ffmpeg_4-full
     ];
   };
 
