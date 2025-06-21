@@ -8,5 +8,6 @@
     ./git.nix
     ./fastfetch.nix
     ./nvim/default.nix
+    ./obs.nix
   ];
 }
