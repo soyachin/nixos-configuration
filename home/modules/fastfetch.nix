@@ -15,8 +15,6 @@
         "shell"
         "de"
         "wm"
-        "wmtheme"
-        "font"
         "cpu"
         "gpu"
         "memory"
