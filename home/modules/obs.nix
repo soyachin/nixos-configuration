@@ -1,4 +1,4 @@
-{ config, pkgs }: 
+{ config, pkgs, ... }: 
 
 {
   programs.obs-studio = {
@@ -6,7 +6,7 @@
     plugins = with pkgs.obs-studio-plugins; [
       input-overlay
     ];
-  }
+  };
 
 }
 
