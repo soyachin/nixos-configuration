@@ -27,23 +27,19 @@
     pyright
     cmake 
 
-    wl-clipboard
     cmake-language-server
     keepassxc
     ardour
     prismlauncher
-
-    bat
-    lsd
-    ripgrep
-    fd
 
     sops
     age
     mopidy
     ncmpcpp
     lazygit
+
     unstable.spotify
+    unstable.librewolf
   ];
 
 
