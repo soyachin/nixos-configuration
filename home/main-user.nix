@@ -20,19 +20,6 @@
     freeoffice
     openutau
 
-    # C++
-    clang  
-    gdb
-    gcc
-    ninja
-    cmake
-    cmake-language-server
-
-    # nix
-    nil
-    alejandra
-    pyright
-     
     keepassxc
     ardour
     prismlauncher
