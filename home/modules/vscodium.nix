@@ -14,7 +14,7 @@
       dbaeumer.vscode-eslint
       yoavbls.pretty-ts-errors
       jdinhlife.gruvbox
-      symphorien.nix-ide
+      jnoortheen.nix-ide
     ];
   };
 
