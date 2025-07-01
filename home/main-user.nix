@@ -11,8 +11,7 @@
 
 
   home.packages = with pkgs; [
-    lolcat cowsay
-    figlet fortune cmatrix hollywood jp2a
+    lolcat cowsay figlet fortune cmatrix hollywood jp2a
 
     jetbrains.clion
 
@@ -21,13 +20,19 @@
     freeoffice
     openutau
 
-    clang  # Para soporte C/C++
-    nil # Soporte para nix
+    # C++
+    clang  
+    gdb
+    gcc
+    ninja
+    cmake
+    cmake-language-server
+
+    # nix
+    nil
     alejandra
     pyright
-    cmake 
-
-    cmake-language-server
+     
     keepassxc
     ardour
     prismlauncher
