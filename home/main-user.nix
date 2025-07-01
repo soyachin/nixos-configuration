@@ -11,7 +11,7 @@
 
 
   home.packages = with pkgs; [
-    lolcat cowsay figlet fortune cmatrix hollywood jp2a
+    lolcat cowsay figlet fortune cmatrix hollywood jp2a wl-clipboard
 
     jetbrains.clion
 
@@ -34,5 +34,10 @@
     unstable.librewolf
   ];
 
-
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
  }
+
+
