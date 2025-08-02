@@ -14,16 +14,15 @@
     lolcat cowsay figlet fortune cmatrix hollywood jp2a wl-clipboard
 
     jetbrains.clion
-
+    soulseekqt
     wine winetricks lutris
     obsidian
-    freeoffice
-    openutau
 
-    keepassxc
-    ardour
+    onlyoffice-desktopeditors
+    onlyoffice-documentserver
+
     prismlauncher
-
+    zoom-us
     sops
     age
     mopidy
