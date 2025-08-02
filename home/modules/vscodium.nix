@@ -3,7 +3,7 @@
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium-fhs;
+    package = pkgs.vscodium;
     profiles.default.extensions = with pkgs.vscode-extensions; [
       ms-vscode.cpptools
       ms-python.python
@@ -16,13 +16,6 @@
       jdinhlife.gruvbox
       jnoortheen.nix-ide
     ];
-    
-    mutableExtensionsDir = false;
-
-    userSettings = {
-      "extensions.autoUpdate" = false;
-    };
   };
-
 }
 
