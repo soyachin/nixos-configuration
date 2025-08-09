@@ -1,7 +1,6 @@
-{config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -10,7 +9,7 @@
       # Plugin manager
       vim-plug
 
-      # Soporte para C/C++ y autocompletado
+      # LSP y autocompletado
       nvim-lspconfig
       cmp-nvim-lsp
       nvim-cmp
@@ -19,165 +18,76 @@
       cmp-vsnip
       vim-vsnip
 
-      # Interfaz bonita
+      # Web Development
+      vim-svelte
+      emmet-vim
+
+      # Interfaz
       lualine-nvim
       gruvbox
-      bufferline-nvim
-
-      # Árbol de archivos
       nvim-tree-lua
-
-      # Sintaxis mejorada
       nvim-treesitter.withAllGrammars
-
-      # Iconos
       nvim-web-devicons
 
-      # Herramientas de navegación y ayuda
-      trouble-nvim
+      # Herramientas
       telescope-nvim
-      which-key-nvim
-      symbols-outline-nvim
-
-      # Visuales
-      indent-blankline-nvim
-      gitsigns-nvim
-
+      trouble-nvim
       nvim-autopairs
       vim-nix
-
-      vim-cmake
-      cmake-tools-nvim
-      plenary-nvim
-      telescope-nvim
-
-
     ];
 
-    extraConfig = ''
-      lua << EOF
-      vim.o.syntax = "on"
-      vim.o.number = true
-      vim.o.relativenumber = true
-      vim.o.tabstop = 4
-      vim.o.shiftwidth = 4
-      vim.o.expandtab = true
+    extraLuaConfig = ''
+      -- Configuración básica
+      vim.opt.number = true
+      vim.opt.relativenumber = true
+      vim.opt.tabstop = 4
+      vim.opt.shiftwidth = 4
       vim.cmd("colorscheme gruvbox")
 
-      -- Clipboard
-      vim.g.clipboard = {
-        name = 'wl-clipboard',
-        copy = {
-          ['+'] = 'wl-copy',
-          ['*'] = 'wl-copy',
-        },
-        paste = {
-          ['+'] = 'wl-paste',
-          ['*'] = 'wl-paste',
-        },
-        cache_enabled = 1,
+      -- Configuración LSP condicional (actualizada)
+      local lsp_servers = {
+        'ts_ls',         -- Mantenido por compatibilidad (usará ts_ls internamente)
+        'svelte',
+        'tailwindcss',
+        'html',
+        'cssls',
+        'nil_ls',
+        'pyright',
+        'clangd'
       }
 
-      -- LSP para C/C++
       local lspconfig = require('lspconfig')
-      lspconfig.clangd.setup {
-        on_attach = function(client, bufnr)
-          vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-              virtual_text = { prefix = "●" },
-              signs = true,
-              underline = true,
-              update_in_insert = true,
-            }
-          )
+      for _, server in ipairs(lsp_servers) do
+        local config = {
+          capabilities = require('cmp_nvim_lsp').default_capabilities()
+        }
+        
+        
+        if server == 'ts_ls' then
+          config.cmd = { "typescript-language-server", "--stdio" }
+          config.filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
         end
-      }
 
-      lspconfig.cmake.setup {
-        cmd = {"cmake-language-server"}
-      }
+        if server == 'nil_ls' then
+          config.settings = { ['nil'] = { formatting = { command = { "alejandra" } } } }
+        end
 
-      -- LSP para Nix con nil
-      lspconfig.nil_ls.setup {
-        settings = {
-          ['nil'] = {
-            formatting = {
-              command = { "alejandra" }
-            }
-          }
-        }
-      }
+        if server == 'svelte' then
+          config.settings = { svelte = { plugin = { html = { completions = { emmet = true } } } } }
+        end
 
-      lspconfig.pyright.setup {
-        on_attach = function(client, bufnr)
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          buffer = bufnr,
-          callback = function()
-          vim.lsp.buf.format({ async = true })
-          end,
-        })
-        end 
-      }
+        pcall(function()
+          lspconfig[server].setup(config)
+        end)
+      end
 
-      -- Autocompletado con nvim-cmp
-      local cmp = require'cmp'
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        }),
-        sources = cmp.config.sources({
+      -- Configuración de autocompletado
+      require('cmp').setup({
+        sources = {
           { name = 'nvim_lsp' },
-          { name = 'vsnip' },
-        }, {
-          { name = 'buffer' },
-          { name = 'path' }
-        })
-      })
-
-      require('lualine').setup()
-      require('nvim-tree').setup({
-        renderer = {
-          icons = {
-            show = {
-              file = true,
-              folder = true,
-              folder_arrow = true,
-              git = true,
-            }
-          }
+          { name = 'buffer' }
         }
       })
-
-      require("cmake-tools").setup({})
-
-      require("trouble").setup()
-      require("symbols-outline").setup()
-      require("ibl").setup()
-      require("gitsigns").setup()
-      require("bufferline").setup()
-      require("which-key").setup()
-      require("telescope").setup()
-      require("nvim-autopairs").setup()
-      
-      require('telescope').setup{}
-
-      local map = vim.keymap.set
-      local opts = { noremap = true, silent = true }
-
-      map('n', '<leader>ff', '<cmd>Telescope find_files<CR>', opts)
-      map('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', opts)
-      map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opts)
-      map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', opts)
-    EOF
     '';
   };
 
