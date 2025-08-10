@@ -147,11 +147,23 @@
     kdePackages.konsole gparted vlc
     openvpn gnome-boxes bottles
     obs-studio vesktop qbittorrent xournalpp easyeffects inkscape input-remapper
-    clang-tools
     
     krita
     v4l-utils libva-utils vdpauinfo libvdpau libva
     libva-vdpau-driver glxinfo vulkan-tools mpv
+
+    nil alejandra
+    tailwindcss-language-server
+    svelte-language-server
+    cmake
+    cmake-language-server
+    clang-tools
+    gcc
+    pyright
+    vscode-langservers-extracted
+
+    lua-language-server
+
   ];
 
   programs.steam = {
