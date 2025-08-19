@@ -143,11 +143,11 @@
 
   environment.systemPackages = with pkgs; [
     unrar p7zip unzip yt-dlp wget scrcpy tmux zsh git tree
+
     bat lsd ripgrep fd htop btop lldb
     kdePackages.konsole gparted vlc
     openvpn gnome-boxes bottles
     obs-studio vesktop qbittorrent xournalpp easyeffects inkscape input-remapper
-    
     krita
     v4l-utils libva-utils vdpauinfo libvdpau libva
     libva-vdpau-driver glxinfo vulkan-tools mpv
@@ -160,6 +160,7 @@
     clang-tools
     gcc
     pyright
+    komikku
     vscode-langservers-extracted
 
     lua-language-server
@@ -215,7 +216,7 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
+  # services.blueman.enable = true;
 
   # List services that you want to enable:
 
