@@ -29,7 +29,7 @@
       useOSProber = true;
     };
   };
-
+  services.tailscale.enable = true;
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
     nvidia_x11
@@ -72,7 +72,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "asus"; # Define your hostname.
 
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
@@ -106,6 +106,26 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # -----------------------------------------------------------------------------------
+  # I'll try niri for some time
+
+  programs.niri.enable = true;
+  # programs.waybar.enable = true;
+
+  # Compatibility workaround for GNOME Apps
+
+  programs.dconf.enable = true;
+
+  # Wayland Fix for Niri and other TWMs
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  
+  programs.light.enable = true; # brightness control
+
+  security.pam.services.swaylock = {};
+
+  # -----------------------------------------------------------------------------------
+  
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "latam";
@@ -143,10 +163,13 @@
 
   environment.systemPackages = with pkgs; [
     unrar p7zip unzip yt-dlp wget scrcpy tmux zsh git tree
-
+    
+    baobab spotify-cli-linux
+    obs-studio-plugins.obs-ndi
+    ndi 
     bat lsd ripgrep fd htop btop lldb
     kdePackages.konsole gparted vlc
-    openvpn gnome-boxes bottles
+    openvpn bottles
     obs-studio vesktop qbittorrent xournalpp easyeffects inkscape input-remapper
     krita
     v4l-utils libva-utils vdpauinfo libvdpau libva
@@ -165,6 +188,20 @@
 
     lua-language-server
 
+
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
+    swaybg
+    swww
+    rofi-wayland
+    slurp
+    swaylock
+    mako 
+    xwayland-satellite
+    wl-clipboard
+    kitty
+
+    aseprite
   ];
 
   programs.steam = {
@@ -216,7 +253,7 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  # services.blueman.enable = true;
+  services.blueman.enable = true;
 
   # List services that you want to enable:
 
