@@ -29,7 +29,7 @@
     ncmpcpp
     lazygit
 
-    unstable.spotify
+    spotify
     unstable.librewolf
   ];
 
