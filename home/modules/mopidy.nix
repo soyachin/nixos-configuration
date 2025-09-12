@@ -35,7 +35,7 @@
       mpd = {
         enabled = true;
         hostname = "127.0.0.1";
-        port = 6600;
+        port = 6601;
       };
 
       spotify.enabled = true;
