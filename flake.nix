@@ -27,7 +27,7 @@
         config.allowUnfree = true;
       };
     in {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.asus = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs unstable; }; 
 
         modules = [
