@@ -2,12 +2,12 @@
 
 {
 
-services.mpd = {
-  enable = true;
-  musicDirectory = "/home/${config.user.name}/Música";
-  # Optional:
-  network.listenAddress = "localhost";
-  network.startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
-};
+  services.mpd = {
+    enable = true;
+    musicDirectory = "${config.xdg.userDirs.music}";
+    # Optional:
+    network.listenAddress = "localhost";
+    network.startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
+  };
 
 }
