@@ -2,14 +2,15 @@
 
 {
   imports = [
-    ./mopidy.nix
+    # ./mopidy.nix
     ./zsh.nix
     ./vscodium.nix
     ./sops.nix
-    ./ncmpcpp.nix
+    # ./ncmpcpp.nix
     ./git.nix
     ./fastfetch.nix
     ./nvim/default.nix
     ./obs.nix
+    ./mpd.nix
   ];
 }
