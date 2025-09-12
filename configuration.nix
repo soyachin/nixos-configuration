@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, inputs, lib, ... }:
 
 
@@ -73,6 +69,15 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "asus"; # Define your hostname.
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
+        doCheck = false;
+      });
+    })
+  ];
+
 
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
@@ -162,46 +167,51 @@
   };
 
   environment.systemPackages = with pkgs; [
-    unrar p7zip unzip yt-dlp wget scrcpy tmux zsh git tree
-    
-    baobab spotify-cli-linux
-    obs-studio-plugins.obs-ndi
-    ndi 
-    bat lsd ripgrep fd htop btop lldb
-    kdePackages.konsole gparted vlc
-    openvpn bottles
-    obs-studio vesktop qbittorrent xournalpp easyeffects inkscape input-remapper
-    krita
-    v4l-utils libva-utils vdpauinfo libvdpau libva
-    libva-vdpau-driver glxinfo vulkan-tools mpv
+ # System Utilities
+  unrar p7zip unzip yt-dlp wget scrcpy tmux zsh git tree neovim
+  
+  # Applications
+  baobab 
+  
+  # Terminal Tools
+  bat lsd ripgrep fd htop btop lldb
+  kdePackages.konsole gparted 
+  
+  # User Applications
+  openvpn bottles
+  obs-studio vesktop qbittorrent xournalpp easyeffects inkscape input-remapper
+  krita ungoogled-chromium
+  
+  # Multimedia
+  mpv vlc rmpc
 
-    nil alejandra
-    tailwindcss-language-server
-    svelte-language-server
-    cmake
-    cmake-language-server
-    clang-tools
-    gcc
-    pyright
-    komikku
-    vscode-langservers-extracted
+  # Development
+  nil alejandra
+  tailwindcss-language-server
+  svelte-language-server
+  cmake
+  cmake-language-server
+  clang-tools
+  gcc
+  pyright
+  vscode-langservers-extracted
+  lua-language-server
 
-    lua-language-server
+  # Wayland Ecosystem
+  xdg-desktop-portal-gtk
+  xdg-desktop-portal-gnome
+  swaybg
+  swww
+  rofi-wayland
+  slurp
+  swaylock
+  mako 
+  xwayland-satellite
+  wl-clipboard
+  kitty
 
-
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-gnome
-    swaybg
-    swww
-    rofi-wayland
-    slurp
-    swaylock
-    mako 
-    xwayland-satellite
-    wl-clipboard
-    kitty
-
-    aseprite
+  # Graphics
+  aseprite
   ];
 
   programs.steam = {
