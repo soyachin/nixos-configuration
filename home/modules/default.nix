@@ -12,5 +12,6 @@
     ./nvim/default.nix
     ./obs.nix
     ./mpd.nix
+    ./cava.nix
   ];
 }
