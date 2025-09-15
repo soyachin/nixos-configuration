@@ -175,7 +175,7 @@
   
   # Terminal Tools
   bat lsd ripgrep fd htop btop lldb
-  kdePackages.konsole gparted 
+  gparted 
   
   # User Applications
   openvpn bottles
