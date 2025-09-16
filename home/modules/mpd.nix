@@ -33,6 +33,8 @@
         name "mpd_pipewire"
         mixer_type "software"
       }
+
+      replaygain "album"
     '';
 
 
