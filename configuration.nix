@@ -66,7 +66,7 @@
   
   # Terminal Tools
   bat lsd ripgrep fd htop btop lldb
-  gparted 
+  gparted rsgain 
   
   # User Applications
   openvpn bottles
