@@ -74,7 +74,7 @@
   krita ungoogled-chromium
   
   # Multimedia
-  mpv vlc rmpc
+  mpv vlc rmpc mpc-cli
 
   # Development
   nil alejandra
