@@ -27,6 +27,12 @@
           path "/tmp/mpd.fifo"
           format "44100:16:2"
       }
+
+      audio_output {
+        type "pipewire"
+        name "mpd_pipewire"
+        mixer_type "software"
+      }
     '';
 
 
