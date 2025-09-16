@@ -2,6 +2,8 @@
 
 {
   hardware.i2c.enable = true;
+
+  # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -37,4 +39,8 @@
       mesa
     ];
   };
+
+  # Driver de tablet
+  hardware.opentabletdriver.enable = true;
+
 }
