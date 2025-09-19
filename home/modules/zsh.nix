@@ -7,10 +7,13 @@
       maicra = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia prismlauncher"; 
       config = "cd ~/.config/nixos/";
       gs = "git status";
+      gd = "git diff";
+      gcl = "git clone";
+      ga = "git add";
     };
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "gh" "themes"];
+      plugins = [ "themes"];
       theme = "bira";
     };
   };
