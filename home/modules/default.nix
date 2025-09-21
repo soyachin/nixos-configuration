@@ -1,6 +1,8 @@
-{ config, pkgs, ...}:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     # ./mopidy.nix
     ./zsh.nix
@@ -13,5 +15,6 @@
     ./obs.nix
     ./mpd.nix
     ./cava.nix
+    ./swayidle.nix
   ];
 }

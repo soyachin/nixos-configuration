@@ -1,0 +1,16 @@
+configuration {
+    show-icons: false;
+    font: "ComicShannsMono Nerd Font Mono 12";
+    icon-theme: "Papirus-Dark";
+
+    display-ssh:    "󰣀 ssh:";
+    display-run:    "󱓞 run:";
+    display-drun:   "󰣖 drun:";
+    display-window: "󱂬 window:";
+    display-combi:  "󰕘 combi:";
+    display-filebrowser: "󰉋 filebrowser:";
+
+    dpi: 100;
+}
+
+@theme "gruvbox-material"
