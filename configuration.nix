@@ -1,17 +1,20 @@
-{ config, pkgs, inputs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
   nixpkgs.config.allowUnfree = true;
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./modules
-      inputs.home-manager.nixosModules.home-manager
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./modules
+    inputs.home-manager.nixosModules.home-manager
+  ];
 
-    ];
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.gc.options = "--delete-older-than 7d";
 
   nixpkgs.overlays = [
@@ -35,18 +38,18 @@
   # Wayland Fix for Niri and other TWMs
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  
+
   programs.light.enable = true; # brightness control
 
   security.pam.services.swaylock = {};
 
   # -----------------------------------------------------------------------------------
-  
+
   # Configure console keymap
   console.keyMap = "la-latin1";
 
-  programs.firefox  =  {
-    enable  =  true ;
+  programs.firefox = {
+    enable = true;
   };
 
   programs.zsh.enable = true;
@@ -54,56 +57,81 @@
   users.users.hojas = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "bluetooth" ];
+    extraGroups = ["wheel" "networkmanager" "bluetooth"];
   };
 
   environment.systemPackages = with pkgs; [
- # System Utilities
-  unrar p7zip unzip yt-dlp wget scrcpy tmux zsh git tree neovim
-  
-  # Applications
-  baobab 
-  
-  # Terminal Tools
-  bat lsd ripgrep fd htop btop lldb
-  gparted rsgain 
-  
-  # User Applications
-  openvpn bottles
-  obs-studio vesktop qbittorrent xournalpp easyeffects inkscape input-remapper
-  krita ungoogled-chromium
-  
-  # Multimedia
-  mpv vlc rmpc mpc-cli
+    # System Utilities
+    unrar
+    p7zip
+    unzip
+    yt-dlp
+    wget
+    scrcpy
+    tmux
+    zsh
+    git
+    tree
+    neovim
+    brightnessctl
 
-  # Development
-  nil alejandra
-  tailwindcss-language-server
-  svelte-language-server
-  cmake
-  cmake-language-server
-  clang-tools
-  gcc
-  pyright
-  vscode-langservers-extracted
-  lua-language-server
+    # Applications
+    baobab
 
-  # Wayland Ecosystem
-  xdg-desktop-portal-gtk
-  xdg-desktop-portal-gnome
-  swaybg
-  swww
-  rofi-wayland
-  slurp
-  swaylock
-  mako 
-  xwayland-satellite
-  wl-clipboard
-  kitty
+    # Terminal Tools
+    bat
+    lsd
+    ripgrep
+    fd
+    htop
+    btop
+    lldb
+    rsgain
 
-  # Graphics
-  aseprite
+    # User Applications
+    bottles
+    obs-studio
+    vesktop
+    qbittorrent
+    xournalpp
+    krita
+    ungoogled-chromium
 
+    # Multimedia
+    mpv
+    vlc
+    rmpc
+    mpc-cli
+
+    # Development
+    nil
+    alejandra
+    tailwindcss-language-server
+    svelte-language-server
+    cmake
+    cmake-language-server
+    clang-tools
+    gcc
+    pyright
+    vscode-langservers-extracted
+    lua-language-server
+
+    # Wayland Ecosystem
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
+    swaybg
+    swww
+    rofi-wayland
+    slurp
+    sway
+    swaylock
+    mako
+    xwayland-satellite
+    wl-clipboard
+    kitty
+
+    # Graphics
+    aseprite
   ];
 
   # List services that you want to enable:
@@ -125,5 +153,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
