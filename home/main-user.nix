@@ -1,21 +1,34 @@
-{ config, pkgs, inputs, unstable, ... }: {
-
+{
+  config,
+  pkgs,
+  inputs,
+  unstable,
+  ...
+}: {
   home.username = "hojas";
   home.homeDirectory = "/home/hojas";
   home.stateVersion = "25.05";
-  
+
   imports = [
-   ./modules
-   inputs.sops-nix.homeManagerModules.sops
+    ./modules
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
-
   home.packages = with pkgs; [
-    lolcat cowsay figlet fortune cmatrix hollywood jp2a wl-clipboard
+    lolcat
+    cowsay
+    figlet
+    fortune
+    cmatrix
+    hollywood
+    jp2a
+    wl-clipboard
 
     jetbrains.clion
     soulseekqt
-    wine winetricks lutris
+    wine
+    winetricks
+    lutris
     obsidian
 
     onlyoffice-desktopeditors
@@ -31,16 +44,14 @@
 
     spotify
     unstable.librewolf
+
+    swayidle
   ];
 
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
-  
+
   # programs.waybar.enable = true;
 }
-
-
-
-
