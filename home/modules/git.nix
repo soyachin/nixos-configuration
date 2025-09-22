@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
-
 {
-
+  config,
+  pkgs,
+  ...
+}: {
   programs.git = {
     enable = true;
     aliases = {
@@ -12,6 +13,4 @@
       init.defaultBranch = "main";
     };
   };
-
-
 }

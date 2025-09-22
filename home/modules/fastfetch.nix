@@ -1,10 +1,12 @@
-{ config, pkgs, ... }:
-
 {
-    programs.fastfetch = {
-      enable = true;
-      settings = {
-        modules = [
+  config,
+  pkgs,
+  ...
+}: {
+  programs.fastfetch = {
+    enable = true;
+    settings = {
+      modules = [
         "title"
         "separator"
         "os"
@@ -21,8 +23,7 @@
         "disk"
         "break"
         "colors"
-        ];
-
+      ];
     };
   };
 }
