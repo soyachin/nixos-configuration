@@ -16,5 +16,6 @@
     ./mpd.nix
     ./cava.nix
     ./swayidle.nix
+    ./clock-rs.nix
   ];
 }
