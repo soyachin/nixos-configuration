@@ -39,8 +39,6 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  programs.light.enable = true; # brightness control
-
   security.pam.services.swaylock = {};
 
   # -----------------------------------------------------------------------------------
@@ -75,6 +73,7 @@
     neovim
     brightnessctl
 
+
     # Applications
     baobab
 
@@ -83,10 +82,14 @@
     lsd
     ripgrep
     fd
+    fzf
     htop
     btop
     lldb
     rsgain
+    acpi
+    yazi
+    nitch
 
     # User Applications
     bottles
@@ -96,6 +99,7 @@
     xournalpp
     krita
     ungoogled-chromium
+    pavucontrol
 
     # Multimedia
     mpv
