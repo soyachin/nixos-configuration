@@ -16,9 +16,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nyaa = {
+      url = "github:Beastwick18/nyaa";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, ... }@inputs: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, nyaa, ... }@inputs: 
     let
       system = "x86_64-linux"; 
       pkgs = nixpkgs.legacyPackages.${system};

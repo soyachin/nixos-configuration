@@ -72,8 +72,9 @@
     tree
     neovim
     brightnessctl
-
-
+    libnotify
+    
+    loupe
     # Applications
     baobab
 
@@ -100,6 +101,7 @@
     krita
     ungoogled-chromium
     pavucontrol
+    nautilus
 
     # Multimedia
     mpv
