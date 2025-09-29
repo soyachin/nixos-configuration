@@ -12,7 +12,12 @@
   imports = [
     ./modules
     inputs.sops-nix.homeManagerModules.sops
+    inputs.nyaa.homeManagerModule
   ];
+
+  programs.nyaa.enable = true;
+
+  services.batsignal.enable = true;
 
   home.packages = with pkgs; [
     lolcat

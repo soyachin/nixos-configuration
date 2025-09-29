@@ -32,13 +32,14 @@ prefer-no-csd
 output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
-    mode "1920x1080@120.030"
+    mode "1920x1080@144.000"
     scale 1
     transform "normal"
     position x=0 y=0
 }
 
 output "HDMI-A-1" {
+    //off
     mode "1920x1080@60.00"
     scale 1 
     transform "normal"
@@ -283,8 +284,8 @@ binds {
 
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
-    Mod+U              { focus-workspace-down; }
-    Mod+I              { focus-workspace-up; }
+    Mod+I              { focus-workspace-down; }
+    Mod+U              { focus-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
     Mod+Ctrl+U         { move-column-to-workspace-down; }
@@ -361,8 +362,8 @@ binds {
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
-    Mod+BracketLeft  { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+BraceLeft  { consume-or-expel-window-left; }
+    Mod+BraceRight { consume-or-expel-window-right; }
 
     Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
