@@ -75,10 +75,13 @@
     libnotify
     pamixer
     bc
+    lazygit
 
-    loupe
     # Applications
     baobab
+    nautilus
+    papers
+    loupe
 
     # Terminal Tools
     bat
@@ -103,13 +106,13 @@
     krita
     ungoogled-chromium
     pavucontrol
-    nautilus
+
+    gnome-disk-utility
 
     # Multimedia
     mpv
     vlc
     rmpc
-    mpc-cli
 
     # Development
     nil
@@ -131,15 +134,28 @@
     swww
     rofi-wayland
     slurp
-    sway
     swaylock
     mako
     xwayland-satellite
     wl-clipboard
     kitty
-
     # Graphics
     aseprite
+  ];
+
+  fonts.fontconfig.enable = true;
+  fonts.fontconfig.defaultFonts = {
+    monospace = ["ComicShanns Nerd Font Mono"];
+    serif = ["ComicShanns Nerd Font Mono"];
+    sansSerif = ["ComicShanns Nerd Font Mono"];
+
+    emoji = ["Noto Color Emoji"];
+  };
+
+  services.displayManager.sddm.enable = true;
+
+  services.displayManager.sessionPackages = [
+    pkgs.niri
   ];
 
   # List services that you want to enable:
