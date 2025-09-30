@@ -14,5 +14,6 @@
     ./cava.nix
     ./clock-rs.nix
     ./services
+    ./gtk
   ];
 }
