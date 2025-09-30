@@ -1,21 +1,22 @@
 
+
 input {
     keyboard {
         xkb {
 			layout "latam"
-	}
+	    }
 
-	numlock
-}
+	    numlock
+    }   
 
-touchpad {
-	tap
-	dwt
-}
-
-mouse {
-
+    touchpad {
+        tap
+        dwt
     }
+
+    mouse {
+
+        }
     trackpoint {
 
     }
@@ -24,6 +25,11 @@ mouse {
 
 // spawn-at-startup "swww-daemon"
 // spawn-at-startup "swaybg" "--image" "/home/hojas/Pictures/iXUIQa-1830363320.jpg"
+
+cursor {
+    xcursor-theme "macOS"
+    xcursor-size 28
+}
 
 prefer-no-csd
 
@@ -46,7 +52,7 @@ output "HDMI-A-1" {
 
 
 layout {
-    gaps 16
+    gaps 10
 
     center-focused-column "never"
 
@@ -56,24 +62,22 @@ layout {
         proportion 0.66667
 
     }
-
+    background-color "#282828"
 
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        // off
-
-        width 4
-        active-color "rgb(121, 153, 46)"
-        inactive-color "rgb(83, 92, 75)"
-    }
-
-    border {
         off
 
         width 3
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        active-color "#b8bb26"
+        inactive-color "#98971a"
+    }
+
+    border {
+        width 2
+        active-color "#b8bb26"
+        inactive-color "#606043ff"
 
         urgent-color "#9b0000"
 
@@ -82,18 +86,10 @@ layout {
     shadow {
         // on
 
-        // draw-behind-window true
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
     }
 
     struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
+
     }
 }
 
@@ -147,9 +143,9 @@ binds {
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "~/.local/bin/volume-down.sh"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "~/.local/bin/volume-mute.sh"; }
 
-    XF86AudioMicMute allow-when-locked=true { spawn "mic-toggle"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightness-up"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightness-down"; }
+    XF86AudioMicMute allow-when-locked=true { spawn-sh "~/.local/bin/mic-mute.sh"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "~/.local/bin/brightness-up.sh"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "~/.local/bin/brightness-down.sh"; }
 
     Mod+O repeat=false { toggle-overview; }
 
