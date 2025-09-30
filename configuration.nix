@@ -73,7 +73,9 @@
     neovim
     brightnessctl
     libnotify
-    
+    pamixer
+    bc
+
     loupe
     # Applications
     baobab

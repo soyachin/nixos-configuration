@@ -1,0 +1,7 @@
+{
+  imports = [
+    ./mako
+    ./mpd
+    ./swayidle
+  ];
+}
