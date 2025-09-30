@@ -73,7 +73,6 @@
     neovim
     brightnessctl
     libnotify
-    pamixer
     bc
     lazygit
 
@@ -143,21 +142,6 @@
     aseprite
   ];
 
-  fonts.fontconfig.enable = true;
-  fonts.fontconfig.defaultFonts = {
-    monospace = ["ComicShanns Nerd Font Mono"];
-    serif = ["ComicShanns Nerd Font Mono"];
-    sansSerif = ["ComicShanns Nerd Font Mono"];
-
-    emoji = ["Noto Color Emoji"];
-  };
-
-  services.displayManager.sddm.enable = true;
-
-  services.displayManager.sessionPackages = [
-    pkgs.niri
-  ];
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -175,6 +159,10 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+
+  environment.sessionVariables = {
+    XCURSOR_SIZE = "32";
+  };
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }

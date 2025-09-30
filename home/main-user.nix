@@ -21,9 +21,6 @@
     cowsay
     figlet
     fortune
-    cmatrix
-    hollywood
-    jp2a
     wl-clipboard
 
     jetbrains.clion
@@ -44,6 +41,7 @@
     spotify
     unstable.librewolf
     gruvbox-gtk-theme
+    nerd-fonts.comic-shanns-mono
   ];
 
   programs.direnv = {
@@ -51,12 +49,22 @@
     nix-direnv.enable = true;
   };
 
+  fonts.fontconfig.enable = true;
+
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
     package = pkgs.apple-cursor;
     name = "macOS";
     size = 32;
+  };
+
+  home.sessionVariables = {
+    XCURSOR_SIZE = "32";
+    XCURSOR_THEME = "macOS";
+
+    WLR_CURSOR_SIZE = "32";
+    WLR_CURSOR_THEME = "macOS";
   };
 
   # programs.waybar.enable = true;
