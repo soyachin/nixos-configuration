@@ -14,8 +14,6 @@
     inputs.sops-nix.homeManagerModules.sops
   ];
 
-  services.batsignal.enable = true;
-
   home.packages = with pkgs; [
     lolcat
     cowsay
