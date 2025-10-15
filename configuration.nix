@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     ./modules
     inputs.home-manager.nixosModules.home-manager
+    inputs.noctalia.nixosModules.default
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -34,6 +35,8 @@
   # Compatibility workaround for GNOME Apps
 
   programs.dconf.enable = true;
+
+  services.noctalia-shell.enable = true;
 
   # Wayland Fix for Niri and other TWMs
 
@@ -59,6 +62,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.noctalia.packages.${system}.default
     # System Utilities
     unrar
     p7zip
@@ -75,6 +79,7 @@
     libnotify
     bc
     lazygit
+    upower
 
     # Applications
     baobab
@@ -105,8 +110,7 @@
     krita
     ungoogled-chromium
     pavucontrol
-
-    gnome-disk-utility
+    playerctl
 
     # Multimedia
     mpv

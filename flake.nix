@@ -15,6 +15,16 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell"; # Use same quickshell version
+    };
   };
 
   outputs = {
@@ -23,6 +33,8 @@
     nixpkgs-unstable,
     home-manager,
     sops-nix,
+    quickshell,
+    noctalia,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -37,6 +49,7 @@
 
       modules = [
         ./configuration.nix
+
         inputs.home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
 
