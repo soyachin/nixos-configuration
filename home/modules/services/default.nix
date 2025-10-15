@@ -3,5 +3,6 @@
     ./mako
     ./mpd
     ./swayidle
+    ./batsignal
   ];
 }
