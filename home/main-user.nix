@@ -15,30 +15,15 @@
   ];
 
   home.packages = with pkgs; [
-    lolcat
-    cowsay
-    figlet
-    fortune
-    wl-clipboard
-
-    jetbrains.clion
     soulseekqt
     wine
     winetricks
-    lutris
-    obsidian
-
-    onlyoffice-desktopeditors
-    onlyoffice-documentserver
-
-    prismlauncher
-    zoom-us
     sops
     age
-
     spotify
     unstable.librewolf
     gruvbox-gtk-theme
+    adwaita-icon-theme
     nerd-fonts.comic-shanns-mono
   ];
 

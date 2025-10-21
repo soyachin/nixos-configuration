@@ -15,42 +15,14 @@
     inputs.noctalia.nixosModules.default
   ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.gc.options = "--delete-older-than 7d";
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
-        doCheck = false;
-      });
-    })
-  ];
-
-  # -----------------------------------------------------------------------------------
-  # I'll try niri for some time
-
-  programs.niri.enable = true;
-  # programs.waybar.enable = true;
-
-  # Compatibility workaround for GNOME Apps
-
-  programs.dconf.enable = true;
-
-  services.noctalia-shell.enable = true;
-
-  # Wayland Fix for Niri and other TWMs
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  security.pam.services.swaylock = {};
-
-  # -----------------------------------------------------------------------------------
+  networking.hostName = "asus"; # Define your hostname.
 
   # Configure console keymap
   console.keyMap = "la-latin1";
 
-  programs.firefox = {
-    enable = true;
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "latam";
   };
 
   programs.zsh.enable = true;
@@ -65,8 +37,8 @@
     inputs.noctalia.packages.${system}.default
     # System Utilities
     unrar
-    p7zip
     unzip
+    p7zip
     yt-dlp
     wget
     scrcpy
@@ -75,36 +47,39 @@
     git
     tree
     neovim
-    brightnessctl
     libnotify
     bc
     lazygit
-    upower
 
     # Applications
     baobab
     nautilus
     papers
     loupe
+    gnome-text-editor
+    gnome-usage
+    onlyoffice-desktopeditors
+    onlyoffice-documentserver
+    equibop
+    obsidian
+    prismlauncher
+    zoom-us
+    sops
+    age
 
     # Terminal Tools
     bat
     lsd
     ripgrep
     fd
-    fzf
     htop
     btop
     lldb
-    rsgain
     acpi
     yazi
     nitch
 
     # User Applications
-    bottles
-    obs-studio
-    vesktop
     qbittorrent
     xournalpp
     krita
@@ -142,31 +117,10 @@
     xwayland-satellite
     wl-clipboard
     kitty
+    ntfs3g
     # Graphics
     aseprite
   ];
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-
-  environment.sessionVariables = {
-    XCURSOR_SIZE = "32";
-  };
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }

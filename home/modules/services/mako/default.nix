@@ -12,7 +12,7 @@
       border-color = "#98971a";
       progress-color = "#b8bb26";
 
-      border-size = 2;
+      border-size = 1;
       border-radius = 5;
       default-timeout = 5000;
       font = "ComicShannsMono Nerd Font Mono 12";

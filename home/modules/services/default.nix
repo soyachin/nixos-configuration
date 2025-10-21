@@ -4,5 +4,6 @@
     ./mpd
     ./swayidle
     ./batsignal
+    ./udiskie
   ];
 }
