@@ -10,7 +10,6 @@
     ./git.nix
     ./fastfetch.nix
     ./nvim/default.nix
-    ./obs.nix
     ./cava.nix
     ./clock-rs.nix
     ./services

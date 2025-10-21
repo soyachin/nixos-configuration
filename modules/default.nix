@@ -1,13 +1,19 @@
-{ config, pkgs, ...}:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
-    ./boot.nix
-    ./fonts.nix
-    ./hardware.nix
-    ./locale.nix
-    ./network.nix
-    ./services.nix
-    ./steam.nix
+    ./boot
+    ./font
+    ./hardware
+    ./locale
+    ./network
+    ./niri
+    ./nix
+    ./nvidia
+    ./services
+    ./steam
+    ./tailscale
   ];
 }
