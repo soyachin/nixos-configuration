@@ -7,7 +7,7 @@
     enable = true;
     automount = true;
     notify = true;
-    tray = true;
+    tray = "auto";
     settings = {
       # workaround for
       # https://github.com/nix-community/home-manager/issues/632
