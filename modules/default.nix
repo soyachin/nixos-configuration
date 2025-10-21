@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./boot
-    ./font
+    ./fonts
     ./hardware
     ./locale
     ./network
