@@ -3,34 +3,50 @@
   pkgs,
   ...
 }: {
-  services.swayidle = {
+  services.swayidle = let
+    # Lock command
+    lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+    # TODO: modify "display" function based on your window manager
+    # Niri
+    display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
+  in {
     enable = true;
     timeouts = [
-      # dimm
       {
-        timeout = 300; # 5 minutes
-        # -s: Saves the current brightness before dimming
-        # set 15%: Dims the screen to 15%
-        command = "brightnessctl -s set 15%";
-        # -r: Restores the saved brightness when you resume
-        resumeCommand = "brightnessctl -r";
+        timeout = 180; # in seconds
+        command = "${pkgs.libnotify}/bin/notify-send 'Locking in 1 minute' -t 5000";
       }
-      # lock
       {
-        timeout = 600; # 10 minutes
-        command = "swaylock -f -c 000000"; # Locks the screen
+        timeout = 240;
+        command = lock;
       }
-      # screen off timeout
       {
-        timeout = 630; # 10 minutes and 30 seconds
-        command = "swaymsg \"output * dpms off\""; # Turns off the display
-        resumeCommand = "swaymsg \"output * dpms on\""; # Turns on the display when returning
+        timeout = 300;
+        command = display "off";
+        resumeCommand = display "on";
+      }
+      {
+        timeout = 600;
+        command = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
     events = [
       {
         event = "before-sleep";
-        command = "swaylock -f -c 000000";
+        # adding duplicated entries for the same event may not work
+        command = (display "off") + "; " + lock;
+      }
+      {
+        event = "after-resume";
+        command = display "on";
+      }
+      {
+        event = "lock";
+        command = (display "off") + "; " + lock;
+      }
+      {
+        event = "unlock";
+        command = display "on";
       }
     ];
   };
