@@ -9,6 +9,7 @@
     pkgs.niri
   ];
 
+programs.niri.enable = true;
   environment.systemPackages = lib.optionals config.services.displayManager.sddm.enable [
     (pkgs.where-is-my-sddm-theme.override {
       variants = ["qt5"];
