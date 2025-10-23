@@ -25,6 +25,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell"; # Use same quickshell version
     };
+
+    base16.url = "github:SenchoPens/base16.nix";
+
+    tt-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
+
+    base16-zathura = {
+      url = "github:haozeke/base16-zathura";
+      flake = false;
+    };
+
+    base16-vim = {
+      url = "github:tinted-theming/base16-vim";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -35,6 +52,7 @@
     sops-nix,
     quickshell,
     noctalia,
+    base16,
     ...
   } @ inputs: let
     system = "x86_64-linux";
