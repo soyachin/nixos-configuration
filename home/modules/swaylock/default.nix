@@ -1,8 +1,11 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.swaylock = {
     settings = with config.scheme; {
-      font = ;
+      font = "ComicShanns Nerd Font Mono";
 
       hide-keyboard-layout = true;
       indicator = true;
