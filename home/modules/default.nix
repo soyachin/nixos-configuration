@@ -13,6 +13,7 @@
     ./cava.nix
     ./clock-rs.nix
     ./services
+    ./swaylock
     ./gtk
   ];
 }
