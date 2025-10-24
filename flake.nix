@@ -52,7 +52,6 @@
     sops-nix,
     quickshell,
     noctalia,
-    base16,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -70,13 +69,13 @@
 
         inputs.home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
-
         {
           home-manager = {
             extraSpecialArgs = {inherit inputs unstable;};
             users.hojas = import ./home/main-user.nix;
             useGlobalPkgs = true;
             useUserPackages = true;
+            backupFileExtension = "bak";
             sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];

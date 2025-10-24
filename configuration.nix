@@ -112,7 +112,6 @@
     swww
     rofi-wayland
     slurp
-    swaylock
     mako
     xwayland-satellite
     wl-clipboard

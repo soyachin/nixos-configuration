@@ -4,40 +4,53 @@
   ...
 }: {
   programs.swaylock = {
-    settings = with config.scheme; {
-      font = "ComicShanns Nerd Font Mono";
+    enable = true;
+    package = pkgs.swaylock-effects;
 
-      hide-keyboard-layout = true;
-      indicator = true;
-      indicator-radius = 100;
-      line-uses-inside = true;
-
+    settings = {
+      ignore-empty-password = true;
+      daemonize = true;
+      indicator-caps-lock = true;
+      indicator-idle-visible = true;
       clock = true;
-      timestr = "%I:%M %p";
-      datestr = "%B %-d, %Y";
+      fade-in = 0.7;
+      datestr = "%d/%m/%Y";
+      font = "ComicShannsMono Nerd Font Mono";
+      font-size = 20;
+      indicator-radius = 100;
+      indicator-thickness = 7;
 
-      color = base00;
-      separator-color = base00;
+      #effect-blur = "10x5";
+      #effect-greyscale = true;
+      #effect-vignette = "0.5:0.5";
+      color = "282828";
+      bs-hl-color = "7daea3cc";
+      caps-lock-bs-hl-color = "7daea3cc";
+      caps-lock-key-hl-color = "d3869bcc";
+      key-hl-color = "a9b665cc";
 
-      key-hl-color = blue;
-      bs-hl-color = red;
+      inside-color = "32302f66";
+      inside-clear-color = "89b48266";
+      inside-caps-lock-color = "e78a4e66";
+      inside-ver-color = "7daea366";
+      inside-wrong-color = "ea696266";
 
-      inside-color = base00;
-      inside-clear-color = base00;
-      inside-ver-color = base00;
-      inside-wrong-color = base00;
+      ring-color = "e78a4ecc";
+      ring-clear-color = "89b482cc";
+      ring-caps-lock-color = "e78a4ecc";
+      ring-ver-color = "7daea3cc";
+      ring-wrong-color = "ea6962cc";
 
-      ring-color = base04;
-      ring-clear-color = cyan;
-      ring-caps-lock-color = magenta;
-      ring-ver-color = yellow;
-      ring-wrong-color = red;
+      text-color = "d4be98";
+      text-clear-color = "d4be98";
+      text-caps-lock-color = "d4be98";
+      text-ver-color = "d4be98";
+      text-wrong-color = "d4be98";
 
-      text-color = base05;
-      text-clear-color = cyan;
-      text-caps-lock-color = magenta;
-      text-ver-color = yellow;
-      text-wrong-color = red;
+      layout-bg-color = "32302f00";
+      layout-text-color = "d4be98";
+      line-color = "00000000";
+      separator-color = "00000000";
     };
   };
 }
