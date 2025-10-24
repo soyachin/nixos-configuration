@@ -5,7 +5,7 @@
 }: {
   services.swayidle = let
     # Lock command
-    lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+    lock = "swaylock";
     # TODO: modify "display" function based on your window manager
     # Niri
     display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
