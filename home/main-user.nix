@@ -11,7 +11,6 @@
 
   imports = [
     ./modules
-    ../common/theme
     inputs.sops-nix.homeManagerModules.sops
   ];
 
