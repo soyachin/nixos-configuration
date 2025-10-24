@@ -20,10 +20,10 @@
       indicator-radius = 100;
       indicator-thickness = 7;
 
-      #effect-blur = "10x5";
-      #effect-greyscale = true;
-      #effect-vignette = "0.5:0.5";
-      color = "282828";
+      effect-blur = "10x5";
+      effect-greyscale = true;
+      effect-vignette = "0.5:0.5";
+      # :color = "282828";
       bs-hl-color = "7daea3cc";
       caps-lock-bs-hl-color = "7daea3cc";
       caps-lock-key-hl-color = "d3869bcc";
