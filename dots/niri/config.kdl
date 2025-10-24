@@ -137,7 +137,7 @@ binds {
 
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
 	Mod+D hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "noctalia-shell" "ipc" "call" "lockScreen" "toggle"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
 
     // Core Noctalia binds
     Mod+Space { spawn  "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
@@ -149,7 +149,6 @@ binds {
     XF86AudioLowerVolume { spawn  "noctalia-shell" "ipc" "call" "volume" "decrease"; }
     XF86AudioMute { spawn  "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
     XF86AudioMicMute allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
-
 
     // Brightness controls
     XF86MonBrightnessUp { spawn  "noctalia-shell" "ipc" "call" "brightness" "increase"; }
