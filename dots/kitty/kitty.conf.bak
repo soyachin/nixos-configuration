@@ -1,8 +1,8 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
 # BEGIN_KITTY_THEME
-# Gruvbox Dark Hard
-include gruv.conf
+# Base2Tone Suburb Dark
+include current-theme.conf
 # END_KITTY_THEME
 
 #: Fonts {{{
