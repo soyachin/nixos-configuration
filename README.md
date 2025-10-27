@@ -1,13 +1,10 @@
 # My NixOS configuration
 
-## README WIP
+NixOS configuration using Niri with noctalia-shell as a momentary shell. I managed to use flakes (kinda) and when I got the time I'll minimize the usage of HM since it's too bloaty.
 
-i deletwd plasma and now use niri as as wm so i need to change this, soon.
+<img width="1920" height="1080" alt="Screenshot of my workspace" src="https://github.com/user-attachments/assets/386c1380-d6c3-44d3-95ac-324fe4f6cac3" />
 
-## Old Readme
-
-Super simple NixOS configuration using KDE as a desktop environment. In the process of learning the basics of this distro I managed to use flakes, manage secrets with SOPS and use home-manager. Maybe one day I'll start using a compositor instead of a full-on desktop env. like Hyprland when I got the time :>. 
-
-![desktop-nixos](https://github.com/user-attachments/assets/b3efaa42-e73e-4d27-83b6-90ed833ba2b0)
 
 Thanks to [Grazen0](https://github.com/Grazen0) here on Github (and [vimjoyer](https://github.com/vimjoyer) ofc) for teaching me the NixOS way. i've got lots to learn! (˶ˆᗜˆ˵)
+
+(my config files MIGHT not be up to date since i'm always trying out new things).
