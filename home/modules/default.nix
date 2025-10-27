@@ -8,7 +8,7 @@
     ./vscodium.nix
     ./sops.nix
     ./git.nix
-    ./fastfetch.nix
+    # ./fastfetch.nix
     ./nvim/default.nix
     ./cava.nix
     ./clock-rs.nix
