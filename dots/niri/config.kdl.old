@@ -23,6 +23,9 @@ input {
 
 }
 
+// spawn-at-startup "swww-daemon"
+// spawn-at-startup "swaybg" "--image" "/home/hojas/Pictures/iXUIQa-1830363320.jpg"
+
 cursor {
     xcursor-theme "macOS"
     xcursor-size 28
@@ -59,23 +62,22 @@ layout {
         proportion 0.66667
 
     }
-    // background-color "#1F1F28"
-    background-color "transparent"
+    background-color "#282828"
 
     default-column-width { proportion 0.5; }
 
     focus-ring {
         off
 
-        width 1
-        active-color "#E46A78"
-        inactive-color "#EC818C"
+        width 3
+        active-color "#b8bb26"
+        inactive-color "#98971a"
     }
 
     border {
-        width 1
-        active-color "#c35e6aff"
-        inactive-color "#3C3C51"
+        width 2
+        active-color "#b8bb26"
+        inactive-color "#606043ff"
 
         urgent-color "#9b0000"
 
@@ -101,21 +103,6 @@ window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
 }
-
-layer-rule {
-    match namespace="^wallpaper$" 
-    place-within-backdrop true
-}
-
-overview {
-    workspace-shadow {
-        off
-    }
-}
-
-// spawn-at-startup "swww-daemon"
-spawn-at-startup "swaybg" "--image" "/home/hojas/Pictures/angel_wp.png"
-
 
 window-rule {
     // This app-id regular expression will work for both:
@@ -150,22 +137,15 @@ binds {
 
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
 	Mod+D hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock" "-c" "000000"; }
 
-    // Core Noctalia binds
-    Mod+Space { spawn  "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    Mod+S { spawn  "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-    Mod+Alt+Comma { spawn  "noctalia-shell" "ipc" "call" "settings" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "~/.local/bin/volume-up.sh"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "~/.local/bin/volume-down.sh"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "~/.local/bin/volume-mute.sh"; }
 
-    // Audio controls
-    XF86AudioRaiseVolume { spawn  "noctalia-shell" "ipc" "call" "volume" "increase"; }
-    XF86AudioLowerVolume { spawn  "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-    XF86AudioMute { spawn  "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
-    XF86AudioMicMute allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
-
-    // Brightness controls
-    XF86MonBrightnessUp { spawn  "noctalia-shell" "ipc" "call" "brightness" "increase"; }
-    XF86MonBrightnessDown { spawn  "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
+    XF86AudioMicMute allow-when-locked=true { spawn-sh "~/.local/bin/mic-mute.sh"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "~/.local/bin/brightness-up.sh"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "~/.local/bin/brightness-down.sh"; }
 
     Mod+O repeat=false { toggle-overview; }
 
@@ -218,8 +198,6 @@ binds {
     Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
-    Mod+P {spawn "noctalia-shell" "ipc" "call" "bar" "toggle";}
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
@@ -335,4 +313,3 @@ binds {
 
     Mod+Shift+P { power-off-monitors; }
 }
-
