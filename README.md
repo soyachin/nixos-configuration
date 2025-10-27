@@ -6,3 +6,5 @@ NixOS configuration using Niri with noctalia-shell as a momentary shell. I manag
 
 
 Thanks to [Grazen0](https://github.com/Grazen0) here on Github (and [vimjoyer](https://github.com/vimjoyer) ofc) for teaching me the NixOS way. i've got lots to learn! (˶ˆᗜˆ˵)
+
+(my config files MIGHT not be up to date since i'm always trying out new things).
