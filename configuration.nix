@@ -50,6 +50,7 @@
     libnotify
     bc
     lazygit
+    fastfetch
 
     # Applications
     baobab

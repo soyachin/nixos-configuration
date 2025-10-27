@@ -4,36 +4,31 @@
   ...
 }: {
   services.swayidle = let
-    # Lock command
-    lock = "swaylock";
-    # TODO: modify "display" function based on your window manager
-    # Niri
+    lock = "${config.programs.swaylock.package}/bin/swaylock";
     display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
   in {
     enable = true;
     timeouts = [
       {
-        timeout = 180; # in seconds
-        command = "${pkgs.libnotify}/bin/notify-send 'Locking in 1 minute' -t 5000";
-      }
-      {
-        timeout = 240;
-        command = lock;
-      }
-      {
-        timeout = 300;
-        command = display "off";
-        resumeCommand = display "on";
-      }
-      {
         timeout = 600;
-        command = "${pkgs.systemd}/bin/systemctl suspend";
+        command = "notify-send 'Bloqueando en 2 minutos'";
       }
+      {
+        timeout = 720;
+        command = lock;
+      } # 12 min
+      {
+        timeout = 1200;
+        command = display "off";
+      } # 20 min
+      {
+        timeout = 2000;
+        command = "systemctl suspend";
+      } # 60 min
     ];
     events = [
       {
         event = "before-sleep";
-        # adding duplicated entries for the same event may not work
         command = (display "off") + "; " + lock;
       }
       {
