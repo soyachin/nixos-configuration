@@ -16,5 +16,6 @@
       plugins = [ "themes"];
       theme = "bira";
     };
+    
   };
 }

@@ -5,10 +5,7 @@
   lib,
   ...
 }: {
-  nixpkgs.config.allowUnfree = true;
-
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules
     inputs.home-manager.nixosModules.home-manager
@@ -26,59 +23,30 @@
   };
 
   programs.zsh.enable = true;
+  programs.wireshark.enable = true;
 
   users.users.hojas = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["wheel" "networkmanager" "bluetooth"];
+    extraGroups = ["wheel" "networkmanager" "bluetooth" "wireshark"];
   };
 
   environment.systemPackages = with pkgs; [
     inputs.noctalia.packages.${system}.default
     # System Utilities
-    unrar
-    unzip
-    p7zip
-    yt-dlp
-    wget
-    scrcpy
-    tmux
     zsh
-    git
-    tree
-    neovim
-    libnotify
-    bc
-    lazygit
-    fastfetch
-
+    scrcpy
     # Applications
-    baobab
-    nautilus
-    papers
-    loupe
-    gnome-text-editor
-    gnome-usage
     onlyoffice-desktopeditors
     onlyoffice-documentserver
     equibop
     obsidian
     prismlauncher
     zoom-us
-    sops
-    age
-
-    # Terminal Tools
-    bat
-    lsd
-    ripgrep
-    fd
-    htop
-    btop
-    lldb
-    acpi
-    yazi
-    nitch
+    wine
+    winetricks
+    wireshark
+    quickemu
 
     # User Applications
     qbittorrent
@@ -86,7 +54,6 @@
     krita
     ungoogled-chromium
     pavucontrol
-    playerctl
 
     # Multimedia
     mpv
