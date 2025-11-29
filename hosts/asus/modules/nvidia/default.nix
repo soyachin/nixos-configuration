@@ -8,17 +8,20 @@
     modesetting.enable = true;
     powerManagement.enable = true;
     nvidiaSettings = true;
-    open = true;
+    powerManagement.finegrained = true;
+
+    open = false;
+
     package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     prime = {
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:6:0:0"; 
       offload = {
         enable = true;
         enableOffloadCmd = true;
       };
-      intelBusId = "PCI:0:6:0"; # AMD
-      nvidiaBusId = "PCI:0:1:0";
-    };
+    };  
   };
 
   hardware.graphics = {
@@ -26,12 +29,8 @@
     enable32Bit = true;
 
     extraPackages = with pkgs; [
-      amdvlk
-      mesa
-    ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [
-      amdvlk # Versión de 32 bits
-      mesa
+      vaapiVdpau
+      libvdpau-va-gl
     ];
   };
 
