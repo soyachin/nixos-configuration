@@ -15,6 +15,7 @@
   ];
 
   home.packages = with pkgs; [
+    zsh
     sops
     age
     spotify
