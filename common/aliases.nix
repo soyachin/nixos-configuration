@@ -2,6 +2,8 @@
 
 {
   environment.shellAliases = {
+    # muchos aliases son sacados de github:Grazen0/nixos-config ee >:]
+    sudo = "sudo ";
     gs = "git status";
     gd = "git diff";
     gcl = "git clone";
@@ -11,10 +13,21 @@
     la = "lsd -la";
     ls = "lsd";
     gcm = "git commit -m";
+    lg = "lazygit";
+    md = "mkdir -p"; 
     gp = "git push";
-    # update = "sudo nixos-rebuild switch --flake ~/.config/nixos/#${hostname}";
-    # test = "sudo nixos-rebuild test --flake ~/.config/nixos/#${hostname}";
     grep = "grep --color=auto";
-    config = "cd ~/.config/nixos/";
+    nixc = "cd ~/.config/nixos/";
+    v = "nvim";
+    nfu = "nix flake update --flake ~/.config/nixos/#${hostname}";
+    ngc = "sudo nix-collect-garbage --delete-old && nix-collect-garbage --delete-old";
+    e = "exit";
+    c = "clear";
+    t = "touch";
+    rm = "rmtrash";
+    rmfr = "${pkgs.coreutils}/bin/rm";
+    cp = "cp -i";
+    mv = "mv -i";
+
   };
 }

@@ -1,4 +1,4 @@
-{config, hostname,pkgs, ...}: {
+{config, pkgs, ...}: {
 
   imports = [
     ./aliases.nix
@@ -104,6 +104,7 @@
     tree
     nitch
     acpi
+    rmtrash
 
     # Archivos y búsqueda
     yazi

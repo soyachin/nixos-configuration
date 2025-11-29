@@ -2,8 +2,12 @@
  programs.zsh = {
     enable = true;
     shellAliases = {
-      maicra = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia prismlauncher"; 
+      maicra = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia prismlauncher";  
+      nrs = "sudo nixos-rebuild switch --flake ~/.config/nixos/#asus";
+      nrt = "sudo nixos-rebuild test --flake ~/.config/nixos/#asus";
+
     };
+
     oh-my-zsh = {
       enable = true;
       theme = "bira";
