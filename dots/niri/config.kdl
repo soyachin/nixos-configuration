@@ -25,7 +25,7 @@ input {
 
 cursor {
     xcursor-theme "macOS"
-    xcursor-size 28
+    xcursor-size 24
 }
 
 prefer-no-csd
