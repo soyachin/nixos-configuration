@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{config, pkgs, hostname, ...}:
 
 {
   environment.shellAliases = {
@@ -10,11 +10,10 @@
     ll = "lsd -l";
     la = "lsd -la";
     ls = "lsd";
-    "_" = "sudo";
     gcm = "git commit -m";
     gp = "git push";
-    update = "sudo nixos-rebuild switch --flake ~/.config/nixos/#$(hostname)";
-    test = "sudo nixos-rebuild test --flake ~/.config/nixos/#$(hostname)";
+    # update = "sudo nixos-rebuild switch --flake ~/.config/nixos/#${hostname}";
+    # test = "sudo nixos-rebuild test --flake ~/.config/nixos/#${hostname}";
     grep = "grep --color=auto";
     config = "cd ~/.config/nixos/";
   };

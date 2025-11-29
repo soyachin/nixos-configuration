@@ -1,4 +1,4 @@
-{config, pkgs, ...}: {
+{config, hostname,pkgs, ...}: {
 
   imports = [
     ./aliases.nix
