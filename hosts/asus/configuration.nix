@@ -13,7 +13,12 @@
   ];
 
   networking.hostName = "asus"; # Define your hostname.
-
+  
+  nix.settings = {
+    substituters = ["https://nix-gaming.cachix.org"];
+    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+  };
+  
   # Configure console keymap
   console.keyMap = "la-latin1";
 
@@ -21,7 +26,6 @@
   services.xserver.xkb = {
     layout = "latam";
   };
-
   programs.zsh.enable = true;
   programs.wireshark.enable = true;
 
@@ -31,10 +35,17 @@
     extraGroups = ["wheel" "networkmanager" "bluetooth" "wireshark"];
   };
 
+  environment.variables = {
+    XCURSOR_THEME = "macOS";
+    XCURSOR_SIZE = "24";
+    HYPRCURSOR_SIZE = "24";
+  };
+
   environment.systemPackages = with pkgs; [
+    inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.noctalia.packages.${system}.default
+    bitwig-studio
     # System Utilities
-    zsh
     scrcpy
     # Applications
     onlyoffice-desktopeditors
@@ -85,6 +96,7 @@
     wl-clipboard
     kitty
     ntfs3g
+    apple-cursor
     # Graphics
     aseprite
   ];

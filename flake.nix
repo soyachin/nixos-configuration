@@ -21,6 +21,8 @@
 
     base16.url = "github:SenchoPens/base16.nix";
 
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
     tt-schemes = {
       url = "github:tinted-theming/schemes";
       flake = false;
@@ -61,7 +63,7 @@
     desktopInputs =
       baseInputs
       // {
-        inherit (inputs) home-manager quickshell noctalia base16 tt-schemes base16-zathura base16-vim;
+        inherit (inputs) home-manager quickshell noctalia base16 tt-schemes base16-zathura base16-vim nix-gaming;
       };
 
     # mkSystem
@@ -77,7 +79,7 @@
         # inputs filtrados y 'unstable' a todos los módulos
         specialArgs = {
           inputs = inputGroup;
-          inherit unstable;
+          inherit unstable hostname; 
         };
 
         modules =
@@ -100,7 +102,6 @@
       asus = mkSystem {
         hostname = "asus";
         inputGroup = desktopInputs;
-
         extraModules = [
           inputs.home-manager.nixosModules.home-manager
           {
