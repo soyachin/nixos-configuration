@@ -89,7 +89,7 @@
     xdg-desktop-portal-gnome
     swaybg
     swww
-    rofi-wayland
+    rofi
     slurp
     mako
     xwayland-satellite
