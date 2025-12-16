@@ -155,7 +155,6 @@ binds {
 
     // Core Noctalia binds
     Mod+Space { spawn  "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    Mod+S { spawn  "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
     Mod+Alt+Comma { spawn  "noctalia-shell" "ipc" "call" "settings" "toggle"; }
 
     // Audio controls
@@ -164,7 +163,8 @@ binds {
     XF86AudioMute { spawn  "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
     XF86AudioMicMute allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
 
-    // Brightness controls
+    Mod+S { spawn "rofi" "-show" "p" "-modi" "p:rofi-power-menu --symbols-font 'Symbols Nerd Font Mono'" "-theme-str" "window {width: 10em; height: 20%;} listview {lines: 6;} inputbar { enabled: false; }"; }
+  // Brightness controls
     XF86MonBrightnessUp { spawn  "noctalia-shell" "ipc" "call" "brightness" "increase"; }
     XF86MonBrightnessDown { spawn  "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
