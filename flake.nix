@@ -3,13 +3,13 @@
 
   inputs = {
     # --- CORE ---
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # --- DESKTOP ONLY ---
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     quickshell.url = "github:outfoxxed/quickshell";
@@ -17,24 +17,10 @@
 
     noctalia.url = "github:noctalia-dev/noctalia-shell";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
-    noctalia.inputs.quickshell.follows = "quickshell";
-
-    base16.url = "github:SenchoPens/base16.nix";
+    # noctalia.inputs.quickshell.follows = "quickshell";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
-    };
-    base16-zathura = {
-      url = "github:haozeke/base16-zathura";
-      flake = false;
-    };
-    base16-vim = {
-      url = "github:tinted-theming/base16-vim";
-      flake = false;
-    };
   };
 
   outputs = {
@@ -63,7 +49,7 @@
     desktopInputs =
       baseInputs
       // {
-        inherit (inputs) home-manager quickshell noctalia base16 tt-schemes base16-zathura base16-vim nix-gaming;
+        inherit (inputs) home-manager quickshell noctalia nix-gaming;
       };
 
     # mkSystem

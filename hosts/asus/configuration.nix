@@ -13,6 +13,7 @@
   ];
 
   networking.hostName = "asus"; # Define your hostname.
+  programs.nix-ld.enable = true; 
   
   nix.settings = {
     substituters = ["https://nix-gaming.cachix.org"];
@@ -42,7 +43,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
+    # inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.noctalia.packages.${system}.default
     bitwig-studio
     # System Utilities
@@ -58,6 +59,7 @@
     winetricks
     wireshark
     quickemu
+    filezilla
 
     # User Applications
     qbittorrent
@@ -90,6 +92,7 @@
     swaybg
     swww
     rofi
+    rofi-power-menu
     slurp
     mako
     xwayland-satellite
@@ -100,6 +103,10 @@
     # Graphics
     aseprite
   ];
-
+  nixpkgs.config.allowUnfree = true;
+  
+  hardware.enableRedistributableFirmware = true;
+  
+  boot.kernelModules = [ "btusb" ]; 
   system.stateVersion = "24.11"; # Did you read the comment?
 }
