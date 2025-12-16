@@ -1,3 +1,4 @@
+{pkgs, ...}:
 {
  programs.zsh = {
     enable = true;
@@ -12,6 +13,13 @@
       enable = true;
       theme = "bira";
     };
+
+    initExtra = ''
+        if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
+          exec ${pkgs.tmux}/bin/tmux new-session -A -s main
+        fi
+
+    '';
 
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
