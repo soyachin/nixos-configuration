@@ -9,20 +9,16 @@ let
   ppick = pkgs.callPackage ppickSrc {};
 
   tmuxSessionPicker = pkgs.writeShellScriptBin "tmux-session-picker" ''
-    export PATH=$PATH:${pkgs.tmux}/bin:${pkgs.coreutils}/bin
-    
     set -o errexit
     set -o nounset
     set -o pipefail
 
     sessions=$(tmux list-sessions -F '#S')
     sessions_len=$(echo "$sessions" | wc -l)
-    
-    height=$((sessions_len + 2))
-    if [ "$height" -gt 30 ]; then height=30; fi
 
-    tmux display-popup -E -T " Sessions " -h $height -w 24 \
-      "tmux switch-client -t \$(${ppick}/bin/ppick) || true"
+    # shellcheck disable=SC2016
+    tmux display-popup -E -T " Sessions " -h $((sessions_len + 2)) -w 24 \
+      'tmux switch-client -t $(tmux list-sessions -F "#S" | ppick) || true'  
   '';
 
 in

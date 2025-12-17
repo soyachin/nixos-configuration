@@ -4,6 +4,7 @@
   environment.shellAliases = {
     # muchos aliases son sacados de github:Grazen0/nixos-config ee >:]
     sudo = "sudo ";
+    t = "tmux";
     gs = "git status";
     gd = "git diff";
     gcl = "git clone";
@@ -23,7 +24,7 @@
     ngc = "sudo nix-collect-garbage --delete-old && nix-collect-garbage --delete-old";
     e = "exit";
     c = "clear";
-    t = "touch";
+    tc = "touch";
     rm = "rmtrash";
     rmfr = "${pkgs.coreutils}/bin/rm";
     cp = "cp -i";

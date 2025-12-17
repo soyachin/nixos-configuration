@@ -154,8 +154,8 @@ binds {
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
 
     // Core Noctalia binds
-    Mod+Space { spawn  "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+Alt+Comma { spawn  "noctalia-shell" "ipc" "call" "settings" "toggle"; }
+    Mod+Space {spawn "tmux-session-picker";}
 
     // Audio controls
     XF86AudioRaiseVolume { spawn  "noctalia-shell" "ipc" "call" "volume" "increase"; }
