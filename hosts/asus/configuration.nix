@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  unstable,
   ...
 }: {
   imports = [
@@ -42,7 +43,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
+    inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.noctalia.packages.${system}.default
     bitwig-studio
     # System Utilities
@@ -100,7 +101,6 @@
     ntfs3g
     apple-cursor
     # Graphics
-    aseprite
   ];
   nixpkgs.config.allowUnfree = true;
   
