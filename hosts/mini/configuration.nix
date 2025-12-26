@@ -50,10 +50,11 @@
     # Habilitar firewall
     firewall = {
       enable = true;
-      # Puertos TCP permitidos (22 SSH, 8096 Jellyfin)
-      allowedTCPPorts = [22 8096];
+      # Puertos TCP permitidos (22 SSH, 8096 Jellyfin, 8000 AudioBookShelf)
+      allowedTCPPorts = [22 8096 8000];
       # Puertos UDP permitidos (9 y 7359 para Wake-on-LAN)
       allowedUDPPorts = [9 7359];
+      trustedInterfaces = ["tailscale0"];
     };
 
     # Configuración de interfaz específica (Ejemplo de Wake-on-LAN)
@@ -83,6 +84,7 @@
     settings = {
       PermitRootLogin = "no";
       AllowUsers = ["aoba"];
+      PasswordAuthentication = false;
     };
   };
 
@@ -92,6 +94,14 @@
     dataDir = "/home/aoba/jellyfin/data";
     user = "aoba";
     openFirewall = true; # Ya cubierto en networking.firewall, pero buena práctica.
+  };
+
+  # Servicio de AudioBookShelf
+
+  services.audiobookshelf = {
+    enable = true;
+    host = "0.0.0.0";
+    port = 8000;
   };
 
   # ---------------------------------------------------------------------
@@ -105,7 +115,7 @@
     extraGroups = ["networkmanager" "wheel"];
 
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPfqbYtyQyR3GuLFxLiNXyk/4osOiiG+SFd9Cb1p+Qfr hojas@asus"
+     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPfqbYtyQyR3GuLFxLiNXyk/4osOiiG+SFd9Cb1p+Qfr hojas@asus" 
     ];
   };
 
