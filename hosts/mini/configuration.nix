@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{ config, pkgs, ... }: {
   # ---------------------------------------------------------------------
   # 1. IMPORTS & VERSIÓN DEL SISTEMA
   # ---------------------------------------------------------------------
@@ -40,6 +36,8 @@
     AllowSuspendThenHibernate=no
   '';
 
+  nix.settings.trusted-users = ["root" "aoba"];
+
   # ---------------------------------------------------------------------
   # 3. RED & FIREWALL (Incluye Tailscale)
   # ---------------------------------------------------------------------
@@ -51,10 +49,10 @@
     firewall = {
       enable = true;
       # Puertos TCP permitidos (22 SSH, 8096 Jellyfin, 8000 AudioBookShelf)
-      allowedTCPPorts = [22 8096 8000];
+      allowedTCPPorts = [ 22 8096 8000 443 80];
       # Puertos UDP permitidos (9 y 7359 para Wake-on-LAN)
-      allowedUDPPorts = [9 7359];
-      trustedInterfaces = ["tailscale0"];
+      allowedUDPPorts = [ 9 7359 ];
+      trustedInterfaces = [ "tailscale0" ];
     };
 
     # Configuración de interfaz específica (Ejemplo de Wake-on-LAN)
@@ -67,9 +65,7 @@
   # Workaround para Tailscale (si es necesario por doCheck fallido)
   nixpkgs.overlays = [
     (final: prev: {
-      tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
-        doCheck = false;
-      });
+      tailscale = prev.tailscale.overrideAttrs (oldAttrs: { doCheck = false; });
     })
   ];
 
@@ -80,11 +76,21 @@
   # Servicio SSH (Acceso Remoto)
   services.openssh = {
     enable = true;
-    ports = [22];
+    ports = [ 22 ];
     settings = {
       PermitRootLogin = "no";
-      AllowUsers = ["aoba"];
+      AllowUsers = [ "aoba" ];
       PasswordAuthentication = false;
+    };
+  };
+
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+      "jellyfin.mini.cyprus-dubhe.ts.net".extraConfig =
+        "reverse_proxy localhost:8096";
+      "audio.mini.cyprus-dubhe.ts.net".extraConfig =
+        "reverse_proxy localhost:8000";
     };
   };
 
@@ -93,7 +99,8 @@
     enable = true;
     dataDir = "/home/aoba/jellyfin/data";
     user = "aoba";
-    openFirewall = true; # Ya cubierto en networking.firewall, pero buena práctica.
+    openFirewall =
+      true; # Ya cubierto en networking.firewall, pero buena práctica.
   };
 
   # Servicio de AudioBookShelf
@@ -112,10 +119,10 @@
   users.users.aoba = {
     isNormalUser = true;
     description = "aoba";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [ "networkmanager" "wheel" ];
 
     openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgFfodR//LxjCO0qCeeUfzyay918OtduXdJ2SejKXHm hojas@asus"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgFfodR//LxjCO0qCeeUfzyay918OtduXdJ2SejKXHm hojas@asus"
     ];
   };
 
@@ -133,9 +140,7 @@
   # ---------------------------------------------------------------------
 
   # Variables de Entorno
-  environment.variables = {
-    TERM = "xterm";
-  };
+  environment.variables = { TERM = "xterm"; };
 
   # Editor por defecto
   programs.neovim = {
