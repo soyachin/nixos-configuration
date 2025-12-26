@@ -13,6 +13,8 @@ in {
         "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia prismlauncher";
       nrs = "sudo nixos-rebuild switch --flake ~/.config/nixos/#asus";
       nrt = "sudo nixos-rebuild test --flake ~/.config/nixos/#asus";
+      kvm = "quickemu --vm kali-current.conf --width 1920 --height 1080";
+      hkvm = "quickemu --vm kali-current.conf --display none";
     };
 
     initContent = tmuxEarlyInit;
