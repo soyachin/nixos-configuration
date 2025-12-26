@@ -87,9 +87,9 @@
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "jellyfin.mini.cyprus-dubhe.ts.net".extraConfig =
+      "jelly.mini.cyprus-dubhe.ts.net".extraConfig =
         "reverse_proxy localhost:8096";
-      "audio.mini.cyprus-dubhe.ts.net".extraConfig =
+      "books.mini.cyprus-dubhe.ts.net".extraConfig =
         "reverse_proxy localhost:8000";
     };
   };
