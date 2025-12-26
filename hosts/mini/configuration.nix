@@ -115,7 +115,7 @@
     extraGroups = ["networkmanager" "wheel"];
 
     openssh.authorizedKeys.keys = [
-     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPfqbYtyQyR3GuLFxLiNXyk/4osOiiG+SFd9Cb1p+Qfr hojas@asus" 
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgFfodR//LxjCO0qCeeUfzyay918OtduXdJ2SejKXHm hojas@asus"
     ];
   };
 
