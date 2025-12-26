@@ -51,7 +51,7 @@
     # Applications
     onlyoffice-desktopeditors
     onlyoffice-documentserver
-    equibop
+    discord
     obsidian
     prismlauncher
     zoom-us
