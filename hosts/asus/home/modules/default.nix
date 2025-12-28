@@ -6,7 +6,6 @@
   imports = [
     ./zsh.nix
     ./vscodium.nix
-    ./sops.nix
     ./git.nix
     ./nvim/default.nix
     ./cava.nix
