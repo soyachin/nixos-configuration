@@ -1,9 +1,11 @@
-# .sops.yaml
-
 keys:
-  - &primary age1yc6dk86t3r8cx3l9ymyxs0yu560eelrxvfr5pld8pg6f7afv7quqm6skyp
+  - &hojas age1sukmqjsgxa6ah5aehtd4y4sqmgkny2jhx64lycumyl7jev8vu35q44wtmr
+  - &host_mini age1gr097j2ap9jsukn6q2qj93wchg50feh7sxrscksdja8eaw4h2amqma5zhf
+  - &host_asus age1dt42vhnfk03srr0nekextpuan38ykk7s74yc7lp6w6srcsp8tvlqekcckk
 creation_rules:
-  - path_regex: secrets/secrets.yaml$
+  - path_regex: secrets/secrets\.yaml$
     key_groups:
-    - age:
-      - *primary
+      - age:
+        - *hojas
+        - *host_mini
+        - *host_asus

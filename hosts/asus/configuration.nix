@@ -106,6 +106,10 @@
   
   hardware.enableRedistributableFirmware = true;
   
-  boot.kernelModules = [ "btusb" ]; 
+  boot.kernelModules = [ "btusb" ];
+
+  environment.sessionVariables = {
+    SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
+  };
   system.stateVersion = "24.11"; # Did you read the comment?
 }

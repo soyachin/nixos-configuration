@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs }: {
   # ---------------------------------------------------------------------
   # 1. IMPORTS & VERSIÓN DEL SISTEMA
   # ---------------------------------------------------------------------
@@ -36,7 +36,7 @@
     AllowSuspendThenHibernate=no
   '';
 
-  nix.settings.trusted-users = ["root" "aoba"];
+  nix.settings.trusted-users = [ "root" "aoba" ];
 
   # ---------------------------------------------------------------------
   # 3. RED & FIREWALL (Incluye Tailscale)
@@ -49,7 +49,7 @@
     firewall = {
       enable = true;
       # Puertos TCP permitidos (22 SSH, 8096 Jellyfin, 8000 AudioBookShelf)
-      allowedTCPPorts = [ 22 8096 8000 443 80];
+      allowedTCPPorts = [ 22 8096 8000 443 80 ];
       # Puertos UDP permitidos (9 y 7359 para Wake-on-LAN)
       allowedUDPPorts = [ 9 7359 ];
       trustedInterfaces = [ "tailscale0" ];
@@ -81,16 +81,6 @@
       PermitRootLogin = "no";
       AllowUsers = [ "aoba" ];
       PasswordAuthentication = false;
-    };
-  };
-
-  services.caddy = {
-    enable = true;
-    virtualHosts = {
-      "jelly.mini.cyprus-dubhe.ts.net".extraConfig =
-        "reverse_proxy localhost:8096";
-      "books.mini.cyprus-dubhe.ts.net".extraConfig =
-        "reverse_proxy localhost:8000";
     };
   };
 
@@ -177,4 +167,8 @@
     p7zip
     yt-dlp
   ];
+
+  sops.secrets.tailscale_mini_key = {
+    owner = "root";
+  };
 }

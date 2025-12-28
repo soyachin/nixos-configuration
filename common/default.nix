@@ -129,4 +129,11 @@
     age
     ntfs3g
   ];
+
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+    validateSopsFile = true;
+    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+
+  };
 }
