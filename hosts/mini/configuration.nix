@@ -1,4 +1,4 @@
-{ pkgs }: {
+{ config, pkgs,... }: {
   # ---------------------------------------------------------------------
   # 1. IMPORTS & VERSIÓN DEL SISTEMA
   # ---------------------------------------------------------------------
@@ -6,6 +6,7 @@
   imports = [
     # Incluye los resultados del escaneo de hardware.
     ./hardware-configuration.nix
+    ./services
   ];
 
   # Define la versión del sistema NixOS para futuras actualizaciones.
@@ -49,7 +50,7 @@
     firewall = {
       enable = true;
       # Puertos TCP permitidos (22 SSH, 8096 Jellyfin, 8000 AudioBookShelf)
-      allowedTCPPorts = [ 22 8096 8000 443 80 ];
+      allowedTCPPorts = [ 22 443 80 ];
       # Puertos UDP permitidos (9 y 7359 para Wake-on-LAN)
       allowedUDPPorts = [ 9 7359 ];
       trustedInterfaces = [ "tailscale0" ];
@@ -60,7 +61,10 @@
   };
 
   # Servicio de VPN (Tailscale)
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    authKeyFile = config.sops.secrets.tailscale_mini_key.path;
+  };
 
   # Workaround para Tailscale (si es necesario por doCheck fallido)
   nixpkgs.overlays = [
@@ -89,16 +93,15 @@
     enable = true;
     dataDir = "/home/aoba/jellyfin/data";
     user = "aoba";
-    openFirewall =
-      true; # Ya cubierto en networking.firewall, pero buena práctica.
+    openFirewall = true;
   };
 
   # Servicio de AudioBookShelf
 
   services.audiobookshelf = {
     enable = true;
-    host = "0.0.0.0";
-    port = 8000;
+    host = "127.0.0.1";
+    port = 4000;
   };
 
   # ---------------------------------------------------------------------
