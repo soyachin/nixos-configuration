@@ -49,20 +49,15 @@
     # Habilitar firewall
     firewall = {
       enable = true;
-      # Puertos TCP permitidos (22 SSH, 8096 Jellyfin, 8000 AudioBookShelf)
-      allowedTCPPorts = [ 22 443 80 ];
-      # Puertos UDP permitidos (9 y 7359 para Wake-on-LAN)
-      allowedUDPPorts = [ 9 7359 ];
       trustedInterfaces = [ "tailscale0" ];
     };
-
-    # Configuración de interfaz específica (Ejemplo de Wake-on-LAN)
-    interfaces.ens3.wakeOnLan.enable = true;
   };
 
   # Servicio de VPN (Tailscale)
   services.tailscale = {
     enable = true;
+    useRoutingFeatures = "server";
+    extraSetFlags = [ "--advertise-exit-node" ];
     authKeyFile = config.sops.secrets.tailscale_mini_key.path;
   };
 
@@ -162,9 +157,6 @@
     fastfetch
 
     # Media y Archivos
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
     unrar
     unzip
     p7zip
