@@ -1,5 +1,6 @@
 {
   imports = [
-    ./caddy
+    ./nginx
+    ./glance
   ];
 }

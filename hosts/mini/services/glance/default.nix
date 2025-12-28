@@ -18,7 +18,7 @@
 
       pages = let domain = "nyarkovchain.site";
       in [{
-        name = "Startpage";
+        name = "nyan :3";
         width = "slim";
         hide-desktop-navigation = true;
         center-vertically = true;
@@ -37,12 +37,17 @@
               sites = [
                 {
                   title = "Jellyfin";
-                  url = "https://gello.${domain}";
+                  url =
+                    "https://jelly.${domain}"; # Lo que usa tu navegador al hacer clic
+                  check-url =
+                    "http://127.0.0.1:8096"; # Lo que usa Glance para el puntito verde
                   icon = "si:jellyfin";
                 }
                 {
                   title = "AudioBookShelf";
-                  url = "https://worm.${domain}";
+                  url = "https://books.${domain}"; # Lo que usa tu navegador
+                  check-url =
+                    "http://127.0.0.1:4000"; # (Ajusta al puerto real de ABS)
                   icon = "si:audiobookshelf";
                 }
               ];
