@@ -1,4 +1,4 @@
-{ config, pkgs,... }: {
+{ config, pkgs, ... }: {
   # ---------------------------------------------------------------------
   # 1. IMPORTS & VERSIÓN DEL SISTEMA
   # ---------------------------------------------------------------------
@@ -98,6 +98,34 @@
     host = "127.0.0.1";
     port = 4000;
   };
+  virtualisation.oci-containers = {
+    backend = "docker"; # Indispensable para que use Docker y no Podman
+    containers."kavita" = {
+      image = "jvmilazz0/kavita:latest";
+      ports = [ "127.0.0.1:5000:5000" ]; # Solo accesible vía Nginx
+      volumes = [
+        "/var/lib/kavita:/kavita/config"
+        "/var/lib/audiobookshelf/books:/books:ro"
+      ];
+      environment = {
+        TZ = "America/New_York"; # Ajusta a tu zona
+      };
+    };
+  };
+
+  # Configuración de Nginx con cabeceras para Kavita
+  services.nginx.virtualHosts."kavita.nyarkovchain.site" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:5000";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      '';
+    };
+  };
 
   # ---------------------------------------------------------------------
   # 5. USUARIOS, CONSOLA Y LOCALIZACIÓN
@@ -163,7 +191,5 @@
     yt-dlp
   ];
 
-  sops.secrets.tailscale_mini_key = {
-    owner = "root";
-  };
+  sops.secrets.tailscale_mini_key = { owner = "root"; };
 }
