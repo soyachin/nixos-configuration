@@ -1,8 +1,6 @@
 {
-  config,
   pkgs,
   inputs,
-  unstable,
   ...
 }: {
   home.username = "hojas";
@@ -15,11 +13,7 @@
   ];
 
   home.packages = with pkgs; [
-    zsh
-    sops
-    age
     spotify
-    unstable.librewolf
     gruvbox-gtk-theme
     adwaita-icon-theme
     nerd-fonts.comic-shanns-mono

@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  unstable,
   ...
 }: {
   imports = [
@@ -60,12 +59,12 @@
     wireshark
     quickemu
     filezilla
+    librewolf
 
     # User Applications
     qbittorrent
     xournalpp
     krita
-    ungoogled-chromium
     pavucontrol
 
     # Multimedia
@@ -100,7 +99,6 @@
     kitty
     ntfs3g
     apple-cursor
-    # Graphics
   ];
   nixpkgs.config.allowUnfree = true;
   
