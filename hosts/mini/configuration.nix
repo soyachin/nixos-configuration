@@ -158,12 +158,6 @@
   # Variables de Entorno
   environment.variables = { TERM = "xterm"; };
 
-  # Editor por defecto
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
   # Paquetes disponibles en todo el sistema
   environment.systemPackages = with pkgs; [
     # Compilación y Desarrollo
