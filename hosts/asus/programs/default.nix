@@ -1,6 +1,5 @@
 {
   imports = [
-    ./yazi 
-    /ppick
+    ./ppick
   ];
 }

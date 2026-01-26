@@ -1,8 +1,4 @@
 {
-  config,
-  pkgs,
-  ...
-}: {
   imports = [
     ./zsh.nix
     ./vscodium.nix
@@ -13,5 +9,6 @@
     ./services
     ./gtk
     ./swaylock
+    ./yazi
   ];
 }
