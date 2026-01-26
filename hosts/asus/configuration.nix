@@ -34,6 +34,16 @@
     extraGroups = [ "wheel" "networkmanager" "bluetooth" "wireshark" ];
   };
 
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PermitRootLogin = "no";
+      AllowUsers = [ "hojas" ];
+      PasswordAuthentication = false;
+    };
+  };
+
   environment.variables = {
     XCURSOR_THEME = "macOS";
     XCURSOR_SIZE = "24";
