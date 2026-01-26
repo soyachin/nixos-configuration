@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{ pkgs, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./modules
@@ -11,28 +7,31 @@
     inputs.noctalia.nixosModules.default
   ];
 
+  programs.an-anime-game-launcher.enable = true;
   networking.hostName = "asus"; # Define your hostname.
-  programs.nix-ld.enable = true; 
-  
+  programs.nix-ld.enable = true;
+
+  services.asusd.enable = true;
+
   nix.settings = {
-    substituters = ["https://nix-gaming.cachix.org"];
-    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+    substituters = [ "https://nix-gaming.cachix.org" ];
+    trusted-public-keys = [
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+    ];
   };
-  
+
   # Configure console keymap
   console.keyMap = "la-latin1";
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "latam";
-  };
+  services.xserver.xkb = { layout = "latam"; };
   programs.zsh.enable = true;
   programs.wireshark.enable = true;
 
   users.users.hojas = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["wheel" "networkmanager" "bluetooth" "wireshark"];
+    extraGroups = [ "wheel" "networkmanager" "bluetooth" "wireshark" ];
   };
 
   environment.variables = {
@@ -60,12 +59,16 @@
     quickemu
     filezilla
     librewolf
+    bottles
 
     # User Applications
     qbittorrent
     xournalpp
     krita
     pavucontrol
+    gparted
+    nautilus
+    loupe
 
     # Multimedia
     mpv
@@ -101,9 +104,9 @@
     apple-cursor
   ];
   nixpkgs.config.allowUnfree = true;
-  
+
   hardware.enableRedistributableFirmware = true;
-  
+
   boot.kernelModules = [ "btusb" ];
 
   environment.sessionVariables = {
