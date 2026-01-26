@@ -50,7 +50,7 @@ output "HDMI-A-1" {
 
 
 layout {
-    gaps 10
+    gaps 3
 
     center-focused-column "never"
 
@@ -67,15 +67,15 @@ layout {
 
     focus-ring {
         off
-
-        width 1
-        active-color "#E46A78"
-        inactive-color "#EC818C"
+        
+        width 2
+        active-color "#98971a"
+        inactive-color "#3C3C51"
     }
 
     border {
-        width 1
-        active-color "#c35e6aff"
+        width 2
+        active-color "#98971a"
         inactive-color "#3C3C51"
 
         urgent-color "#9b0000"
@@ -115,7 +115,7 @@ overview {
 }
 
 // spawn-at-startup "swww-daemon"
-spawn-at-startup "swaybg" "--image" "/home/hojas/Pictures/angel_wp.png"
+spawn-at-startup "swaybg" "--image" "/home/hojas/Pictures/Waterhouse_Echo_and_Narcissus_wall.jpg"
 
 
 window-rule {
@@ -141,7 +141,7 @@ window-rule {
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 10
     clip-to-geometry true
 }
 
