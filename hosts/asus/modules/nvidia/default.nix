@@ -33,6 +33,6 @@
       libvdpau-va-gl
     ];
   };
-
+  programs.gamemode.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
 }

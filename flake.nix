@@ -25,9 +25,11 @@
     # aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-25.05";
     aagl.inputs.nixpkgs.follows =
       "nixpkgs"; # Name of nixpkgs input you want to use
+    
+     mistral-vibe.url = "github:pitaya1219/mistral-vibe-nix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, aagl, ...
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, aagl, mistral-vibe, ...
     }@inputs:
     let
       system = "x86_64-linux";
@@ -44,7 +46,7 @@
 
       # Inputs Desktop: Base + Gráficos + Home Manager + Temas
       desktopInputs = baseInputs // {
-        inherit (inputs) home-manager quickshell noctalia nix-gaming aagl;
+        inherit (inputs) home-manager quickshell noctalia nix-gaming aagl mistral-vibe;
       };
 
       # mkSystem

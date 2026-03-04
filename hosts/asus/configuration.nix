@@ -31,7 +31,7 @@
   users.users.hojas = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "bluetooth" "wireshark" ];
+    extraGroups = [ "wheel" "networkmanager" "bluetooth" "wireshark" "adbusers" ];
   };
 
   services.openssh = {
@@ -53,7 +53,10 @@
   environment.systemPackages = with pkgs; [
     inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.noctalia.packages.${system}.default
-    bitwig-studio
+    inputs.mistral-vibe.packages.${pkgs.stdenv.hostPlatform.system}.default
+    xdg-utils     
+    glib
+    peazip
     # System Utilities
     scrcpy
     # Applications
@@ -61,7 +64,6 @@
     onlyoffice-documentserver
     discord
     obsidian
-    prismlauncher
     zoom-us
     wine
     winetricks
@@ -70,7 +72,7 @@
     filezilla
     librewolf
     bottles
-
+    
     # User Applications
     qbittorrent
     xournalpp
@@ -79,6 +81,7 @@
     gparted
     nautilus
     loupe
+    antigravity
 
     # Multimedia
     mpv
