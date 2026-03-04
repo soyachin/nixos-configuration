@@ -7,5 +7,6 @@
     ./niri
     ./nvidia
     ./steam
+    ./autoskip.nix
   ];
 }
