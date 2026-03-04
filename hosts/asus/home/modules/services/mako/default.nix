@@ -1,11 +1,8 @@
 {
-  config,
-  pkgs,
-  ...
-}: {
   services.mako = {
     enable = true;
     settings = {
+      layer = "overlay";
       # gruvbox
       background-color = "#282828";
       text-color = "#ebdbb2";
