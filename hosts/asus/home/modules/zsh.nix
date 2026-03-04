@@ -17,7 +17,7 @@ in {
       hkvm = "quickemu --vm kali-current.conf --display none";
     };
 
-    initContent = tmuxEarlyInit;
+    # initContent = tmuxEarlyInit;
 
     oh-my-zsh = {
       enable = true;
