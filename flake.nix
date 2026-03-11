@@ -26,7 +26,7 @@
     aagl.inputs.nixpkgs.follows =
       "nixpkgs"; # Name of nixpkgs input you want to use
     
-     mistral-vibe.url = "github:pitaya1219/mistral-vibe-nix";
+    mistral-vibe.url = "github:mistralai/mistral-vibe";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, aagl, mistral-vibe, ...
@@ -53,8 +53,6 @@
       # Recibe: hostname, el grupo de inputs correcto, y módulos extra
       mkSystem = { hostname, inputGroup, extraModules ? [ ], }:
         nixpkgs.lib.nixosSystem {
-          inherit system;
-
           # inputs filtrados y 'unstable' a todos los módulos
           specialArgs = {
             inputs = inputGroup;
@@ -62,6 +60,8 @@
           };
 
           modules = [
+            { nixpkgs.hostPlatform = system; }
+
             # A. Configuración Común (SSH, Locale, Nix settings)
             ./common/default.nix
 
