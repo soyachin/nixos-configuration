@@ -1,10 +1,22 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./modules
     ./programs
     inputs.home-manager.nixosModules.home-manager
     inputs.noctalia.nixosModules.default
+  ];
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024; 
+    }
   ];
 
   programs.an-anime-game-launcher.enable = true;
@@ -24,14 +36,22 @@
   console.keyMap = "la-latin1";
 
   # Configure keymap in X11
-  services.xserver.xkb = { layout = "latam"; };
+  services.xserver.xkb = {
+    layout = "latam";
+  };
   programs.zsh.enable = true;
   programs.wireshark.enable = true;
 
   users.users.hojas = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "bluetooth" "wireshark" "adbusers" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "bluetooth"
+      "wireshark"
+      "adbusers"
+    ];
   };
 
   services.openssh = {
@@ -54,7 +74,7 @@
     inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.noctalia.packages.${system}.default
     inputs.mistral-vibe.packages.${pkgs.stdenv.hostPlatform.system}.default
-    xdg-utils     
+    xdg-utils
     glib
     peazip
     # System Utilities
@@ -72,7 +92,7 @@
     filezilla
     librewolf
     bottles
-    
+
     # User Applications
     qbittorrent
     xournalpp
