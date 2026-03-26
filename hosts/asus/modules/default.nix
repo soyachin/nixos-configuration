@@ -8,5 +8,6 @@
     ./nvidia
     ./steam
     ./autoskip.nix
+    ./printing
   ];
 }
