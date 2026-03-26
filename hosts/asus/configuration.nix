@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  unstable,
   ...
 }:
 {
@@ -15,14 +16,30 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 16 * 1024; 
+      size = 16 * 1024;
     }
   ];
 
   programs.an-anime-game-launcher.enable = true;
   networking.hostName = "asus"; # Define your hostname.
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Esenciales para Python y C
+    stdenv.cc.cc
+    zlib
+    openssl
+    libffi
 
+    # Para sounddevice (Audio)
+    portaudio
+    alsa-lib
+
+    # Para tree-sitter y compilación
+    gcc
+
+    # Para pyperclip (Portapapeles)
+    wl-clipboard # o wl-clipboard si usas Wayland
+  ];
   services.asusd.enable = true;
 
   nix.settings = {
@@ -73,10 +90,9 @@
   environment.systemPackages = with pkgs; [
     inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.noctalia.packages.${system}.default
-    inputs.mistral-vibe.packages.${pkgs.stdenv.hostPlatform.system}.default
+    unstable.mistral-vibe
     xdg-utils
     glib
-    peazip
     # System Utilities
     scrcpy
     # Applications
@@ -85,13 +101,13 @@
     discord
     obsidian
     zoom-us
-    wine
-    winetricks
     wireshark
     quickemu
     filezilla
     librewolf
     bottles
+    ungoogled-chromium
+    google-chrome
 
     # User Applications
     qbittorrent
