@@ -118,7 +118,7 @@
     ripgrep
     fzf
     bat
-
+    fd
     # Descompresión y descargas
     unrar
     unzip
