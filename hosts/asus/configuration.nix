@@ -96,6 +96,7 @@
     # System Utilities
     scrcpy
     # Applications
+    dbeaver-bin
     onlyoffice-desktopeditors
     onlyoffice-documentserver
     discord
@@ -108,7 +109,8 @@
     bottles
     ungoogled-chromium
     google-chrome
-
+    bitwig-studio
+    burpsuite
     # User Applications
     qbittorrent
     xournalpp
@@ -151,6 +153,8 @@
     kitty
     ntfs3g
     apple-cursor
+    # Positron con todas sus dependencias
+    (inputs.positron-flake.packages.${system}.positron)
   ];
   nixpkgs.config.allowUnfree = true;
 

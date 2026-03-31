@@ -7,6 +7,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    positron-flake = {
+      url = "path:.config/nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # --- DESKTOP ONLY ---
     home-manager.url = "github:nix-community/home-manager/release-25.11";
@@ -46,7 +50,7 @@
 
       # Inputs Desktop: Base + Gráficos + Home Manager + Temas
       desktopInputs = baseInputs // {
-        inherit (inputs) home-manager quickshell noctalia nix-gaming aagl mistral-vibe;
+        inherit (inputs) home-manager quickshell noctalia nix-gaming aagl mistral-vibe positron-flake;
       };
 
       # mkSystem
