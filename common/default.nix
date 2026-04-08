@@ -1,4 +1,4 @@
-{config, pkgs, ...}: {
+{pkgs, ...}: {
 
   imports = [
     ./aliases.nix
@@ -119,6 +119,9 @@
     fzf
     bat
     fd
+    eza
+    zoxide
+
     # Descompresión y descargas
     unrar
     unzip
@@ -134,6 +137,12 @@
     sops
     age
     ntfs3g
+
+    pciutils usbutils dmidecode smartmontools #hardware / bus 
+    lsof ethtool tcpdump nmap # red 
+    strace procs # process
+    ncdu iotop # disk / io
+    lm_sensors powertop # energy 
   ];
 
   sops = {
