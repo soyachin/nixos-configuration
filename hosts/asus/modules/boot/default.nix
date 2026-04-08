@@ -19,5 +19,10 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
     nvidia_x11
+    r8168
   ];
+
+  hardware.enableRedistributableFirmware = true;
+
+  boot.blacklistedKernelModules =  ["r8169"];
 }
