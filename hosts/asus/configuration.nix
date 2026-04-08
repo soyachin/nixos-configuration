@@ -42,11 +42,18 @@
   ];
   services.asusd.enable = true;
 
-  nix.settings = {
-    substituters = [ "https://nix-gaming.cachix.org" ];
+nix.settings = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-gaming.cachix.org"
+    ];
     trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
     ];
+    # Tus límites de seguridad para proteger el hardware
+    max-jobs = 1;
+    cores = 8;
   };
 
   # Configure console keymap
@@ -140,8 +147,6 @@
     lua-language-server
 
     # Wayland Ecosystem
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-gnome
     swaybg
     swww
     rofi
@@ -153,8 +158,6 @@
     kitty
     ntfs3g
     apple-cursor
-    # Positron con todas sus dependencias
-    (inputs.positron-flake.packages.${system}.positron)
   ];
   nixpkgs.config.allowUnfree = true;
 
@@ -164,6 +167,25 @@
 
   environment.sessionVariables = {
     SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gnome
+      pkgs.xdg-desktop-portal-wlr # Agrégalo aquí
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config = {
+      common = {
+        default = [
+          "wlr"
+          "gnome"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ]; # Forzar captura vía WLR
+      };
+    };
   };
   system.stateVersion = "24.11"; # Did you read the comment?
 }
