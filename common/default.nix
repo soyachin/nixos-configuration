@@ -143,6 +143,7 @@
     strace procs # process
     ncdu iotop # disk / io
     lm_sensors powertop # energy 
+    bc lldb # common and debugging
   ];
 
   sops = {
