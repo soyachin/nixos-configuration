@@ -1,4 +1,5 @@
-{
+{ config, pkgs, ... }: {
+  imports = [ ./agent.nix ];
   services.glance = {
     enable = true;
     settings = {
@@ -6,6 +7,7 @@
         proxied = true;
         port = 5678;
         host = "127.0.0.1";
+        agent.url = "http://localhost:27973";
       };
       theme = {
         background-color = "0 0 16";
@@ -43,14 +45,12 @@
                     "http://127.0.0.1:8096"; # Lo que usa Glance para el puntito verde
                   icon = "si:jellyfin";
                 }
-                {
-                  title = "AudioBookShelf";
-                  url = "https://books.${domain}"; # Lo que usa tu navegador
-                  check-url =
-                    "http://127.0.0.1:4000"; # (Ajusta al puerto real de ABS)
-                  icon = "si:audiobookshelf";
-                }
+
               ];
+            }
+            {
+              type = "server-stats";
+              items = [ "cpu" "memory" "disk" "uptime" ];
             }
             {
               type = "bookmarks";

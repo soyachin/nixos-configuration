@@ -26,16 +26,34 @@
   };
 
   systemd.services.cloudflare-tunnel = {
-    description = "Cloudflare Tunnel (SOPS)";
+    description = "CloudFlare Tunnel (Declarative)";
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
+      DynamicUser = true;
       Restart = "on-failure";
       RestartSec = "5s";
       ExecStart =
-        "${pkgs.bash}/bin/bash -c '${pkgs.cloudflared}/bin/cloudflared tunnel run --token $(cat /run/secrets/cloudflared_token)'";
+        "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file ${config.sops.secrets.cloudflared_token.path}";
+
+      # Sandboxing
+      CapabilityBoundingSet = "";
+      DevicePolicy = "closed";
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      PrivateTmp = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      SystemCallFilter = [ "@system-service" "~@privileged" ];
+      UMask = "0077";
     };
   };
 }
