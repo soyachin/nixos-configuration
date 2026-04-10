@@ -1,13 +1,9 @@
 {
   imports = [
-    ./boot
-    ./fonts
+    ./core
+    ./desktop
     ./hardware
-    ./network
-    ./niri
-    ./nvidia
-    ./steam
-    ./autoskip.nix
-    ./printing
+    ./programs
+    ./services
   ];
 }

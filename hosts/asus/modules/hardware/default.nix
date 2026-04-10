@@ -1,9 +1,10 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  hardware.i2c.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  hardware.opentabletdriver.enable = true;
+{ ... }: {
+  imports = [
+    ./base.nix
+    ./asusd.nix
+    ./bluetooth.nix
+    ./boot
+    ./nvidia
+    ./printing
+  ];
 }

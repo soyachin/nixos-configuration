@@ -1,0 +1,3 @@
+{ ... }: {
+  services.asusd.enable = true;
+}
