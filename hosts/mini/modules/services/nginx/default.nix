@@ -37,7 +37,7 @@
       RestartSec = "5s";
       LoadCredential = [ "token:${config.sops.secrets.cloudflared_token.path}" ];
       ExecStart =
-        "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file $CREDENTIALS_DIRECTORY/token";
+        "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file %d/token";
 
       # Sandboxing
       CapabilityBoundingSet = "";
