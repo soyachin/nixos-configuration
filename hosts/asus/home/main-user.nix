@@ -14,7 +14,7 @@
 
   home.packages = with pkgs; [
     spotify
-    gruvbox-gtk-theme
+    gruvbox-gtk-theme 
     adwaita-icon-theme
     nerd-fonts.comic-shanns-mono
   ];

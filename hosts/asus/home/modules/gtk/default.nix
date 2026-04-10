@@ -2,12 +2,13 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   gtk.enable = true;
 
   gtk.theme = {
     name = "Gruvbox-Dark";
-    package = pkgs.gruvbox-gtk-theme;
+    package = pkgs.gruvbox-dark-gtk;
   };
 
   gtk.iconTheme = {
@@ -18,12 +19,19 @@
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       font-name = "ComicShannsMono Nerd Font Mono 12";
-      monospace-font-name = "ComicShannsMono Nerd Font Mono 12";
+      monospace-font-name = "ComicShannsMono Nerd Font Mono 12"; 
       document-font-name = "ComicShannsMono Nerd Font Mono 12";
       gtk-theme = "Gruvbox-Dark";
       icon-theme = "Adwaita";
       cursor-theme = "macOS";
       cursor-size = 32;
+      color-scheme = "prefer-dark";
     };
+  };
+
+qt = {
+    enable = true;
+    platformTheme.name = "gtk"; # Cambiado de "gnome" a "gtk"
+    style.name = "adwaita-dark"; # Esto satisface la aserción y se verá oscuro
   };
 }

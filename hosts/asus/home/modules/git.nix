@@ -4,7 +4,7 @@
     settings = {
       init.defaultBranch = "main";
     };
-    aliases = {
+    settings.alias = {
       s = "status";
     };
   };
