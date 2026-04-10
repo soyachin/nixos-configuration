@@ -35,8 +35,9 @@
       DynamicUser = true;
       Restart = "on-failure";
       RestartSec = "5s";
+      LoadCredential = [ "token:${config.sops.secrets.cloudflared_token.path}" ];
       ExecStart =
-        "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file ${config.sops.secrets.cloudflared_token.path}";
+        "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file $CREDENTIALS_DIRECTORY/token";
 
       # Sandboxing
       CapabilityBoundingSet = "";
