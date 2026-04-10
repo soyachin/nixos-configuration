@@ -118,6 +118,11 @@ overview {
 spawn-at-startup "swaybg" "--image" "/home/hojas/Pictures/Waterhouse_Echo_and_Narcissus_wall.jpg"
 
 
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri" "GTK_THEME=Gruvbox-Dark"
+//spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland GTK_THEME=Gruvbox-Dark"
+
+spawn-at-startup "systemctl" "--user" "restart" "noctalia-shell.service"
+
 window-rule {
     // This app-id regular expression will work for both:
     // - host Firefox (app-id is "firefox")
@@ -170,8 +175,9 @@ binds {
     XF86AudioMute { spawn  "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
     XF86AudioMicMute allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
 
-    Mod+S { spawn "rofi" "-show" "p" "-modi" "p:rofi-power-menu --symbols-font 'Symbols Nerd Font Mono'" "-theme-str" "window {width: 10em; height: 20%;} listview {lines: 6;} inputbar { enabled: false; }"; }
-  // Brightness controls
+Mod+S { 
+    spawn "sh" "-c" "echo -e '󰍃 Logout\n󰜉 Reboot\n󰐥 Shutdown' | rofi -dmenu -p 'Power' -theme-str 'window {width: 10em; height: 15%;} listview {lines: 3;} inputbar { enabled: false; }' | xargs -I{} sh -c 'case \"{}\" in *Logout*) niri msg action quit ;; *Reboot*) systemctl reboot ;; *Shutdown*) systemctl poweroff ;; esac'"
+}// Brightness controls
     XF86MonBrightnessUp { spawn  "noctalia-shell" "ipc" "call" "brightness" "increase"; }
     XF86MonBrightnessDown { spawn  "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
