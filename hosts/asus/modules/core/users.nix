@@ -15,7 +15,7 @@ in
 
     openssh.authorizedKeys.keys = [
       keys.aobaMini
-      # keys.termux   # TODO: Definir en common/ssh-keys.nix
+      keys.termux   
     ];
   };
   programs.zsh.enable = true;
