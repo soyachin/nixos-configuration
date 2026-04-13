@@ -6,7 +6,6 @@
     ./hardware-configuration.nix
     ./modules
     ./programs
-    inputs.home-manager.nixosModules.home-manager
     inputs.noctalia.nixosModules.default
   ];
 
