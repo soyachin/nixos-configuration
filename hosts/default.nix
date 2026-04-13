@@ -11,7 +11,6 @@ let
       };
     in
     lib.nixosSystem {
-      inherit system;
       specialArgs = { inherit inputs unstable hostname; };
       modules = [
         { nixpkgs.hostPlatform = system; }

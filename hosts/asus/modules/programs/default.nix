@@ -6,6 +6,4 @@
     ./steam
     ./autoskip.nix
   ];
-
-  programs.anime-game-launcher.enable = true;
 }
