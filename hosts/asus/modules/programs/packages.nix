@@ -8,7 +8,6 @@
     # System Utilities
     scrcpy
     # Applications
-    dbeaver-bin
     onlyoffice-desktopeditors
     onlyoffice-documentserver
     discord
