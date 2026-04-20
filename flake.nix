@@ -22,7 +22,8 @@
     aagl.inputs.nixpkgs.follows =
       "nixpkgs"; # Name of nixpkgs input you want to use
     
-    mistral-vibe.url = "github:mistralai/mistral-vibe";
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     zen-browser = {
