@@ -17,13 +17,22 @@ let
         ../common/default.nix
         ./${hostname}/configuration.nix
         inputs.sops-nix.nixosModules.sops
+        inputs.nixvim.nixosModules.nixvim
       ] ++ extraModules;
     };
+
+  desktopModules = [
+    ../common/desktop.nix
+    inputs.home-manager.nixosModules.home-manager
+    inputs.noctalia.nixosModules.default
+    inputs.aagl.nixosModules.default
+  ];
 in
 {
   # --- ASUS (Desktop) ---
   asus = mkSystem {
     hostname = "asus";
+    extraModules = desktopModules;
   };
 
   # --- MINI (Server) ---

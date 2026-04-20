@@ -8,9 +8,6 @@
     ./hardware-configuration.nix
     ./modules
     ./programs
-    inputs.noctalia.nixosModules.default
-    inputs.aagl.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
   ];
 
   networking.hostName = "asus";
