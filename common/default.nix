@@ -80,7 +80,6 @@
     rmtrash
     ffmpeg
     # Archivos y búsqueda
-    yazi
     lsd
     ripgrep
     fzf

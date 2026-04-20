@@ -8,6 +8,6 @@
     ./services
     ./gtk
     ./swaylock
-    ./yazi
+    ../../../../common/yazi
   ];
 }
