@@ -22,7 +22,7 @@
     aagl.inputs.nixpkgs.follows =
       "nixpkgs"; # Name of nixpkgs input you want to use
     
-    nixvim.url = "github:nix-community/nixvim";
+    nixvim.url = "github:nix-community/nixvim/nixos-25.11";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
 

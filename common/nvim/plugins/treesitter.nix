@@ -16,27 +16,29 @@
     # Objetos de texto (Select/Move)
     treesitter-textobjects = {
       enable = true;
-      select = {
-        enable = true;
-        lookahead = true;
-        keymaps = {
-          "af" = "@function.outer";
-          "if" = "@function.inner";
-          "ac" = "@class.outer";
-          "ic" = "@class.inner";
-          "ai" = "@conditional.outer";
-          "ii" = "@conditional.inner";
+      settings = {
+        select = {
+          enable = true;
+          lookahead = true;
+          keymaps = {
+            "af" = "@function.outer";
+            "if" = "@function.inner";
+            "ac" = "@class.outer";
+            "ic" = "@class.inner";
+            "ai" = "@conditional.outer";
+            "ii" = "@conditional.inner";
+          };
         };
-      };
-      move = {
-        enable = true;
-        gotoNextStart = {
-          "]m" = "@function.outer";
-          "]]" = "@class.outer";
-        };
-        gotoPreviousStart = {
-          "[m" = "@function.outer";
-          "[[" = "@class.outer";
+        move = {
+          enable = true;
+          goto_next_start = {
+            "]m" = "@function.outer";
+            "]]" = "@class.outer";
+          };
+          goto_previous_start = {
+            "[m" = "@function.outer";
+            "[[" = "@class.outer";
+          };
         };
       };
     };

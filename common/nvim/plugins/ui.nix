@@ -16,6 +16,7 @@
     };
 
     plugins = {
+      web-devicons.enable = true;
       # Statusline
       lualine = {
         enable = true;
