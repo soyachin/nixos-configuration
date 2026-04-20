@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, isHeadless ? false, ... }:
 let
   what-size-src = pkgs.fetchFromGitHub {
     owner = "pirafrank";
@@ -7,7 +7,7 @@ let
     sha256 = "sha256-s2BifzWr/uewDI6Bowy7J+5LrID6I6OFEA5BrlOPNcM=";
   };
 in {
-  home.packages = with pkgs; [ dragon-drop xdg-utils ];
+  home.packages = with pkgs; lib.optionals (!isHeadless) [ dragon-drop xdg-utils ];
 
   programs.yazi = {
     enable = true;
@@ -116,11 +116,11 @@ in {
           run = "cd ${config.home.homeDirectory}/.local/share/Trash/files";
           desc = "Goto trash";
         }
-        {
+        (pkgs.lib.mkIf (!isHeadless) {
           on = [ "<c-n>" ];
           run = ''shell 'dragon-drop -i -T "$@"' --confirm'';
           desc = "Dragon drop";
-        }
+        })
         {
           on = [ "g" "n" ];
           run = "cd ${config.home.homeDirectory}/.config/nixos/";
