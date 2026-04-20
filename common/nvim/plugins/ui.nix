@@ -17,6 +17,7 @@
 
     plugins = {
       web-devicons.enable = true;
+      telescope.enable = true;
       # Statusline
       lualine = {
         enable = true;
