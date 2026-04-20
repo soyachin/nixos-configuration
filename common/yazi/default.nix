@@ -1,12 +1,5 @@
 { config, pkgs, lib, isHeadless ? false, ... }:
 let
-  yazi-plugins = pkgs.fetchFromGitHub {
-    owner = "sxyazi";
-    repo = "yazi";
-    rev = "main"; # O una versión específica para mayor estabilidad
-    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # I'll need a real hash or use pkgs.yaziPlugins
-  };
-  
   # Usar los plugins que ya vienen en nixpkgs si es posible
   plugins = {
     smart-enter = pkgs.yaziPlugins.smart-enter;

@@ -7,5 +7,6 @@
     ./clock-rs.nix
     ./services
     ./gtk
+    ./swaylock
   ];
 }
