@@ -1,5 +1,7 @@
 { ... }: {
   programs.nixvim = {
+    enable = true;
+    defaultEditor = true;
     globals.mapleader = " ";
 
     opts = {
