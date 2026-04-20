@@ -29,6 +29,8 @@
     rmfr = "${pkgs.coreutils}/bin/rm";
     cp = "cp -i";
     mv = "mv -i";
-
+    gtree = "git log --oneline --graph --all --decorate --color";
+    glog = "git log --oneline --graph --all --decorate --color";
+    
   };
 }
