@@ -3,7 +3,6 @@
     ./zsh.nix
     ./vscodium.nix
     ./git.nix
-    ./nvim/default.nix
     ./cava.nix
     ./clock-rs.nix
     ./services
