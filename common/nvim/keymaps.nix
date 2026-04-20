@@ -15,6 +15,20 @@
         options.desc = "Escape insert mode";
       }
 
+      # Telescope
+      {
+        mode = "n";
+        key = "<leader>fw";
+        action = "<cmd>Telescope live_grep<cr>";
+        options.desc = "Find Word";
+      }
+      {
+        mode = "n";
+        key = "<leader>ff";
+        action = "<cmd>Telescope find_files<cr>";
+        options.desc = "Find Files";
+      }
+
       # Typst Preview
       {
         mode = "n";

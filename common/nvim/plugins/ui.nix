@@ -52,8 +52,9 @@
               " ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
             ];
             shortcut = [
-              { desc = "󰊄  Find File"; group = "@property"; action = "Telescope find_files"; key = "f"; }
-              { desc = "󰩉  Recent Files"; group = "@property"; action = "Telescope oldfiles"; key = "r"; }
+              { desc = "󰊄  Find File";    group = "@property"; action = "lua require('telescope.builtin').find_files()"; key = "f"; }
+              { desc = "󰈬  Find Word";    group = "@property"; action = "lua require('telescope.builtin').live_grep()";  key = "w"; }
+              { desc = "󰩉  Recent Files"; group = "@property"; action = "lua require('telescope.builtin').oldfiles()";   key = "r"; }
               { desc = "󰈚  New File"; group = "@property"; action = "enew"; key = "n"; }
               { desc = "󰒲  Lazy"; group = "@property"; action = "Lazy"; key = "l"; }
               { desc = "󰚰  Update"; group = "@property"; action = "Lazy update"; key = "u"; }
