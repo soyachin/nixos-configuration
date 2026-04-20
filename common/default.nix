@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   imports = [ 
     ./aliases.nix 
-    ./nvim
   ];
 
   # ---------------------------------------------------------------------
@@ -61,11 +60,16 @@
   # 4. PAQUETES DEL SISTEMA
   # ---------------------------------------------------------------------
 
+  # Editor por defecto
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
   environment.systemPackages = with pkgs; [
     # Utilidades y CLI
     git
     tmux
-    # neovim (ahora gestionado por nixvim)
     lazygit
     fastfetch
     htop
