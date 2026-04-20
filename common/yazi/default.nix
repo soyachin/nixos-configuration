@@ -1,28 +1,142 @@
-{ config, pkgs, isHeadless ? false, ... }:
+{ config, pkgs, lib, isHeadless ? false, ... }:
 let
-  what-size-src = pkgs.fetchFromGitHub {
-    owner = "pirafrank";
-    repo = "what-size.yazi";
-    rev = "main";
-    sha256 = "sha256-s2BifzWr/uewDI6Bowy7J+5LrID6I6OFEA5BrlOPNcM=";
+  yazi-plugins = pkgs.fetchFromGitHub {
+    owner = "sxyazi";
+    repo = "yazi";
+    rev = "main"; # O una versión específica para mayor estabilidad
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # I'll need a real hash or use pkgs.yaziPlugins
   };
-in {
-  home.packages = with pkgs; lib.optionals (!isHeadless) [ dragon-drop xdg-utils ];
-
-  programs.yazi = {
-    enable = true;
-
-    plugins = {
-      what-size = what-size-src;
-      mount = pkgs.yaziPlugins.mount;
-      full-border = pkgs.yaziPlugins.full-border;
-      smart-enter = pkgs.yaziPlugins.smart-enter;
-      toggle-pane = pkgs.yaziPlugins.toggle-pane;
-      git = pkgs.yaziPlugins.git;
-      restore = pkgs.yaziPlugins.restore;
+  
+  # Usar los plugins que ya vienen en nixpkgs si es posible
+  plugins = {
+    smart-enter = pkgs.yaziPlugins.smart-enter;
+    toggle-pane = pkgs.yaziPlugins.toggle-pane;
+    restore = pkgs.yaziPlugins.restore;
+    mount = pkgs.yaziPlugins.mount;
+    git = pkgs.yaziPlugins.git;
+    full-border = pkgs.yaziPlugins.full-border;
+    what-size = pkgs.fetchFromGitHub {
+      owner = "pirafrank";
+      repo = "what-size.yazi";
+      rev = "main";
+      sha256 = "sha256-s2BifzWr/uewDI6Bowy7J+5LrID6I6OFEA5BrlOPNcM=";
     };
+  };
 
-    initLua = ''
+  # Configuración compilada a TOML
+  yazi-toml = lib.generators.toTOML {
+    manager = {
+      show_symlink = true;
+      linemode = "size";
+    };
+    opener = {
+      play = [{
+        run = ''mpv "$@"'';
+        orphan = true;
+        for = "unix";
+      }];
+      edit = [{
+        run = ''nvim "$@"'';
+        block = true;
+        for = "unix";
+      }];
+      open = [{
+        run = ''xdg-open "$@"'';
+        desc = "open";
+      }];
+    };
+    open.prepend_rules = [
+      { mime = "text/*"; use = "edit"; }
+      { mime = "video/*"; use = "play"; }
+    ];
+  };
+
+  keymap-toml = ''
+    [[manager.prepend_keymap]]
+    on = "j"
+    run = "arrow 1"
+
+    [[manager.prepend_keymap]]
+    on = "k"
+    run = "arrow -1"
+
+    [[manager.prepend_keymap]]
+    desc = "Open shell here"
+    on = "!"
+    run = "shell \"$SHELL\" --block --confirm"
+
+    [[manager.prepend_keymap]]
+    desc = "Enter or open file"
+    on = "l"
+    run = "plugin smart-enter"
+
+    [[manager.prepend_keymap]]
+    desc = "Maximize preview"
+    on = "T"
+    run = "plugin toggle-pane max-preview"
+
+    [[manager.prepend_keymap]]
+    desc = "Restore last deleted"
+    on = "u"
+    run = "plugin restore"
+
+    [[manager.prepend_keymap]]
+    desc = "Mount manager"
+    on = "M"
+    run = "plugin mount"
+
+    [[manager.prepend_keymap]]
+    desc = "Goto trash"
+    on = ["g", "t"]
+    run = "cd /home/hojas/.local/share/Trash/files"
+
+    ${lib.optionalString (!isHeadless) ''
+    [[manager.prepend_keymap]]
+    desc = "Dragon drop"
+    on = ["<c-n>"]
+    run = "shell 'dragon-drop -i -T \"$@\"' --confirm"
+    ''}
+
+    [[manager.prepend_keymap]]
+    desc = "Go Nixos"
+    on = ["g", "n"]
+    run = "cd /home/hojas/.config/nixos/"
+
+    [[manager.prepend_keymap]]
+    on = ["g", "v"]
+    run = "cd /home/hojas/Videos/"
+
+    [[manager.prepend_keymap]]
+    on = ["g", "p"]
+    run = "cd /home/hojas/Pictures/"
+
+    [[manager.prepend_keymap]]
+    on = ["g", "m"]
+    run = "cd /home/hojas/Music/"
+
+    [[manager.prepend_keymap]]
+    on = ["g", "e"]
+    run = "cd /home/hojas/Documents/"
+
+    [[manager.prepend_keymap]]
+    on = ["g", "b"]
+    run = "cd /home/hojas/Books/"
+
+    [[manager.prepend_keymap]]
+    desc = "Calcular peso"
+    on = [".", "s"]
+    run = "plugin what-size"
+  '';
+
+in {
+  environment.systemPackages = [ pkgs.yazi ]
+    ++ lib.optionals (!isHeadless) [ pkgs.dragon-drop pkgs.xdg-utils ];
+
+  environment.etc = {
+    "xdg/yazi/yazi.toml".text = yazi-toml;
+    "xdg/yazi/keymap.toml".text = keymap-toml;
+    
+    "xdg/yazi/init.lua".text = ''
       Status:children_add(function()
         local h = cx.active.current.hovered
         if h == nil or ya.target_family() ~= "unix" then return ui.Line {} end
@@ -43,115 +157,13 @@ in {
       require("git"):setup()
     '';
 
-    settings = {
-      manager = {
-        show_symlink = true;
-        linemode = "size";
-      };
-      opener = {
-        play = [{
-          run = ''mpv "$@"'';
-          orphan = true;
-          for = "unix";
-        }];
-        edit = [{
-          run = ''nvim "$@"'';
-          block = true;
-          for = "unix";
-        }];
-        open = [{
-          run = ''xdg-open "$@"'';
-          desc = "open";
-        }];
-      };
-      open.prepend_rules = [
-        {
-          mime = "text/*";
-          use = "edit";
-        }
-        {
-          mime = "video/*";
-          use = "play";
-        }
-      ];
-    };
-
-    keymap = {
-      manager.prepend_keymap = [
-        {
-          on = "j";
-          run = "arrow 1";
-        }
-        {
-          on = "k";
-          run = "arrow -1";
-        }
-        {
-          on = "!";
-          run = ''shell "$SHELL" --block --confirm'';
-          desc = "Open shell here";
-        }
-        {
-          on = "l";
-          run = "plugin smart-enter";
-          desc = "Enter or open file";
-        }
-        {
-          on = "T";
-          run = "plugin toggle-pane max-preview";
-          desc = "Maximize preview";
-        }
-        {
-          on = "u";
-          run = "plugin restore";
-          desc = "Restore last deleted";
-        }
-        {
-          on = "M";
-          run = "plugin mount";
-          desc = "Mount manager";
-        }
-        {
-          on = [ "g" "t" ];
-          run = "cd ${config.home.homeDirectory}/.local/share/Trash/files";
-          desc = "Goto trash";
-        }
-        (pkgs.lib.mkIf (!isHeadless) {
-          on = [ "<c-n>" ];
-          run = ''shell 'dragon-drop -i -T "$@"' --confirm'';
-          desc = "Dragon drop";
-        })
-        {
-          on = [ "g" "n" ];
-          run = "cd ${config.home.homeDirectory}/.config/nixos/";
-          desc = "Go Nixos";
-        }
-        {
-          on = [ "g" "v" ];
-          run = "cd ${config.home.homeDirectory}/Videos/";
-        }
-        {
-          on = [ "g" "p" ];
-          run = "cd ${config.home.homeDirectory}/Pictures/";
-        }
-        {
-          on = [ "g" "m" ];
-          run = "cd ${config.home.homeDirectory}/Music/";
-        }
-        {
-          on = [ "g" "e" ];
-          run = "cd ${config.home.homeDirectory}/Documents/";
-        }
-        {
-          on = [ "g" "b" ];
-          run = "cd ${config.home.homeDirectory}/Books/";
-        }
-        {
-          on = [ "." "s" ];
-          run = "plugin what-size";
-          desc = "Calcular peso";
-        }
-      ];
-    };
+    # Plugins
+    "xdg/yazi/plugins/smart-enter.yazi".source = plugins.smart-enter;
+    "xdg/yazi/plugins/toggle-pane.yazi".source = plugins.toggle-pane;
+    "xdg/yazi/plugins/restore.yazi".source = plugins.restore;
+    "xdg/yazi/plugins/mount.yazi".source = plugins.mount;
+    "xdg/yazi/plugins/git.yazi".source = plugins.git;
+    "xdg/yazi/plugins/full-border.yazi".source = plugins.full-border;
+    "xdg/yazi/plugins/what-size.yazi".source = plugins.what-size;
   };
 }
