@@ -17,7 +17,6 @@ let
         ../common/default.nix
         ./${hostname}/configuration.nix
         inputs.sops-nix.nixosModules.sops
-        inputs.nixvim.nixosModules.nixvim
       ] ++ extraModules;
     };
 
