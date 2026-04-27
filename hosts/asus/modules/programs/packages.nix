@@ -31,6 +31,8 @@
     nautilus
     loupe
     antigravity
+    qgis
+    postman
 
     # Multimedia
     mpv
