@@ -4,7 +4,7 @@
     ports = [ 22 ];
     settings = {
       PermitRootLogin = "no";
-      AllowUsers = [ "aoba" ];
+      AllowUsers = [ "aoba" "deploy" ];
       PasswordAuthentication = false;
     };
   };
