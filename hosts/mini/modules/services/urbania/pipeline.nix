@@ -41,7 +41,7 @@ let
     DATA="${cfg.dataDir}"
     DUCKDB="${pkgs.duckdb}/bin/duckdb"
 
-    export PYTHONPATH="$REPO/scraper:$REPO/app/backend"
+    export PYTHONPATH="$REPO:$REPO/app/backend"
     export PATH="$VENV/bin:${pythonEnv}/bin:$PATH"
 
     cd "$DATA"

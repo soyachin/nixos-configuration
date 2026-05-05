@@ -31,26 +31,23 @@
         };
       };
 
-      # ─── Urbania BI API ──────────────────────────────────────────────
-      # Cloudflare Access protege este host a nivel de túnel.
-      # Nginx solo hace proxy al FastAPI local.
-      # "api.urbania.tudominio.com" = {
-      #   locations."/" = {
-      #     proxyPass = "http://127.0.0.1:8000";
-      #     proxyWebsockets = true;
-      #
-      #     extraConfig = ''
-      #       # Pasa los headers de Cloudflare Access al backend
-      #       proxy_set_header X-Real-IP         $remote_addr;
-      #       proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-      #       proxy_set_header X-Forwarded-Proto $scheme;
-      #
-      #       # Timeouts generosos para queries pesadas de DuckDB
-      #       proxy_read_timeout 60s;
-      #       proxy_send_timeout 60s;
-      #     '';
-      #   };
-      # };
+      "api.vendeconcarlos.pe" = {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8000";
+          proxyWebsockets = true;
+
+          extraConfig = ''
+            # Pasa los headers de Cloudflare Access al backend
+            proxy_set_header X-Real-IP         $remote_addr;
+            proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # Timeouts generosos para queries pesadas de DuckDB
+            proxy_read_timeout 60s;
+            proxy_send_timeout 60s;
+          '';
+        };
+      };
     };
   };
 
