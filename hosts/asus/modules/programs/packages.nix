@@ -33,6 +33,7 @@
     antigravity
     qgis
     postman
+    opencode
 
     # Multimedia
     mpv
