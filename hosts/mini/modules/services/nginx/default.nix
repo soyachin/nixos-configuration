@@ -1,3 +1,4 @@
+# hosts/mini/modules/services/nginx/default.nix
 {
   config,
   pkgs,
@@ -5,6 +6,7 @@
 }:
 {
   sops.secrets."cloudflared_token" = { };
+
   services.nginx = {
     enable = true;
     virtualHosts = {
@@ -14,6 +16,7 @@
           proxyWebsockets = true;
         };
       };
+
       "start.nyarkovchain.site" = {
         locations."/" = {
           proxyPass = "http://127.0.0.1:5678";
@@ -27,11 +30,34 @@
           tryFiles = "$uri $uri/ /index.html";
         };
       };
+
+      # ─── Urbania BI API ──────────────────────────────────────────────
+      # Cloudflare Access protege este host a nivel de túnel.
+      # Nginx solo hace proxy al FastAPI local.
+      # "api.urbania.tudominio.com" = {
+      #   locations."/" = {
+      #     proxyPass = "http://127.0.0.1:8000";
+      #     proxyWebsockets = true;
+      #
+      #     extraConfig = ''
+      #       # Pasa los headers de Cloudflare Access al backend
+      #       proxy_set_header X-Real-IP         $remote_addr;
+      #       proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+      #       proxy_set_header X-Forwarded-Proto $scheme;
+      #
+      #       # Timeouts generosos para queries pesadas de DuckDB
+      #       proxy_read_timeout 60s;
+      #       proxy_send_timeout 60s;
+      #     '';
+      #   };
+      # };
     };
   };
+
   systemd.tmpfiles.rules = [
     "d /var/www/blog.nyarkovchain.site 0755 deploy deploy -"
   ];
+
   systemd.services.cloudflare-tunnel = {
     description = "CloudFlare Tunnel (Declarative)";
     after = [ "network-online.target" ];
@@ -45,7 +71,6 @@
       LoadCredential = [ "token:${config.sops.secrets.cloudflared_token.path}" ];
       ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run --token-file %d/token";
 
-      # Sandboxing
       CapabilityBoundingSet = "";
       DevicePolicy = "closed";
       LockPersonality = true;

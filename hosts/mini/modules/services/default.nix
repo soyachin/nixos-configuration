@@ -4,5 +4,6 @@
     ./media.nix
     ./nginx
     ./glance
+    ./urbania
   ];
 }
