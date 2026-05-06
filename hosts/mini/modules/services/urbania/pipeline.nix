@@ -1,20 +1,10 @@
 # hosts/mini/modules/services/urbania/pipeline.nix
-# Servicios systemd para el scraper y el pipeline de Urbania BI.
-# Orden de ejecución diaria:
-#   1. scraper      → actualiza listings.db (SQLite bronze)
-#   2. backfill     → verifica activos
-#   3. migrate      → copia SQLite → DuckDB
-#   4. transform    → silver (filtros + geo join + MAD)
-#   5. gold         → gold.deals materializado
-#   6. metabase     → vistas BI
-# Después del pipeline, reinicia el backend para que lea el DuckDB nuevo.
 { config, pkgs, lib, ... }:
 
 let
   pythonEnv = pkgs.callPackage ./package.nix {};
   cfg       = config.services.urbania;
 
-  # Script que prepara el venv con curl-cffi (solo si no existe)
   setupVenv = pkgs.writeShellScript "urbania-setup-venv" ''
     set -euo pipefail
     VENV="${cfg.dataDir}/venv"
@@ -24,7 +14,6 @@ let
       ${pythonEnv}/bin/python -m venv --system-site-packages "$VENV"
     fi
 
-    # Instalar/actualizar curl-cffi si no está
     if ! "$VENV/bin/python" -c "import curl_cffi" 2>/dev/null; then
       echo "Instalando curl-cffi..."
       "$VENV/bin/pip" install --no-cache-dir curl-cffi==0.7.4
@@ -33,7 +22,26 @@ let
     echo "Venv listo."
   '';
 
-  # Script principal del pipeline completo
+  runScraper = pkgs.writeShellScript "urbania-scraper" ''
+    set -euo pipefail
+    VENV="${cfg.dataDir}/venv"
+    REPO="${cfg.repoPath}"
+    DATA="${cfg.dataDir}"
+
+    export PYTHONPATH="$REPO:$REPO/app/backend"
+    export PATH="$VENV/bin:${pythonEnv}/bin:$PATH"
+
+    cd "$DATA"
+
+    echo "=== [1/2] Scraper ==="
+    python -m scraper.main --mode daily --batch-size 5 --batch-delay 45
+
+    echo "=== [2/2] Backfill activos ==="
+    python "$REPO/scripts/backfill_activo.py" --limit 100 --stale-days 7
+
+    echo "=== Scraper completado ==="
+  '';
+
   runPipeline = pkgs.writeShellScript "urbania-pipeline" ''
     set -euo pipefail
     VENV="${cfg.dataDir}/venv"
@@ -46,51 +54,42 @@ let
 
     cd "$DATA"
 
-    echo "=== [1/6] Scraper ==="
-    python -m scraper.main --mode daily --batch-size 5 --batch-delay 45
-
-    echo "=== [2/6] Backfill activos ==="
-    python "$REPO/scripts/backfill_activo.py" --limit 100 --stale-days 7
-
-    echo "=== [3/6] Migrate SQLite → DuckDB ==="
+    echo "=== [1/4] Migrate SQLite → DuckDB ==="
     "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/01_migrate.sql"
 
-    echo "=== [4/6] Transform silver ==="
+    echo "=== [2/4] Transform silver ==="
     "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02_silver_sql.sql"
 
-    echo "=== [5/6] Gold ==="
+    echo "=== [3/4] Gold ==="
     "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/03_gold_sql.sql"
 
-    echo "=== [6/6] Metabase views ==="
+    echo "=== [4/4] Metabase views ==="
     "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/04_metabase_queries.sql"
 
-    echo "=== Pipeline completado. Reiniciando backend... ==="
-    systemctl restart urbania-backend
+    echo "=== Pipeline completado ==="
   '';
 
 in {
-  # ─── Servicio: setup del venv (corre antes del pipeline) ─────────────────
+  # ─── Venv setup ──────────────────────────────────────────────────────────
   systemd.services.urbania-venv-setup = {
     description = "Urbania BI — preparar virtualenv Python";
     after       = [ "network.target" ];
 
     serviceConfig = {
-      Type             = "oneshot";
-      User             = "urbania";
-      Group            = "urbania";
-      ExecStart        = setupVenv;
-      RemainAfterExit  = true;
-
-      # Necesita red para pip install
-      PrivateTmp       = true;
-      NoNewPrivileges  = true;
-      ReadWritePaths   = [ cfg.dataDir ];
+      Type            = "oneshot";
+      User            = "urbania";
+      Group           = "urbania";
+      ExecStart       = setupVenv;
+      RemainAfterExit = true;
+      PrivateTmp      = true;
+      NoNewPrivileges = true;
+      ReadWritePaths  = [ cfg.dataDir ];
     };
   };
 
-  # ─── Servicio: pipeline completo ─────────────────────────────────────────
-  systemd.services.urbania-pipeline = {
-    description = "Urbania BI — pipeline diario (scrape + transform)";
+  # ─── Scraper ─────────────────────────────────────────────────────────────
+  systemd.services.urbania-scraper = {
+    description = "Urbania BI — scraper diario (bronze)";
     after       = [ "network.target" "urbania-venv-setup.service" ];
     requires    = [ "urbania-venv-setup.service" ];
 
@@ -99,33 +98,56 @@ in {
       User             = "urbania";
       Group            = "urbania";
       WorkingDirectory = cfg.dataDir;
-      ExecStart        = runPipeline;
-
-      # El pipeline puede tardar bastante
-      TimeoutStartSec  = "3h";
-
-      # Logs en el journal con identificador claro
+      ExecStart        = runScraper;
+      TimeoutStartSec  = "2h";
       StandardOutput   = "journal";
       StandardError    = "journal";
-      SyslogIdentifier = "urbania-pipeline";
-
+      SyslogIdentifier = "urbania-scraper";
       NoNewPrivileges  = true;
       PrivateTmp       = true;
       ProtectHome      = true;
       ProtectSystem    = "strict";
-      ReadWritePaths   = [ cfg.dataDir "/run/systemd/system" ];
+      ReadWritePaths   = [ cfg.dataDir ];
     };
   };
 
-  # ─── Timer: corre el pipeline una vez al día a las 3 AM ──────────────────
-  systemd.timers.urbania-pipeline = {
-    description  = "Urbania BI — timer pipeline diario";
-    wantedBy     = [ "timers.target" ];
+  # ─── Pipeline (se encadena al scraper) ───────────────────────────────────
+  systemd.services.urbania-pipeline = {
+    description = "Urbania BI — pipeline diario (transform + export)";
+    after       = [ "urbania-scraper.service" ];
+    # BindsTo garantiza que si el scraper falla, el pipeline no arranca
+    # y si el scraper no corrió hoy, el pipeline tampoco
+    bindsTo     = [ "urbania-scraper.service" ];
+
+    serviceConfig = {
+      Type             = "oneshot";
+      User             = "urbania";
+      Group            = "urbania";
+      WorkingDirectory = cfg.dataDir;
+      ExecStartPre     = "+${pkgs.systemd}/bin/systemctl stop urbania-backend";
+      ExecStart        = runPipeline;
+      ExecStartPost    = "+${pkgs.systemd}/bin/systemctl start urbania-backend";
+      TimeoutStartSec  = "1h";
+      StandardOutput   = "journal";
+      StandardError    = "journal";
+      SyslogIdentifier = "urbania-pipeline";
+      NoNewPrivileges  = true;
+      PrivateTmp       = true;
+      ProtectHome      = true;
+      ProtectSystem    = "strict";
+      ReadWritePaths   = [ cfg.dataDir ];
+    };
+  };
+
+  # ─── Timer: solo dispara el scraper ──────────────────────────────────────
+  systemd.timers.urbania-scraper = {
+    description = "Urbania BI — timer scraper diario";
+    wantedBy    = [ "timers.target" ];
 
     timerConfig = {
-      OnCalendar       = "*-*-* 03:00:00";
-      Persistent       = true;   # si el mini estaba apagado, corre al arrancar
-      RandomizedDelaySec = "15m"; # evita hit exacto a las 3:00
+      OnCalendar         = "*-*-* 03:00:00";
+      Persistent         = true;
+      RandomizedDelaySec = "15m";
     };
   };
 }
