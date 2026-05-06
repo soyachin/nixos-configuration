@@ -1,10 +1,7 @@
 let
   keys = import ../../../../common/ssh-keys.nix;
 in
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   users.users.aoba = {
     isNormalUser = true;
@@ -12,6 +9,7 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
+      "urbania"
     ];
 
     openssh.authorizedKeys.keys = [
@@ -21,13 +19,10 @@ in
   };
 
   users.users.deploy = {
-    isNormalUser = true;
+    isSystemUser = true; # CI/CD no necesita ser "usuario normal"
     group = "deploy";
-    shell = pkgs.bashInteractive;
-    openssh.authorizedKeys.keys = [
-      keys.githubActions 
-    ];
+    shell = pkgs.bash; # suficiente para rsync/ssh, sin completion/historial
+    openssh.authorizedKeys.keys = [ keys.githubActions ];
   };
-
   users.groups.deploy = { };
 }
