@@ -2,6 +2,7 @@
   inputs,
   unstable,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -33,6 +34,12 @@
       device = "/var/lib/swapfile";
       size = 16 * 1024;
     }
+  ];
+
+  # --- GAMING & MOD TOOLS ---
+  environment.systemPackages = [
+    (pkgs.callPackage ./ryubing.nix {})
+    inputs.tomotexture.packages.${pkgs.system}.default
   ];
 
   system.stateVersion = "24.11";
@@ -87,8 +94,3 @@
     };
   };
 }
-
-
-
-
-

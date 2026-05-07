@@ -11,7 +11,7 @@ let
       };
     in
     lib.nixosSystem {
-      specialArgs = { inherit inputs unstable hostname isHeadless; };
+       specialArgs = { inherit inputs unstable hostname isHeadless; };
       modules = [
         { nixpkgs.hostPlatform = system; }
         ../common/default.nix

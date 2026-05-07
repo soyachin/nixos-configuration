@@ -111,6 +111,11 @@
     ncdu iotop # disk / io
     lm_sensors powertop # energy 
     bc lldb # common and debugging
+    
+    # Monitoreo y logs
+    lnav        # navegador de logs interactivo
+    grc         # colorea output de comandos
+    bandwhich   # monitor de red por proceso
   ];
 
   # ---------------------------------------------------------------------

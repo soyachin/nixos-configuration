@@ -42,6 +42,7 @@ in
       Environment = [
         "DB_PATH=${cfg.dataDir}/urbania.duckdb"
         "PYTHONDONTWRITEBYTECODE=1"
+        "CORS_ORIGINS=http://localhost:5173"
       ];
       # Hardening: solo lectura sobre datos (Parquet serving layer)
       NoNewPrivileges = true;

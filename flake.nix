@@ -28,6 +28,11 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    tomotexture = {
+      url = "github:soyachin/TomoTexture-SteamOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

@@ -31,6 +31,30 @@
     mv = "mv -i";
     gtree = "git log --oneline --graph --all --decorate --color";
     glog = "git log --oneline --graph --all --decorate --color";
+
+    # ─── MONITOREO DE SERVICIOS ──────────────────────────────
+    # Urbania BI
+    urb = "systemctl status urbania-backend";
+    urbl = "journalctl -u urbania-backend -f -n 100";
+    urbp = "systemctl status urbania-pipeline";
+    urbd = "systemctl status urbania-deploy";
+    urbstart = "sudo systemctl start urbania-backend";
+    urbstop = "sudo systemctl stop urbania-backend";
+    urbrestart = "sudo systemctl restart urbania-backend";
+
+    # Logs interactivos
+    logs = "sudo journalctl -xe --no-hostname";
+    logf = "sudo journalctl -f";
+    slog = "sudo journalctl -u";
+    
+    # Procesos
+    top = "btop";
+    htop = "btop";
+    services = "systemctl list-units --type=service --state=running";
+    failed = "systemctl list-units --failed";
+    
+    # NixOS
+    rebuild = "sudo nixos-rebuild switch --flake ~/.config/nixos/#${hostname}";
     
   };
 }
