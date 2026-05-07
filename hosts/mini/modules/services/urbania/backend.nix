@@ -42,7 +42,9 @@ in
       Environment = [
         "DB_PATH=${cfg.dataDir}/urbania.duckdb"
         "PYTHONDONTWRITEBYTECODE=1"
-        "CORS_ORIGINS=http://localhost:5173"
+        "CORS_ORIGINS=http://localhost:5173,https://map.vendeconcarlos.pe"
+        "CF_ACCESS_TEAM=nyarkovchain"  # cambiar por tu team real
+        "CF_ACCESS_AUD=your-application-id-here"  # cambiar por tu Application ID de Cloudflare Access
       ];
       # Hardening: solo lectura sobre datos (Parquet serving layer)
       NoNewPrivileges = true;

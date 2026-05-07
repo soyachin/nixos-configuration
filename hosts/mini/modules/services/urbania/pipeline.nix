@@ -29,10 +29,11 @@ let
     export PYTHONPATH="$REPO:$REPO/app/backend"
     export PATH="$VENV/bin:${pythonEnv}/bin:$PATH"
     cd "$DATA"
-    echo "=== [1/2] Scraper ==="
-    python -m scraper.main --mode daily --batch-size 5 --batch-delay 45
+    RUN_ID=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+    echo "=== [1/2] Scraper (run_id=$RUN_ID) ==="
+    python -m scraper.main --mode daily --batch-size 5 --batch-delay 45 --run-id "$RUN_ID"
     echo "=== [2/2] Backfill activos ==="
-    python "$REPO/scripts/backfill_activo.py" --limit 100 --stale-days 7
+    python "$REPO/scripts/backfill_activo.py" --run-id "$RUN_ID" --limit 100 --stale-days 7
     echo "=== Scraper completado ==="
   '';
   runPipeline = pkgs.writeShellScript "urbania-pipeline" ''
@@ -44,16 +45,29 @@ let
     export PYTHONPATH="$REPO:$REPO/app/backend"
     export PATH="$VENV/bin:${pythonEnv}/bin:$PATH"
     cd "$DATA"
-    echo "=== [1/5] Migrate SQLite → DuckDB ==="
+    echo "=== [1/8] Migrate SQLite → DuckDB ==="
     "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/01_migrate.sql"
-    echo "=== [2/5] Transform silver ==="
-    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02_silver_sql.sql"
-    echo "=== [3/5] Gold ==="
+    echo "=== [2/8] Silver setup ==="
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02a_silver_setup.sql"
+    echo "=== [3/8] Silver base ==="
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02b_silver_base.sql"
+    echo "=== [4/8] Silver transforms ==="
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02c_silver_precio.sql"
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02d_silver_area.sql"
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02e_silver_bbox.sql"
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02f_silver_geo.sql"
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02g_silver_mad.sql"
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02h_silver_descartes.sql"
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02i_silver_metrics.sql"
+    "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/02j_silver_dq_rules.sql"
+    echo "=== [5/8] Gold ==="
     "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/03_gold_sql.sql"
-    echo "=== [4/5] Metabase views ==="
+    echo "=== [6/8] Metabase views ==="
     "$DUCKDB" "$DATA/urbania.duckdb" < "$REPO/scripts/04_metabase_queries.sql"
-    echo "=== [5/5] Export serving layer → Parquet ==="
+    echo "=== [7/8] Export serving layer → Parquet ==="
     DB_PATH="$DATA/urbania.duckdb" "$VENV/bin/python" "$REPO/scripts/export_serving.py"
+    echo "=== [8/8] Sanity checks ==="
+    echo "Pipeline completado. run_id: $($DUCKDB "$DATA/urbania.duckdb" -noheader -csv -c \"SELECT run_id FROM gold.current_run\")"
     echo "=== Pipeline completado ==="
   '';
 in
