@@ -67,7 +67,8 @@ let
     echo "=== [7/8] Export serving layer → Parquet ==="
     DB_PATH="$DATA/urbania.duckdb" "$VENV/bin/python" "$REPO/scripts/export_serving.py"
     echo "=== [8/8] Sanity checks ==="
-    echo "Pipeline completado. run_id: $($DUCKDB "$DATA/urbania.duckdb" -noheader -csv -c \"SELECT run_id FROM gold.current_run\")"
+    CURRENT_RUN=$($DUCKDB "$DATA/urbania.duckdb" -noheader -csv -c "SELECT run_id FROM gold.current_run")
+    echo "Pipeline completado. run_id: $CURRENT_RUN"
     echo "=== Pipeline completado ==="
   '';
 in
