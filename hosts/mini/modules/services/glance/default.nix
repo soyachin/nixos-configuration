@@ -39,14 +39,32 @@
               sites = [
                 {
                   title = "Jellyfin";
-                  url =
-                    "https://jelly.${domain}"; # Lo que usa tu navegador al hacer clic
-                  check-url =
-                    "http://127.0.0.1:8096"; # Lo que usa Glance para el puntito verde
+                  url = "https://jelly.${domain}";
+                  check-url = "http://127.0.0.1:8096";
                   icon = "si:jellyfin";
                 }
-
+                {
+                  title = "Urbania API";
+                  url = "https://api.vendeconcarlos.pe";
+                  check-url = "http://127.0.0.1:8000/health";
+                  icon = "si:fastapi";
+                }
               ];
+            }
+            {
+              type = "custom-api";
+              title = "Urbania Pipeline";
+              cache = "5m";
+              url = "http://127.0.0.1:8000/api/status";
+              template = ''
+                <div class="flex gap-10">
+                  <span class="color-positive">Stock: {{ .JSON.Int "stock_total" }}</span>
+                  <span>Last run: {{ .JSON.String "last_run" }}</span>
+                </div>
+                <div class="margin-top-10 color-foreground">
+                  Status: {{ .JSON.String "status" }}
+                </div>
+              '';
             }
             {
               type = "server-stats";

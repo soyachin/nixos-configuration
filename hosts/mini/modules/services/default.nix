@@ -5,5 +5,7 @@
     ./nginx
     ./glance
     ./urbania
+    ./netdata
+    ./vector
   ];
 }
