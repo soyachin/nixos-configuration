@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
-  imports = [ 
-    ./aliases.nix 
+{ pkgs, ... }:
+{
+  imports = [
+    ./aliases.nix
     ./yazi
   ];
 
@@ -9,7 +10,10 @@
   # ---------------------------------------------------------------------
 
   nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     gc = {
       automatic = true;
       options = "--delete-older-than 7d";
@@ -24,15 +28,21 @@
 
   networking = {
     networkmanager.enable = true;
-    nameservers = [ "1.1.1.1" ];
     firewall.enable = true;
+    nameservers = [
+      "100.100.100.100"
+      "1.1.1.1"
+    ];
   };
 
   services.tailscale.enable = true;
+  services.tailscale.extraUpFlags = [ "--accept-dns=true" ];
 
   nixpkgs.overlays = [
     (final: prev: {
-      tailscale = prev.tailscale.overrideAttrs (_: { doCheck = false; });
+      tailscale = prev.tailscale.overrideAttrs (_: {
+        doCheck = false;
+      });
     })
   ];
 
@@ -45,15 +55,15 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
-      LC_ADDRESS        = "es_PE.UTF-8";
+      LC_ADDRESS = "es_PE.UTF-8";
       LC_IDENTIFICATION = "es_PE.UTF-8";
-      LC_MEASUREMENT    = "es_PE.UTF-8";
-      LC_MONETARY       = "es_PE.UTF-8";
-      LC_NAME           = "es_PE.UTF-8";
-      LC_NUMERIC        = "es_PE.UTF-8";
-      LC_PAPER          = "es_PE.UTF-8";
-      LC_TELEPHONE      = "es_PE.UTF-8";
-      LC_TIME           = "es_PE.UTF-8";
+      LC_MEASUREMENT = "es_PE.UTF-8";
+      LC_MONETARY = "es_PE.UTF-8";
+      LC_NAME = "es_PE.UTF-8";
+      LC_NUMERIC = "es_PE.UTF-8";
+      LC_PAPER = "es_PE.UTF-8";
+      LC_TELEPHONE = "es_PE.UTF-8";
+      LC_TIME = "es_PE.UTF-8";
     };
   };
 
@@ -105,17 +115,27 @@
     age
     ntfs3g
 
-    pciutils usbutils dmidecode smartmontools # hardware / bus 
-    lsof ethtool tcpdump nmap # red 
-    strace procs # process
-    ncdu iotop # disk / io
-    lm_sensors powertop # energy 
-    bc lldb # common and debugging
-    
+    pciutils
+    usbutils
+    dmidecode
+    smartmontools # hardware / bus
+    lsof
+    ethtool
+    tcpdump
+    nmap # red
+    strace
+    procs # process
+    ncdu
+    iotop # disk / io
+    lm_sensors
+    powertop # energy
+    bc
+    lldb # common and debugging
+
     # Monitoreo y logs
-    lnav        # navegador de logs interactivo
-    grc         # colorea output de comandos
-    bandwhich   # monitor de red por proceso
+    lnav # navegador de logs interactivo
+    grc # colorea output de comandos
+    bandwhich # monitor de red por proceso
   ];
 
   # ---------------------------------------------------------------------

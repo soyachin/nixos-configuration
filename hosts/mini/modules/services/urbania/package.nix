@@ -20,6 +20,8 @@ pkgs.python3.withPackages (ps: with ps; [
   # Backend
   fastapi
   uvicorn
+  pyjwt
+  cryptography
 
   # Utilidades
   pip        # necesario para instalar curl-cffi en el venv
