@@ -41,6 +41,8 @@
             proxy_set_header X-Real-IP         $remote_addr;
             proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header CF-Access-Jwt-Assertion $http_cf_access_jwt_assertion;
+            proxy_set_header CF-Access-Authenticated-User-Email $http_cf_access_authenticated_user_email;
 
             # Timeouts generosos para queries pesadas de DuckDB
             proxy_read_timeout 60s;
