@@ -19,6 +19,7 @@
       };
       web = {
         "mode" = "static-threaded";
+        "web files directory" = "${pkgs.netdata}/share/netdata/web";
         "bind to" = "127.0.0.1:19999";
       };
     };
