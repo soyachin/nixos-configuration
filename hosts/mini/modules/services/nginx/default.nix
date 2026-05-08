@@ -55,7 +55,7 @@
       };
 
       "map.vendeconcarlos.pe" = {
-        root = "/var/lib/urbania/repo/app/frontend/dist";
+        root = "/var/www/map.vendeconcarlos.pe";
         locations."/" = {
           tryFiles = "$uri $uri/ /index.html";
         };
@@ -79,7 +79,7 @@
 
   systemd.tmpfiles.rules = [
     "d /var/www/blog.nyarkovchain.site 0755 deploy deploy -"
-    "d /var/lib/urbania/repo/app/frontend/dist 0750 urbania urbania -"
+    "d /var/www/map.vendeconcarlos.pe 0755 root root -"
   ];
 
   systemd.services.cloudflare-tunnel = {
