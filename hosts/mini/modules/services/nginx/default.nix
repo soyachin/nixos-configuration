@@ -9,6 +9,9 @@
 
   services.nginx = {
     enable = true;
+    # Nginx corre como grupo urbania para leer archivos del repo
+    group = "urbania";
+    
     virtualHosts = {
       "jelly.nyarkovchain.site" = {
         locations."/" = {
@@ -51,6 +54,13 @@
         };
       };
 
+      "map.vendeconcarlos.pe" = {
+        root = "/var/lib/urbania/repo/app/frontend/dist";
+        locations."/" = {
+          tryFiles = "$uri $uri/ /index.html";
+        };
+      };
+
       "netdata.nyarkovchain.site" = {
         locations."/" = {
           proxyPass = "http://127.0.0.1:19999";
@@ -69,6 +79,7 @@
 
   systemd.tmpfiles.rules = [
     "d /var/www/blog.nyarkovchain.site 0755 deploy deploy -"
+    "d /var/lib/urbania/repo/app/frontend/dist 0750 urbania urbania -"
   ];
 
   systemd.services.cloudflare-tunnel = {
