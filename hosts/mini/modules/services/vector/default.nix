@@ -33,10 +33,10 @@ in
           inputs = [ "urbania_journal" ];
           source = ''
             .timestamp = to_string!(.timestamp)
-            .service = .SYSLOG_IDENTIFIER ?? "urbania"
-            .message = .message ?? ""
-            .unit = ._SYSTEMD_UNIT ?? "unknown"
-            .priority = to_int!(.PRIORITY) ?? 6
+            .service = del(.SYSLOG_IDENTIFIER) ?? "urbania"
+            .message = del(.message)
+            .unit = del(._SYSTEMD_UNIT) ?? "unknown"
+            .priority = to_int!(del(.PRIORITY))
           '';
         };
       };
