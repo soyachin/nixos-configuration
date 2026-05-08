@@ -20,6 +20,7 @@
       web = {
         "mode" = "static-threaded";
         "bind to" = "127.0.0.1:19999";
+        "allow origin" = "https://netdata.nyarkovchain.site";
       };
     };
   };
