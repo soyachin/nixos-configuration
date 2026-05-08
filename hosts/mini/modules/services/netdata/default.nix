@@ -1,6 +1,5 @@
 # hosts/mini/modules/services/netdata/default.nix
-# Opción B: Netdata para métricas del sistema y servicios systemd
-# Detecta automáticamente servicios systemd, CPU, RAM, I/O por proceso
+# Netdata para métricas del sistema y servicios systemd
 {
   config,
   pkgs,
@@ -10,6 +9,7 @@
 {
   services.netdata = {
     enable = true;
+    package = pkgs.netdata.override { withCloudUi = true; };
     config = {
       global = {
         "history" = "86400";
@@ -19,13 +19,11 @@
       };
       web = {
         "mode" = "static-threaded";
-        "web files directory" = "${pkgs.netdata}/share/netdata/web";
         "bind to" = "127.0.0.1:19999";
       };
     };
   };
 
-  # Netdata necesita acceso al journal para métricas de systemd
   systemd.services.netdata.serviceConfig = {
     SupplementaryGroups = [ "systemd-journal" ];
   };
