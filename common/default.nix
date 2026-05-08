@@ -36,7 +36,7 @@
   };
 
   services.tailscale.enable = true;
-  services.tailscale.extraUpFlags = [ "--accept-dns=true" ];
+  services.tailscale.extraUpFlags = [ "--accept-dns=false" ];
 
   nixpkgs.overlays = [
     (final: prev: {

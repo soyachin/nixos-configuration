@@ -1,10 +1,9 @@
 # hosts/mini/modules/services/urbania/backend.nix
-# Servicio systemd para el backend FastAPI de Urbania BI.
-# Corre como usuario 'urbania', lee capa serving (Parquet) desde /var/lib/urbania/serving/
 {
   config,
   pkgs,
   lib,
+  sops,
   ...
 }:
 let
@@ -12,18 +11,37 @@ let
   cfg = config.services.urbania;
 in
 {
+  sops.secrets."cf_access_aud" = {
+    owner = "urbania";
+  };
+
+  sops.templates."urbania-backend-env" = {
+    content = ''
+      CF_ACCESS_AUD=${config.sops.placeholder."cf_access_aud"}
+    '';
+    owner = "urbania";
+  };
+
   systemd.services.urbania-backend = {
     description = "Urbania BI — FastAPI backend";
-    after = [ "network.target" ];
+    after = [
+      "network.target"
+      "sops-nix.service"
+    ];
     wantedBy = [ "multi-user.target" ];
     environment = {
       PYTHONPATH = "${cfg.repoPath}/app/backend";
+      DB_PATH = "${cfg.dataDir}/urbania.duckdb";
+      PYTHONDONTWRITEBYTECODE = "1";
+      CORS_ORIGINS = "http://localhost:5173,http://localhost:4173,https://map.vendeconcarlos.pe";
+      CF_ACCESS_TEAM = "sillao";
     };
     serviceConfig = {
       Type = "simple";
       User = "urbania";
       Group = "urbania";
       WorkingDirectory = "${cfg.repoPath}/app/backend";
+      EnvironmentFile = config.sops.templates."urbania-backend-env".path;
       ExecStart = pkgs.writeShellScript "urbania-backend-start" ''
         VENV="${cfg.dataDir}/venv"
         if [ -f "$VENV/bin/uvicorn" ]; then
@@ -37,16 +55,6 @@ in
       '';
       Restart = "on-failure";
       RestartSec = "5s";
-      # DB_PATH solo se usa para resolver SERVING_DIR en queries.py
-      # El backend no abre urbania.duckdb; lee serving/*.parquet
-      Environment = [
-        "DB_PATH=${cfg.dataDir}/urbania.duckdb"
-        "PYTHONDONTWRITEBYTECODE=1"
-        "CORS_ORIGINS=http://localhost:5173,http://localhost:4173,https://map.vendeconcarlos.pe"
-        "CF_ACCESS_TEAM=nyarkovchain"  # cambiar por tu team real
-        "CF_ACCESS_AUD=your-application-id-here"  # cambiar por tu Application ID de Cloudflare Access
-      ];
-      # Hardening: solo lectura sobre datos (Parquet serving layer)
       NoNewPrivileges = true;
       PrivateTmp = true;
       ProtectHome = true;
