@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ../../../modules/hardware
+    ../../../../modules/hardware
     ./base.nix
     ./asusd.nix
     ./bluetooth.nix

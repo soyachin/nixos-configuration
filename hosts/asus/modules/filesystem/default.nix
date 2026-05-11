@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ../../../modules/filesystem
+    ../../../../modules/filesystem
     ./swap.nix
   ];
 }

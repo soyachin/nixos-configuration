@@ -2,7 +2,6 @@
 let
   inherit (inputs.nixpkgs) lib;
 
-  # Helper para crear sistemas de forma limpia
   mkSystem = { hostname, system ? "x86_64-linux", isHeadless ? false, extraModules ? [ ] }:
     let
       unstable = import inputs.nixpkgs-unstable {
@@ -11,11 +10,11 @@ let
       };
     in
     lib.nixosSystem {
-       specialArgs = { inherit inputs unstable hostname isHeadless; };
+      specialArgs = { inherit inputs unstable hostname isHeadless; };
       modules = [
         { nixpkgs.hostPlatform = system; }
         ../common/default.nix
-        ./${hostname}/configuration.nix
+        ./${hostname}/default.nix
         inputs.sops-nix.nixosModules.sops
       ] ++ extraModules;
     };
@@ -28,13 +27,11 @@ let
   ];
 in
 {
-  # --- ASUS (Desktop) ---
   asus = mkSystem {
     hostname = "asus";
     extraModules = desktopModules;
   };
 
-  # --- MINI (Server) ---
   mini = mkSystem {
     hostname = "mini";
     isHeadless = true;

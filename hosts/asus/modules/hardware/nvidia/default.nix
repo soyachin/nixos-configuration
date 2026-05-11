@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ../../../../modules/hardware/nvidia
+    ../../../../../modules/hardware/nvidia
   ];
 
   platform.hardware.nvidia.enable = true;

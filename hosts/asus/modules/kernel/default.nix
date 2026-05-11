@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ../../../modules/kernel
+    ../../../../modules/kernel
     ./boot.nix
   ];
 }

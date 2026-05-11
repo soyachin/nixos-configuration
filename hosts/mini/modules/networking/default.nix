@@ -1,5 +1,5 @@
 { ... }: {
   imports = [
-    ../../../modules/networking
+    ../../../../modules/networking
   ];
 }

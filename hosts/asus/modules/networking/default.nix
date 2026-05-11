@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ../../../modules/networking
+    ../../../../modules/networking
     ./networkmanager.nix
     ./firewall.nix
   ];

@@ -1,5 +1,5 @@
 { ... }: {
   imports = [
-    ../../../modules/hardware
+    ../../../../modules/hardware
   ];
 }
