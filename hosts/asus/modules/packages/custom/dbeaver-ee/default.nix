@@ -33,19 +33,13 @@ let
       stdenv.cc.cc.lib
     ];
 
-    # El tarball se desempaca en el directorio actual sin subcarpeta,
-    # así que redirigimos el unpack a una carpeta conocida
     sourceRoot = ".";
 
     postUnpack = ''
-      # Mover todo a una carpeta controlada si no existe ya
       mkdir -p dbeaver-src
-      # El tarball de DBeaver EE desempaca los archivos directamente
-      # Buscar el ejecutable para confirmar la estructura
       find . -maxdepth 2 -name "dbeaver" -type f 2>/dev/null || true
       find . -maxdepth 2 -name "dbeaver.ini" 2>/dev/null || true
 
-      # Eliminar binarios de otras plataformas para evitar errores de autoPatchelf
       find . -type d -name "*win32*"      -exec rm -rf {} + 2>/dev/null || true
       find . -type d -name "*macosx*"     -exec rm -rf {} + 2>/dev/null || true
       find . -type d -name "*freebsd*"    -exec rm -rf {} + 2>/dev/null || true
@@ -57,7 +51,6 @@ let
     installPhase = ''
       runHook preInstall
 
-      # Buscar dónde quedó el ejecutable de dbeaver tras el unpack
       DBEAVER_DIR=$(dirname $(find . -name "dbeaver" -type f -not -path "*/bin/*" | head -1))
 
       if [ -z "$DBEAVER_DIR" ] || [ "$DBEAVER_DIR" = "." ]; then
@@ -109,7 +102,6 @@ EOF
       runHook postInstall
     '';
 
-    # autoPatchelf a veces falla con JARs o SOs opcionales; ignorar los no críticos
     autoPatchelfIgnoreMissingDeps = true;
 
     meta = with lib; {

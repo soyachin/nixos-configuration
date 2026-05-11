@@ -1,11 +1,13 @@
 {
   imports = [
     ./core
-    ./desktop
     ./filesystem
     ./hardware
     ./kernel
+    ./networking
+    ./packages
     ./programs
     ./services
+    ./session
   ];
 }

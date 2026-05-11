@@ -1,7 +1,6 @@
 { pkgs, unstable, lib, ... }:
 
 let
-  # Definimos el entorno de R como una variable que podamos reusar
   my-r-env = unstable.rWrapper.override {
     packages = with unstable.rPackages; [
       dplyr readr janitor ggplot2 jsonlite scales GGally 
@@ -28,8 +27,8 @@ let
 in
 {
   environment.systemPackages = [
-    positron-custom  # El IDE envuelto
-    my-r-env         # <--- ESTO hará que 'which R' funcione en tu terminal
-    unstable.pandoc  # También útil tenerlo a mano
+    positron-custom
+    my-r-env
+    unstable.pandoc
   ];
 }

@@ -8,7 +8,6 @@
   imports = [
     ./hardware-configuration.nix
     ./modules
-    ./programs
   ];
 
   networking.hostName = "asus";

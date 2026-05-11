@@ -4,6 +4,7 @@
     ./filesystem
     ./hardware
     ./kernel
+    ./networking
     ./services
     ./programs
   ];

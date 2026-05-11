@@ -1,10 +1,5 @@
-{ pkgs, ... }: {
-  environment.variables = {
-    XCURSOR_THEME = "macOS";
-    XCURSOR_SIZE = "24";
-    HYPRCURSOR_SIZE = "24";
-  };
-
+{ pkgs, ... }:
+{
   environment.sessionVariables = {
     SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
     XDG_CURRENT_DESKTOP = "niri";

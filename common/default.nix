@@ -23,31 +23,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # ---------------------------------------------------------------------
-  # 2. RED
-  # ---------------------------------------------------------------------
-
-  networking = {
-    networkmanager.enable = true;
-    firewall.enable = true;
-    nameservers = [
-      "100.100.100.100"
-      "1.1.1.1"
-    ];
-  };
-
-  services.tailscale.enable = true;
-  services.tailscale.extraUpFlags = [ "--accept-dns=false" ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      tailscale = prev.tailscale.overrideAttrs (_: {
-        doCheck = false;
-      });
-    })
-  ];
-
-  # ---------------------------------------------------------------------
-  # 3. LOCALIZACIÓN & HORA
+  # 2. LOCALIZACIÓN & HORA
   # ---------------------------------------------------------------------
 
   time.timeZone = "America/Lima";
