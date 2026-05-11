@@ -1,5 +1,5 @@
 let
-  keys = import ../../../../common/ssh-keys.nix;
+  keys = import ../../common/ssh-keys.nix;
 in
 { pkgs, ... }:
 {
@@ -19,9 +19,9 @@ in
   };
 
   users.users.deploy = {
-    isSystemUser = true; # CI/CD no necesita ser "usuario normal"
+    isSystemUser = true;
     group = "deploy";
-    shell = pkgs.bash; # suficiente para rsync/ssh, sin completion/historial
+    shell = pkgs.bash;
     openssh.authorizedKeys.keys = [ keys.githubActions ];
   };
   users.groups.deploy = { };

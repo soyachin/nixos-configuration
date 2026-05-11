@@ -31,6 +31,10 @@
     nautilus
     loupe
 
+    # Themes & Icons (needed by HM GTK config)
+    adwaita-icon-theme
+    gruvbox-dark-gtk
+
     # Creative
     bitwig-studio
     krita

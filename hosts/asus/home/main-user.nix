@@ -1,22 +1,10 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{ pkgs, ... }: {
   home.username = "hojas";
   home.homeDirectory = "/home/hojas";
   home.stateVersion = "25.05";
 
   imports = [
     ./modules
-    inputs.sops-nix.homeManagerModules.sops
-  ];
-
-  home.packages = with pkgs; [
-    spotify
-    gruvbox-gtk-theme 
-    adwaita-icon-theme
-    nerd-fonts.comic-shanns-mono
   ];
 
   programs.direnv = {

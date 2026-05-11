@@ -4,5 +4,6 @@
     mpv
     vlc
     rmpc
+    spotify
   ];
 }

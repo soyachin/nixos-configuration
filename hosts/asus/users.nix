@@ -1,5 +1,5 @@
 let
-  keys = import ../../../../common/ssh-keys.nix;
+  keys = import ../../common/ssh-keys.nix;
 in
 { pkgs, ... }: {
   users.users.hojas = {

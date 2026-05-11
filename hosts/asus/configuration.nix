@@ -7,6 +7,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./users.nix
     ./modules
   ];
 
@@ -25,7 +26,6 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bak";
-    sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };
 
   # --- GAMING & MOD TOOLS ---
