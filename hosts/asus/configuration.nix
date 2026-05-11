@@ -29,13 +29,6 @@
     sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };
 
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 16 * 1024;
-    }
-  ];
-
   # --- GAMING & MOD TOOLS ---
   environment.systemPackages = [
     (pkgs.callPackage ./ryubing.nix {})

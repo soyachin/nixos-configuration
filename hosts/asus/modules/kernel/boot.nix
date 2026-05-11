@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{ config, pkgs, ... }: {
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
@@ -22,7 +18,5 @@
     r8168
   ];
 
-  hardware.enableRedistributableFirmware = true;
-
-  boot.blacklistedKernelModules =  ["r8169"];
+  boot.blacklistedKernelModules = [ "r8169" ];
 }

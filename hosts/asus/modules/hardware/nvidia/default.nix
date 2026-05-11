@@ -1,38 +1,7 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  # Configuración de NVIDIA (dedicada
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    nvidiaSettings = true;
-    powerManagement.finegrained = true;
+{ ... }: {
+  imports = [
+    ../../../../modules/hardware/nvidia
+  ];
 
-    open = false;
-
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-    prime = {
-      nvidiaBusId = "PCI:1:0:0";
-      amdgpuBusId = "PCI:6:0:0"; 
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-    };  
-  };
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-
-    extraPackages = with pkgs; [
-      libva-vdpau-driver
-      libvdpau-va-gl
-    ];
-  };
-  programs.gamemode.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  platform.hardware.nvidia.enable = true;
 }

@@ -1,5 +1,5 @@
 { ... }: {
   imports = [
-    ../../../modules/hardware
+    ./sysctl.nix
   ];
 }
