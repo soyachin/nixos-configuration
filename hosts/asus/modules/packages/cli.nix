@@ -4,6 +4,5 @@
     xdg-utils
     scrcpy
     quickemu
-    ntfs3g
   ];
 }

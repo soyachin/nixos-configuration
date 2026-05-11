@@ -1,6 +1,5 @@
 { config, pkgs, lib, isHeadless ? false, ... }:
 let
-  # Usar los plugins que ya vienen en nixpkgs
   plugins = {
     smart-enter = pkgs.yaziPlugins.smart-enter;
     toggle-pane = pkgs.yaziPlugins.toggle-pane;
@@ -15,7 +14,6 @@ let
       sha256 = "sha256-s2BifzWr/uewDI6Bowy7J+5LrID6I6OFEA5BrlOPNcM=";
     };
   };
-
 in {
   environment.systemPackages = [ pkgs.yazi ]
     ++ lib.optionals (!isHeadless) [ pkgs.dragon-drop pkgs.xdg-utils ];
@@ -136,7 +134,6 @@ in {
       require("git"):setup()
     '';
 
-    # Plugins
     "xdg/yazi/plugins/smart-enter.yazi".source = plugins.smart-enter;
     "xdg/yazi/plugins/toggle-pane.yazi".source = plugins.toggle-pane;
     "xdg/yazi/plugins/restore.yazi".source = plugins.restore;

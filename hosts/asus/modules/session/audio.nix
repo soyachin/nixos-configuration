@@ -1,10 +1,7 @@
 { pkgs, ... }:
 {
-  boot.supportedFilesystems = [ "ntfs" ];
-  services.printing.enable = true;
-  services.udisks2.enable = true;
-  services.blueman.enable = true;
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa = {
@@ -28,9 +25,7 @@
       };
     };
   };
-  hardware.bluetooth = {
-    enable = true;
-  };
+
   systemd.user.services.mic-volume = {
     description = "Keep mic at 20%";
     wantedBy = [ "default.target" ];

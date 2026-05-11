@@ -1,9 +1,24 @@
 { ... }: {
-  # Configure console keymap
   console.keyMap = "la-latin1";
 
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "latam";
+  };
+
+  time.timeZone = "America/Lima";
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "es_PE.UTF-8";
+      LC_IDENTIFICATION = "es_PE.UTF-8";
+      LC_MEASUREMENT = "es_PE.UTF-8";
+      LC_MONETARY = "es_PE.UTF-8";
+      LC_NAME = "es_PE.UTF-8";
+      LC_NUMERIC = "es_PE.UTF-8";
+      LC_PAPER = "es_PE.UTF-8";
+      LC_TELEPHONE = "es_PE.UTF-8";
+      LC_TIME = "es_PE.UTF-8";
+    };
   };
 }

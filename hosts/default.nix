@@ -13,14 +13,12 @@ let
       specialArgs = { inherit inputs unstable hostname isHeadless; };
       modules = [
         { nixpkgs.hostPlatform = system; }
-        ../common/default.nix
         ./${hostname}/default.nix
         inputs.sops-nix.nixosModules.sops
       ] ++ extraModules;
     };
 
   desktopModules = [
-    ../common/desktop.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.noctalia.nixosModules.default
     inputs.aagl.nixosModules.default

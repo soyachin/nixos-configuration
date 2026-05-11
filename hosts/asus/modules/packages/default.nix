@@ -1,6 +1,6 @@
-{ ... }:
-{
+{ ... }: {
   imports = [
+    ../../../../modules/packages
     ./cli.nix
     ./gui.nix
     ./dev.nix

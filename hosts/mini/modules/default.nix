@@ -5,7 +5,7 @@
     ./hardware
     ./kernel
     ./networking
+    ./packages
     ./services
-    ./programs
   ];
 }

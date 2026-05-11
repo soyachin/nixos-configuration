@@ -1,5 +1,5 @@
 let
-  keys = import ../../common/ssh-keys.nix;
+  keys = import ../../modules/core/ssh-keys.nix;
 in
 { pkgs, ... }:
 {
