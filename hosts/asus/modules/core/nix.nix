@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   nix.settings = {
     substituters = [
       "https://cache.nixos.org"
@@ -10,6 +10,6 @@
     ];
     max-jobs = 1;
     cores = 8;
+    trusted-users = [ "root" "hojas" ];
   };
-  nixpkgs.config.allowUnfree = true;
 }

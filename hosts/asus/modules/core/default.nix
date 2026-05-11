@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
+    ../../../../modules/core
     ./nix.nix
-    ./ssh.nix
-    ./localization.nix
+    ./ssh-allowusers.nix
   ];
 }
