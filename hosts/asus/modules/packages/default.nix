@@ -7,6 +7,7 @@
     ./fonts.nix
     ./media.nix
     ./wayland.nix
+    ./steam.nix
     ./custom
   ];
 }

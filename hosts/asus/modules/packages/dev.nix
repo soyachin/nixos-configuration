@@ -1,5 +1,17 @@
 { pkgs, ... }:
 {
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+    openssl
+    libffi
+    portaudio
+    alsa-lib
+    gcc
+    wl-clipboard
+  ];
+
   environment.systemPackages = with pkgs; [
     nil
     alejandra

@@ -6,7 +6,6 @@
     ./kernel
     ./networking
     ./packages
-    ./programs
     ./services
     ./session
   ];

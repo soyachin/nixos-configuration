@@ -2,7 +2,6 @@
 
 let
   auto-f-skip = pkgs.writeShellScriptBin "auto-f-skip" ''
-    # Forzamos la ruta del socket que usaremos en el servicio manual
     export YDOTOOL_SOCKET="/run/ydotoold/socket"
     STATE_FILE="/run/user/$(id -u)/auto_f_skip.pid"
 
@@ -28,18 +27,15 @@ in
 {
   environment.systemPackages = [ auto-f-skip pkgs.ydotool pkgs.bc pkgs.libnotify ];
 
-  # CREAMOS EL SERVICIO MANUALMENTE
   systemd.services.ydotoold = {
     description = "ydotool deamon para emulación de teclado";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.ydotool}/bin/ydotoold --socket-path=/run/ydotoold/socket --socket-own=1000:1000";
       RuntimeDirectory = "ydotoold";
-      # Asegura que el dispositivo uinput tenga permisos
       ExecStartPre = "${pkgs.bash}/bin/bash -c 'chmod 666 /dev/uinput || true'";
     };
   };
 
-  # Permisos para el usuario (ajusta 'hojas' si es necesario)
   users.users.hojas.extraGroups = [ "ydotool" "input" ];
 }
