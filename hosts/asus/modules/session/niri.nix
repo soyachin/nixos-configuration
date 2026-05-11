@@ -8,7 +8,6 @@
 
   services.displayManager.sddm.enable = lib.mkForce false;
 
-  services.noctalia-shell.enable = true;
 
   security.pam.services.swaylock = {};
 

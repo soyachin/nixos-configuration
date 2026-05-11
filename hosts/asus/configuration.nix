@@ -31,7 +31,14 @@
   # --- GAMING & MOD TOOLS ---
   environment.systemPackages = [
     (pkgs.callPackage ./ryubing.nix {})
-    inputs.tomotexture.packages.${pkgs.system}.default
+    inputs.tomotexture.packages.${pkgs.stdenv.hostPlatform.system}.default
+    (pkgs.makeDesktopItem {
+      name = "TomoTexture";
+      exec = "TomoTexture";
+      desktopName = "TomoTexture";
+      categories = [ "Utility" ];
+    })
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   system.stateVersion = "24.11";
@@ -43,7 +50,7 @@
     services.greetd.enable = lib.mkForce false;
     programs.niri.enable = lib.mkForce false;
     services.xserver.enable = lib.mkForce false;
-    services.noctalia-shell.enable = lib.mkForce false;
+
 
     # Deshabilitar Launchers y Steam para liberar recursos
     programs.anime-game-launcher.enable = lib.mkForce false;

@@ -13,18 +13,19 @@ pkgs.appimageTools.wrapType2 rec {
   appimageContents = pkgs.appimageTools.extractType2 { inherit pname version src; };
 
   extraInstallCommands = ''
-    if [ -e "${appimageContents}/usr/share/applications/${pname}.desktop" ]; then
-      install -D -m 644 "${appimageContents}/usr/share/applications/${pname}.desktop" "$out/share/applications/${pname}.desktop"
-    elif [ -e "${appimageContents}/${pname}.desktop" ]; then
-      install -D -m 644 "${appimageContents}/${pname}.desktop" "$out/share/applications/${pname}.desktop"
+    # Buscar cualquier .desktop en el AppImage extraído
+    desktopFile=$(find ${appimageContents} -name "*.desktop" -print -quit)
+    if [ -n "$desktopFile" ]; then
+      install -D -m 644 "$desktopFile" "$out/share/applications/${pname}.desktop"
     fi
 
-    if [ -e "${appimageContents}/usr/share/icons/hicolor/256x256/apps/${pname}.png" ]; then
-      install -D -m 644 "${appimageContents}/usr/share/icons/hicolor/256x256/apps/${pname}.png" "$out/share/icons/hicolor/256x256/apps/${pname}.png"
-    elif [ -e "${appimageContents}/${pname}.png" ]; then
-      install -D -m 644 "${appimageContents}/${pname}.png" "$out/share/icons/hicolor/256x256/apps/${pname}.png"
+    # Buscar cualquier icono .png o .svg
+    iconFile=$(find ${appimageContents} -name "*.png" -o -name "*.svg" | head -n1)
+    if [ -n "$iconFile" ]; then
+      install -D -m 644 "$iconFile" "$out/share/icons/hicolor/256x256/apps/${pname}.png"
     fi
 
+    # Asegurar que el Exec apunte al binario correcto
     if [ -e "$out/share/applications/${pname}.desktop" ]; then
       if grep -q '^Exec=' "$out/share/applications/${pname}.desktop"; then
         sed -i "s|^Exec=.*|Exec=${pname} %U|" "$out/share/applications/${pname}.desktop"
