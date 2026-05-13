@@ -120,8 +120,7 @@ spawn-at-startup "swaybg" "--image" "/home/hojas/Pictures/Waterhouse_Echo_and_Na
 
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri" "GTK_THEME=Gruvbox-Dark"
 //spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland GTK_THEME=Gruvbox-Dark"
-
-spawn-at-startup "systemctl" "--user" "restart" "noctalia-shell.service"
+spawn-at-startup "bash" "-c" "noctalia-shell > /tmp/noctalia.log 2>&1"
 
 window-rule {
     // This app-id regular expression will work for both:
@@ -303,7 +302,7 @@ Mod+S {
     Mod+Period { expel-window-from-column; }
 
     Mod+R { switch-preset-column-width; }
-    Mod+Shift+R { spawn "systemctl" "--user" "restart" "noctalia-shell"; }
+    Mod+Shift+R { spawn "sh" "-c" "killall noctalia-shell; noctalia-shell"; }
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
