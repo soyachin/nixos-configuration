@@ -1,0 +1,21 @@
+{ config, ... }:
+{
+  sops.secrets."cf_access_aud" = { owner = "urbania"; };
+  sops.templates."urbania-backend-env" = {
+    content = ''CF_ACCESS_AUD=${config.sops.placeholder."cf_access_aud"}'';
+    owner = "urbania";
+  };
+  services.urbania = {
+    enable = true;
+    backend = {
+      cfAccessTeam = "sillao";
+      corsOrigins = [
+        "http://localhost:5173"
+        "http://localhost:4173"
+        "https://map.vendeconcarlos.pe"
+      ];
+      environmentFile = config.sops.templates."urbania-backend-env".path;
+    };
+  };
+  systemd.services.urbania-backend.after = [ "sops-nix.service" ];
+}

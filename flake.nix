@@ -19,9 +19,8 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
     aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-25.11";
-    aagl.inputs.nixpkgs.follows =
-      "nixpkgs"; # Name of nixpkgs input you want to use
-    
+    aagl.inputs.nixpkgs.follows = "nixpkgs"; # Name of nixpkgs input you want to use
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     zen-browser = {
@@ -33,6 +32,11 @@
       url = "github:soyachin/TomoTexture-SteamOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    urbania = {
+      url = "git+ssh://git@github.com/soyachin/urbania-py?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -43,7 +47,11 @@
       flake.nixosConfigurations = import ./hosts { inherit inputs; };
 
       perSystem =
-        { pkgs, system, ... }:
+        {
+          pkgs,
+          system,
+          ...
+        }:
         let
           unstable = import inputs.nixpkgs-unstable {
             inherit system;

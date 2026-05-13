@@ -365,6 +365,7 @@
         "quickshell": "quickshell",
         "sops-nix": "sops-nix",
         "tomotexture": "tomotexture",
+        "urbania": "urbania",
         "zen-browser": "zen-browser"
       }
     },
@@ -477,6 +478,27 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "type": "github"
+      }
+    },
+    "urbania": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778712076,
+        "narHash": "sha256-8z3osXeyfOPbI2Rkjs0/DZZDIa/3Il2dLVqux87wvtI=",
+        "ref": "main",
+        "rev": "6d1e788ece72ae92be4eaebfb1287363166a57c0",
+        "revCount": 125,
+        "type": "git",
+        "url": "ssh://git@github.com/soyachin/urbania-py"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/soyachin/urbania-py"
       }
     },
     "zen-browser": {
