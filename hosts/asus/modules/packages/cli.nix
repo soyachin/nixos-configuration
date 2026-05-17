@@ -4,5 +4,6 @@
     xdg-utils
     scrcpy
     quickemu
-  ];
+    gh
+];
 }

@@ -11,4 +11,17 @@
     enable = true;
     nix-direnv.enable = true;
   };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
+  home.packages = with pkgs; [
+    git
+    ripgrep
+    fd
+    lazygit
+    nodejs
+  ];
 }
