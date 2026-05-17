@@ -18,9 +18,9 @@
     extra-substituters = [ "https://noctalia.cachix.org" ];
     extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
-  programs.anime-game-launcher.enable = true;
-  programs.anime-games-launcher.enable = true;
-  programs.honkers-railway-launcher.enable = true;
+  # programs.anime-game-launcher.enable = true;
+  # programs.anime-games-launcher.enable = true;
+  # programs.honkers-railway-launcher.enable = true;
 
   # --- HOME MANAGER ---
   home-manager = {
