@@ -49,6 +49,12 @@
                   check-url = "http://127.0.0.1:8000/health";
                   icon = "si:fastapi";
                 }
+                {
+                  title = "Vaultwarden";
+                  url = "https://vault.${domain}";
+                  check-url = "http://127.0.0.1:8222";
+                  icon = "si:bitwarden";
+                }
               ];
             }
             {
