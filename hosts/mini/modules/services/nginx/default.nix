@@ -61,6 +61,13 @@
         };
       };
 
+      "vault.nyarkovchain.site" = {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8222";
+          proxyWebsockets = true;
+        };
+      };
+
       "netdata.nyarkovchain.site" = {
         locations."/" = {
           proxyPass = "http://127.0.0.1:19999";

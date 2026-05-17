@@ -8,5 +8,6 @@
     ./urbania.nix
     ./netdata
     ./vector
+    ./vaultwarden.nix
   ];
 }
