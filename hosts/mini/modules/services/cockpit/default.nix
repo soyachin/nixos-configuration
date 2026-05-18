@@ -1,7 +1,7 @@
 # hosts/mini/modules/services/cockpit/default.nix
 # Cockpit para observabilidad web de servicios y sistema
 # Reemplaza netdata (que requeria compilacion local por withCloudUi)
-{ ... }:
+{ lib, ... }:
 {
   services.cockpit = {
     enable = true;
@@ -9,7 +9,7 @@
     settings = {
       WebService = {
         AllowUnencrypted = true; # nginx maneja TLS via Cloudflare
-        Origins = "https://netdata.nyarkovchain.site";
+        Origins = lib.mkForce "https://netdata.nyarkovchain.site";
       };
     };
   };
