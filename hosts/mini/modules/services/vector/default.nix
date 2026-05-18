@@ -57,6 +57,9 @@ in
     "d ${logDir} 0775 urbania urbania -"
   ];
 
-  # Vector usa DynamicUser, se le asigna grupo urbania para escribir logs
-  systemd.services.vector.serviceConfig.SupplementaryGroups = [ "urbania" ];
+  # Vector usa DynamicUser: necesita grupo urbania + permiso explícito al path
+  systemd.services.vector.serviceConfig = {
+    SupplementaryGroups = [ "urbania" ];
+    ReadWritePaths = [ logDir ];
+  };
 }
