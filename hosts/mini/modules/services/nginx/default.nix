@@ -70,7 +70,7 @@
 
       "netdata.nyarkovchain.site" = {
         locations."/" = {
-          proxyPass = "http://127.0.0.1:19999";
+          proxyPass = "http://127.0.0.1:9090";
           proxyWebsockets = true;
 
           extraConfig = ''
@@ -78,6 +78,13 @@
             proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host              $host;
+
+            # Cockpit requiere estos headers para funcionar detras de proxy
+            proxy_set_header X-Forwarded-Host  $host;
+            proxy_set_header X-Forwarded-Port  443;
+
+            proxy_buffering off;
+            gzip off;
           '';
         };
       };

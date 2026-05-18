@@ -55,6 +55,12 @@
                   check-url = "http://127.0.0.1:8222";
                   icon = "si:bitwarden";
                 }
+                {
+                  title = "Cockpit";
+                  url = "https://netdata.${domain}";
+                  check-url = "http://127.0.0.1:9090";
+                  icon = "si:cockpit";
+                }
               ];
             }
             {

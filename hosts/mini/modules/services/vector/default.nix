@@ -1,20 +1,21 @@
 # hosts/mini/modules/services/vector/default.nix
-# Opción C: Vector agente ligero para logs estructurados desde journald
+# Vector agente ligero para logs estructurados desde journald
 # Lee journal de systemd de los servicios urbania y escribe NDJSON
 {
   config,
-  pkgs,
-  lib,
   ...
 }:
 let
   cfg = config.services.urbania;
+  logDir = "${cfg.dataDir}/logs";
 in
 {
   services.vector = {
     enable = true;
     journaldAccess = true;
     settings = {
+      data_dir = "/var/lib/vector";
+
       sources = {
         urbania_journal = {
           type = "journald";
@@ -43,24 +44,20 @@ in
         urbania_ndjson = {
           type = "file";
           inputs = [ "urbania_parse" ];
-          path = "${cfg.dataDir}/logs/urbania.json";
+          path = "${logDir}/urbania-%Y-%m-%d.json";
           encoding = {
             codec = "json";
           };
         };
-
-        # Opcional: también escribir a stdout para debugging
-        # urbania_console = {
-        #   type = "console";
-        #   inputs = [ "urbania_parse" ];
-        #   encoding = { codec = "json"; };
-        # };
       };
     };
   };
 
-  # Asegurar que el directorio de logs exista
+  # Directorio de logs con permisos para vector y urbania
   systemd.tmpfiles.rules = [
-    "d ${cfg.dataDir}/logs 0750 urbania urbania -"
+    "d ${logDir} 0770 vector urbania -"
   ];
+
+  # Vector necesita pertenecer al grupo urbania para escribir en su directorio
+  users.users.vector.extraGroups = [ "urbania" ];
 }
