@@ -34,7 +34,7 @@
     };
 
     digital-solutions = {
-      url = "github:soyachin/digital-solutions";
+      url = "git+ssh://git@github.com/soyachin/digital-solutions?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.sops-nix.follows = "sops-nix";
     };
