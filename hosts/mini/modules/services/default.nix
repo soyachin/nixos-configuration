@@ -6,7 +6,7 @@
     ./glance
     inputs.urbania.nixosModules.urbania
     ./urbania.nix
-    ./netdata
+    ./cockpit
     ./vector
     ./vaultwarden.nix
   ];

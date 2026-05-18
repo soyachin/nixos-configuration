@@ -1,20 +1,21 @@
 # hosts/mini/modules/services/vector/default.nix
-# Opción C: Vector agente ligero para logs estructurados desde journald
+# Vector agente ligero para logs estructurados desde journald
 # Lee journal de systemd de los servicios urbania y escribe NDJSON
 {
   config,
-  pkgs,
-  lib,
   ...
 }:
 let
   cfg = config.services.urbania;
+  logDir = "${cfg.dataDir}/logs";
 in
 {
   services.vector = {
     enable = true;
     journaldAccess = true;
     settings = {
+      data_dir = "/var/lib/vector";
+
       sources = {
         urbania_journal = {
           type = "journald";
@@ -32,9 +33,17 @@ in
           type = "remap";
           inputs = [ "urbania_journal" ];
           source = ''
-            .timestamp = .timestamp
-            .service = .SYSLOG_IDENTIFIER ?? "urbania"
-            .message = .message ?? ""
+            ts = .timestamp
+            svc = to_string!(.SYSLOG_IDENTIFIER)
+            unit = to_string!(._SYSTEMD_UNIT)
+            msg = to_string!(.message)
+            pri = to_string!(.PRIORITY)
+            . = {}
+            .timestamp = ts
+            .service = svc
+            .unit = unit
+            .message = msg
+            .priority = pri
           '';
         };
       };
@@ -43,24 +52,23 @@ in
         urbania_ndjson = {
           type = "file";
           inputs = [ "urbania_parse" ];
-          path = "${cfg.dataDir}/logs/urbania.json";
+          path = "${logDir}/urbania-%Y-%m-%d.json";
           encoding = {
             codec = "json";
           };
         };
-
-        # Opcional: también escribir a stdout para debugging
-        # urbania_console = {
-        #   type = "console";
-        #   inputs = [ "urbania_parse" ];
-        #   encoding = { codec = "json"; };
-        # };
       };
     };
   };
 
-  # Asegurar que el directorio de logs exista
+  # Directorio de logs accesible para vector (via systemd)
   systemd.tmpfiles.rules = [
-    "d ${cfg.dataDir}/logs 0750 urbania urbania -"
+    "d ${logDir} 0775 urbania urbania -"
   ];
+
+  # Vector usa DynamicUser: necesita grupo urbania + permiso explícito al path
+  systemd.services.vector.serviceConfig = {
+    SupplementaryGroups = [ "urbania" ];
+    ReadWritePaths = [ logDir ];
+  };
 }
