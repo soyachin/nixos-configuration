@@ -22,7 +22,7 @@
 
       "start.nyarkovchain.site" = {
         locations."/" = {
-          proxyPass = "http://127.0.0.1:5678";
+          proxyPass = "http://127.0.0.1:5679";
           proxyWebsockets = true;
         };
       };

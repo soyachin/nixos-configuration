@@ -5,7 +5,7 @@
     settings = {
       server = {
         proxied = true;
-        port = 5678;
+        port = 5679;
         host = "127.0.0.1";
         agent.url = "http://localhost:27973";
       };
@@ -60,6 +60,30 @@
                   url = "https://netdata.${domain}";
                   check-url = "http://127.0.0.1:9090";
                   icon = "si:cockpit";
+                }
+                {
+                  title = "Odoo";
+                  url = "https://erp.${domain}";
+                  check-url = "http://127.0.0.1:8069";
+                  icon = "si:odoo";
+                }
+                {
+                  title = "n8n";
+                  url = "https://n8n.${domain}";
+                  check-url = "http://127.0.0.1:5678";
+                  icon = "si:n8n";
+                }
+                {
+                  title = "Evolution API";
+                  url = "https://wa.${domain}";
+                  check-url = "http://127.0.0.1:8080";
+                  icon = "si:whatsapp";
+                }
+                {
+                  title = "Postiz";
+                  url = "https://social.${domain}";
+                  check-url = "http://127.0.0.1:5000";
+                  icon = "si:buffer";
                 }
               ];
             }
