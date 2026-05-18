@@ -33,5 +33,8 @@ in
   mini = mkSystem {
     hostname = "mini";
     isHeadless = true;
+    extraModules = [
+      inputs.digital-solutions.nixosModules.default
+    ];
   };
 }
