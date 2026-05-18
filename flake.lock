@@ -23,6 +23,30 @@
         "type": "github"
       }
     },
+    "digital-solutions": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "sops-nix": [
+          "sops-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779071912,
+        "narHash": "sha256-lFSAoHAQTNtLRGEVeHLmMWZThYwukyCuNdl9DVV/WfE=",
+        "ref": "main",
+        "rev": "1f5a4f2145c20687fdc436ed5491d6692184d903",
+        "revCount": 6,
+        "type": "git",
+        "url": "ssh://git@github.com/soyachin/digital-solutions"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/soyachin/digital-solutions"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -374,6 +398,7 @@
     "root": {
       "inputs": {
         "aagl": "aagl",
+        "digital-solutions": "digital-solutions",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "nix-gaming": "nix-gaming",
