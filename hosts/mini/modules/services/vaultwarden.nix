@@ -7,8 +7,8 @@
     dbBackend = "sqlite";
     config = {
       DOMAIN = "https://vault.nyarkovchain.site";
-      SIGNUPS_ALLOWED = false;
-      INVITATIONS_ALLOWED = false;
+      SIGNUPS_ALLOWED = true;
+      INVITATIONS_ALLOWED = true;
       SHOW_PASSWORD_HINT = false;
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = 8222;
