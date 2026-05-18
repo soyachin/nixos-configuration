@@ -33,9 +33,8 @@ in
           type = "remap";
           inputs = [ "urbania_journal" ];
           source = ''
-            .timestamp = .timestamp
-            .service = to_string(.SYSLOG_IDENTIFIER) || "urbania"
-            .message = to_string(.message) || ""
+            .service = to_string!(.SYSLOG_IDENTIFIER)
+            .message = to_string!(.message)
           '';
         };
       };
