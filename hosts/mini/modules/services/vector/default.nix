@@ -53,11 +53,11 @@ in
     };
   };
 
-  # Directorio de logs con permisos para vector y urbania
+  # Directorio de logs accesible para vector (via systemd)
   systemd.tmpfiles.rules = [
-    "d ${logDir} 0770 vector urbania -"
+    "d ${logDir} 0775 urbania urbania -"
   ];
 
-  # Vector necesita pertenecer al grupo urbania para escribir en su directorio
-  users.users.vector.extraGroups = [ "urbania" ];
+  # Vector usa DynamicUser, se le asigna grupo urbania para escribir logs
+  systemd.services.vector.serviceConfig.SupplementaryGroups = [ "urbania" ];
 }
