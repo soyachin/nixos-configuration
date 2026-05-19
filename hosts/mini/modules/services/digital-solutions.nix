@@ -63,6 +63,8 @@ in
     enable = true;
     inherit domain;
     acmeEmail = "miranda.salazar@utec.edu.pe";
+    # openFirewall = false (default) — mini usa Cloudflare Tunnel,
+    # no necesita exponer 80/443 al mundo.
 
     odoo = {
       enable = true;

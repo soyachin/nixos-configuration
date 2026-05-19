@@ -6,6 +6,7 @@
     ./kernel
     ./networking
     ./packages
+    ./security
     ./services
   ];
 }
