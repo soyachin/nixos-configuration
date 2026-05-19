@@ -2,6 +2,7 @@
 # Resource limits por servicio para evitar que un servicio comprometido
 # o bajo ataque consuma todos los recursos del servidor.
 { ... }: {
+  # --- Servicios base ---
   systemd.services.jellyfin.serviceConfig = {
     MemoryMax = "2G";
     MemoryHigh = "1536M";
@@ -37,5 +38,45 @@
     MemoryMax = "256M";
     CPUQuota = "50%";
     TasksMax = 32;
+  };
+
+  # --- digital-solutions (Odoo, n8n, containers) ---
+  systemd.services.odoo.serviceConfig = {
+    MemoryMax = "1G";
+    MemoryHigh = "768M";
+    CPUQuota = "150%";
+    TasksMax = 64;
+  };
+
+  systemd.services.n8n.serviceConfig = {
+    MemoryMax = "512M";
+    MemoryHigh = "384M";
+    CPUQuota = "100%";
+    TasksMax = 64;
+  };
+
+  systemd.services."podman-evolution-api".serviceConfig = {
+    MemoryMax = "512M";
+    CPUQuota = "100%";
+    TasksMax = 64;
+  };
+
+  systemd.services."podman-mongodb".serviceConfig = {
+    MemoryMax = "512M";
+    CPUQuota = "100%";
+    TasksMax = 64;
+  };
+
+  systemd.services."podman-postiz".serviceConfig = {
+    MemoryMax = "512M";
+    CPUQuota = "100%";
+    TasksMax = 64;
+  };
+
+  # --- urbania ---
+  systemd.services.urbania-backend.serviceConfig = {
+    MemoryMax = "512M";
+    CPUQuota = "150%";
+    TasksMax = 64;
   };
 }
