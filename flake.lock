@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779071912,
-        "narHash": "sha256-lFSAoHAQTNtLRGEVeHLmMWZThYwukyCuNdl9DVV/WfE=",
+        "lastModified": 1779075143,
+        "narHash": "sha256-eJIte4V14qcl0SWxmKyyCLTEYjlo488lNN+on06xIrU=",
         "ref": "main",
-        "rev": "1f5a4f2145c20687fdc436ed5491d6692184d903",
-        "revCount": 6,
+        "rev": "b3267e1823bc106c40bdd90567f9e4885800d7b8",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://git@github.com/soyachin/digital-solutions"
       },

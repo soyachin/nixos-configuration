@@ -1,19 +1,27 @@
 # hosts/mini/modules/services/digital-solutions.nix
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   domain = "nyarkovchain.site";
 in
 {
+  nixpkgs.config.permittedInsecurePackages = [
+    "python3.12-pypdf2-3.0.1"
+  ];
+
   # --- sops secrets ---
-  sops.secrets."stack/odoo/db_password" = {};
-  sops.secrets."stack/odoo/smtp_user" = {};
-  sops.secrets."stack/odoo/smtp_password" = {};
-  sops.secrets."stack/n8n/db_password" = {};
-  sops.secrets."stack/n8n/encryption_key" = {};
-  sops.secrets."stack/evolution/api_key" = {};
-  sops.secrets."stack/evolution/mongo_password" = {};
-  sops.secrets."stack/postiz/db_password" = {};
-  sops.secrets."stack/postiz/secret" = {};
+  sops.secrets."stack/odoo/db_password" = { };
+  sops.secrets."stack/odoo/smtp_user" = { };
+  sops.secrets."stack/odoo/smtp_password" = { };
+  sops.secrets."stack/n8n/db_password" = { };
+  sops.secrets."stack/n8n/encryption_key" = { };
+  sops.secrets."stack/evolution/api_key" = { };
+  sops.secrets."stack/evolution/mongo_password" = { };
+  sops.secrets."stack/postiz/db_password" = { };
+  sops.secrets."stack/postiz/secret" = { };
 
   # --- sops templates (environment files) ---
   sops.templates."stack-odoo-env" = {
@@ -30,7 +38,6 @@ in
       DB_POSTGRESDB_PASSWORD=${config.sops.placeholder."stack/n8n/db_password"}
       N8N_ENCRYPTION_KEY=${config.sops.placeholder."stack/n8n/encryption_key"}
     '';
-    owner = "n8n";
   };
 
   sops.templates."stack-evolution-env" = {
@@ -38,7 +45,9 @@ in
       AUTHENTICATION_API_KEY=${config.sops.placeholder."stack/evolution/api_key"}
       MONGO_INITDB_ROOT_USERNAME=evolution
       MONGO_INITDB_ROOT_PASSWORD=${config.sops.placeholder."stack/evolution/mongo_password"}
-      MONGODB_CONNECTION_URI=mongodb://evolution:${config.sops.placeholder."stack/evolution/mongo_password"}@127.0.0.1:27017/evolution?authSource=admin
+      MONGODB_CONNECTION_URI=mongodb://evolution:${
+        config.sops.placeholder."stack/evolution/mongo_password"
+      }@127.0.0.1:27017/evolution?authSource=admin
     '';
   };
 
