@@ -9,8 +9,6 @@
 
   services.nginx = {
     enable = true;
-    # Nginx corre como grupo urbania para leer archivos del repo
-    group = "urbania";
 
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
