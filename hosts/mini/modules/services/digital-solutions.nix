@@ -60,7 +60,7 @@ in
 
   # --- Stack configuration ---
   services.stack = {
-    enable = true;
+    enable = false;
     inherit domain;
     acmeEmail = "miranda.salazar@utec.edu.pe";
     # openFirewall = false (default) — mini usa Cloudflare Tunnel,
@@ -87,22 +87,22 @@ in
   # --- Override ACME/SSL for Cloudflare Tunnel ---
   # The mini uses Cloudflare Tunnel for SSL termination, so we disable
   # forceSSL and enableACME that the digital-solutions module sets.
-  services.nginx.virtualHosts = {
-    "erp.${domain}" = {
-      forceSSL = lib.mkForce false;
-      enableACME = lib.mkForce false;
-    };
-    "n8n.${domain}" = {
-      forceSSL = lib.mkForce false;
-      enableACME = lib.mkForce false;
-    };
-    "wa.${domain}" = {
-      forceSSL = lib.mkForce false;
-      enableACME = lib.mkForce false;
-    };
-    "social.${domain}" = {
-      forceSSL = lib.mkForce false;
-      enableACME = lib.mkForce false;
-    };
-  };
-}
+#   services.nginx.virtualHosts = {
+#     "erp.${domain}" = {
+#       forceSSL = lib.mkForce false;
+#       enableACME = lib.mkForce false;
+#     };
+#     "n8n.${domain}" = {
+#       forceSSL = lib.mkForce false;
+#       enableACME = lib.mkForce false;
+#     };
+#     "wa.${domain}" = {
+#       forceSSL = lib.mkForce false;
+#       enableACME = lib.mkForce false;
+#     };
+#     "social.${domain}" = {
+#       forceSSL = lib.mkForce false;
+#       enableACME = lib.mkForce false;
+#     };
+#  };
+  }
