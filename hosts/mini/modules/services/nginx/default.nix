@@ -9,8 +9,6 @@
 
   services.nginx = {
     enable = true;
-    # Nginx corre como grupo urbania para leer archivos del repo
-    group = "urbania";
 
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
@@ -75,6 +73,9 @@
             # Timeouts generosos para queries pesadas de DuckDB
             proxy_read_timeout 60s;
             proxy_send_timeout 60s;
+
+            limit_req zone=global_limit burst=30 nodelay;
+            limit_conn global_conn 15;
           '';
         };
       };
