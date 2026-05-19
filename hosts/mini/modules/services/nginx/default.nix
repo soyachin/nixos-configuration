@@ -11,12 +11,33 @@
     enable = true;
     # Nginx corre como grupo urbania para leer archivos del repo
     group = "urbania";
-    
+
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
+    recommendedProxySettings = true;
+
+    # Rate limiting y connection limiting globales
+    appendHttpConfig = ''
+      limit_req_zone $binary_remote_addr zone=global_limit:10m rate=10r/s;
+      limit_conn_zone $binary_remote_addr zone=global_conn:10m;
+
+      # Zona más estricta para endpoints sensibles (login, API)
+      limit_req_zone $binary_remote_addr zone=strict_limit:10m rate=2r/s;
+    '';
+
+    # Body size global restrictivo (override per-vhost si necesario)
+    clientMaxBodySize = "4m";
+
     virtualHosts = {
       "jelly.nyarkovchain.site" = {
         locations."/" = {
           proxyPass = "http://127.0.0.1:8096";
           proxyWebsockets = true;
+          extraConfig = ''
+            limit_req zone=global_limit burst=30 nodelay;
+            limit_conn global_conn 15;
+          '';
         };
       };
 
@@ -24,6 +45,10 @@
         locations."/" = {
           proxyPass = "http://127.0.0.1:5679";
           proxyWebsockets = true;
+          extraConfig = ''
+            limit_req zone=global_limit burst=20 nodelay;
+            limit_conn global_conn 10;
+          '';
         };
       };
 
@@ -65,6 +90,10 @@
         locations."/" = {
           proxyPass = "http://127.0.0.1:8222";
           proxyWebsockets = true;
+          extraConfig = ''
+            limit_req zone=strict_limit burst=5 nodelay;
+            limit_conn global_conn 10;
+          '';
         };
       };
 
@@ -85,6 +114,9 @@
 
             proxy_buffering off;
             gzip off;
+
+            limit_req zone=strict_limit burst=10 nodelay;
+            limit_conn global_conn 5;
           '';
         };
       };
