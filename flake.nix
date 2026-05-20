@@ -33,12 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    digital-solutions = {
-      url = "git+ssh://git@github.com/soyachin/digital-solutions?ref=main";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.sops-nix.follows = "sops-nix";
-    };
-
     urbania = {
       url = "git+ssh://git@github.com/soyachin/urbania-py?ref=main";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -46,6 +40,11 @@
 
     sharemii = {
       url = "path:/home/hojas/coding/nix/ShareMii";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    trama = {
+      url = "github:soyachin/trama";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };

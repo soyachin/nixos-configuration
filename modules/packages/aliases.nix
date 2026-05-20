@@ -20,6 +20,7 @@
     v = "nvim";
     nfu = "nix flake update --flake ~/.config/nixos/#${hostname}";
     ngc = "sudo nix-collect-garbage --delete-old && nix-collect-garbage --delete-old";
+    miniup = "nixos-rebuild switch --target-host aoba@mini --flake .#mini --sudo --ask-sudo-password";
     e = "exit";
     c = "clear";
     tc = "touch";

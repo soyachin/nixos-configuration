@@ -9,6 +9,6 @@
     ./cockpit
     ./vector
     ./vaultwarden.nix
-    ./digital-solutions.nix
+    ./trama.nix
   ];
 }

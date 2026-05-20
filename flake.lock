@@ -23,30 +23,6 @@
         "type": "github"
       }
     },
-    "digital-solutions": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "sops-nix": [
-          "sops-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1779075143,
-        "narHash": "sha256-eJIte4V14qcl0SWxmKyyCLTEYjlo488lNN+on06xIrU=",
-        "ref": "main",
-        "rev": "b3267e1823bc106c40bdd90567f9e4885800d7b8",
-        "revCount": 10,
-        "type": "git",
-        "url": "ssh://git@github.com/soyachin/digital-solutions"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@github.com/soyachin/digital-solutions"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -398,7 +374,6 @@
     "root": {
       "inputs": {
         "aagl": "aagl",
-        "digital-solutions": "digital-solutions",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "nix-gaming": "nix-gaming",
@@ -409,6 +384,7 @@
         "sharemii": "sharemii",
         "sops-nix": "sops-nix",
         "tomotexture": "tomotexture",
+        "trama": "trama",
         "urbania": "urbania",
         "zen-browser": "zen-browser"
       }
@@ -532,6 +508,26 @@
       "original": {
         "owner": "soyachin",
         "repo": "TomoTexture-SteamOS",
+        "type": "github"
+      }
+    },
+    "trama": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779302496,
+        "narHash": "sha256-18PdsLeDvcSCwbxwnBEnfJqYTcBB6g2zGGrZJLF752M=",
+        "owner": "soyachin",
+        "repo": "trama",
+        "rev": "f8bdf8d09f47b819d79f337216c7da7f7a4d8800",
+        "type": "github"
+      },
+      "original": {
+        "owner": "soyachin",
+        "repo": "trama",
         "type": "github"
       }
     },

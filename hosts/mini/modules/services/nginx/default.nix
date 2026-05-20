@@ -121,6 +121,17 @@
           '';
         };
       };
+
+      "api.nyarkovchain.site" = {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8001";
+          proxyWebsockets = true;
+          extraConfig = ''
+            limit_req zone=global_limit burst=20 nodelay;
+            limit_conn global_conn 10;
+          '';
+        };
+      };
     };
   };
 

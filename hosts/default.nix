@@ -34,7 +34,7 @@ in
     hostname = "mini";
     isHeadless = true;
     extraModules = [
-      inputs.digital-solutions.nixosModules.default
+      inputs.trama.nixosModules.default
     ];
   };
 }
