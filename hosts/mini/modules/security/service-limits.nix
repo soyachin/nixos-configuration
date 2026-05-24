@@ -1,7 +1,8 @@
 # hosts/mini/modules/security/service-limits.nix
 # Resource limits por servicio para evitar que un servicio comprometido
 # o bajo ataque consuma todos los recursos del servidor.
-{ ... }: {
+{ ... }:
+{
   # --- Servicios base ---
   systemd.services.jellyfin.serviceConfig = {
     MemoryMax = "2G";
@@ -78,5 +79,10 @@
     MemoryMax = "512M";
     CPUQuota = "150%";
     TasksMax = 64;
+  };
+
+  services.urbania.backend.extraEnvironment = {
+    OPENBLAS_NUM_THREADS = "1";
+    OMP_NUM_THREADS = "1";
   };
 }
