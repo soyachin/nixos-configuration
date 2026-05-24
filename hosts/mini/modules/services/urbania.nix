@@ -5,6 +5,7 @@
     content = ''CF_ACCESS_AUD=${config.sops.placeholder."cf_access_aud"}'';
     owner = "urbania";
   };
+
   services.urbania = {
     enable = true;
     backend = {
@@ -16,6 +17,13 @@
       ];
       environmentFile = config.sops.templates."urbania-backend-env".path;
     };
+    scraper.targets = {
+      operations    = [ "VENTA" ];
+      propertyTypes = [ "DEPARTAMENTO" "CASA" "OFICINA" ];
+      antiquities   = [ "HASTA_50_ANIOS" "MAS_DE_50_ANIOS" ];
+      districts     = [ "San Isidro" "Miraflores" "Magdalena" ];
+    };
   };
+
   systemd.services.urbania-backend.after = [ "sops-nix.service" ];
 }
