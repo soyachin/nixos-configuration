@@ -10,18 +10,18 @@
   xdg.portal = {
     enable = true;
     extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gnome
       pkgs.xdg-desktop-portal-gtk
     ];
 
     config = {
       common = {
         default = [
-          "hyprland"
+          "gnome"
           "gtk"
         ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "" ];
       };
     };
   };
@@ -33,7 +33,7 @@
     };
   };
 
-  systemd.user.services.xdg-desktop-portal-hyprland = {
+  systemd.user.services.xdg-desktop-portal-gnome = {
     environment = {
       GTK_THEME = "Gruvbox-Dark";
     };
