@@ -315,11 +315,11 @@
         "noctalia-qs": "noctalia-qs"
       },
       "locked": {
-        "lastModified": 1779504029,
-        "narHash": "sha256-f8u9DV9Qk8KJh7DVvk4UgUFTN0NDJeFxgrffTSwPkpA=",
+        "lastModified": 1779591140,
+        "narHash": "sha256-G54zkslNueiiYDtg8QbAkPTv0/vfLzdjDsaUljlRQAE=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "b99b7a7f06ff749df9ac43181ff7889ff90c5599",
+        "rev": "052f533186e6ad8e60541760cfe3123f14108c1e",
         "type": "github"
       },
       "original": {
@@ -338,11 +338,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1778983195,
-        "narHash": "sha256-hE3EFK5GoSdbO5WHZ8bZDUVYkofbDLQN/KK25z7IOOI=",
+        "lastModified": 1779588472,
+        "narHash": "sha256-CVonDVo41DqdqS/kNeXFatwEuTltyXcppm9zkVOnrsM=",
         "owner": "noctalia-dev",
         "repo": "noctalia-qs",
-        "rev": "4116b41cdc89e186be7cb8b24a9b6022af95d742",
+        "rev": "70fea8a39a908e395de63024a4dfdb829bff1ffe",
         "type": "github"
       },
       "original": {
@@ -386,6 +386,7 @@
         "tomotexture": "tomotexture",
         "trama": "trama",
         "urbania": "urbania",
+        "urbania-test": "urbania-test",
         "zen-browser": "zen-browser"
       }
     },
@@ -560,16 +561,37 @@
         ]
       },
       "locked": {
-        "lastModified": 1779210777,
-        "narHash": "sha256-XfSovRNEbI0Fn3Qb00KQtNgBYkOGM177e1zEljoHtHo=",
+        "lastModified": 1779592439,
+        "narHash": "sha256-gC2nGLFHmnxBKSV5z9rFpSrWi82Y/TLsKdPJrjYMXUs=",
         "ref": "main",
-        "rev": "e42dbbb5a668f92b477a23856a81ad9ee3d08fbb",
-        "revCount": 135,
+        "rev": "6e5ae8a131e40391a6a5293ea0756f492f421cc4",
+        "revCount": 159,
         "type": "git",
         "url": "ssh://git@github.com/soyachin/urbania-py"
       },
       "original": {
         "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/soyachin/urbania-py"
+      }
+    },
+    "urbania-test": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778981171,
+        "narHash": "sha256-Cf7TVYwdOaMZjU499XubRPUfX6FZtwtGVepLP4njanA=",
+        "ref": "devin/1778979622-phase-04-schema-constraints",
+        "rev": "8fb9618f3eb5669997bb008858ac5e8d739045af",
+        "revCount": 130,
+        "type": "git",
+        "url": "ssh://git@github.com/soyachin/urbania-py"
+      },
+      "original": {
+        "ref": "devin/1778979622-phase-04-schema-constraints",
         "type": "git",
         "url": "ssh://git@github.com/soyachin/urbania-py"
       }

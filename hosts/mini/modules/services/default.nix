@@ -1,10 +1,15 @@
-{ inputs, ... }: {
+{
+  inputs,
+  urbaniaPkg,
+  ...
+}:
+{
   imports = [
     ./tailscale.nix
     ./media.nix
     ./nginx
     ./glance
-    inputs.urbania.nixosModules.urbania
+    urbaniaPkg.nixosModules.urbania
     ./urbania.nix
     ./cockpit
     ./vector
