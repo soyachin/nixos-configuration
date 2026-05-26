@@ -89,12 +89,5 @@
   };
 
   # ---------------------------------------------------------------------------
-  # Automatic security updates (solo paquetes, no reboot automático)
-  # ---------------------------------------------------------------------------
-  system.autoUpgrade = {
-    enable = true;
-    allowReboot = false;
-    dates = "04:00";
-    flake = "github:soyachin/nixos-configuration#mini";
-  };
+  system.autoUpgrade.enable = false;
 }
