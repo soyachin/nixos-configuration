@@ -561,11 +561,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779832102,
-        "narHash": "sha256-klrvU1YY0uUc9Pzn8VZpTWNir3/Zcx5Yx2vpBdAx6Y4=",
+        "lastModified": 1779832660,
+        "narHash": "sha256-9lmr4T+0YB3xzjiqsdgBsFzxJi1IOtiPuyyEsOjegic=",
         "ref": "main",
-        "rev": "ef2f68a53fcfc50316e3689082c776e68a178a11",
-        "revCount": 178,
+        "rev": "d182bb0771aad1f216b6b2c456a9fddbf1fbc72b",
+        "revCount": 179,
         "type": "git",
         "url": "ssh://git@github.com/soyachin/urbania-py"
       },

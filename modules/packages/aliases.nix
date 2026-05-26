@@ -1,5 +1,12 @@
-{ config, pkgs, hostname, ... }:
+{ config, pkgs, lib, hostname, ... }:
 {
+  environment.sessionVariables = {
+    SYSTEMD_PAGER = "";
+    SYSTEMD_COLORS = "1";
+  } // lib.optionalAttrs (hostname == "mini") {
+    TERM = "xterm-256color";
+  };
+
   environment.shellAliases = {
     sudo = "sudo ";
     t = "tmux";
@@ -31,22 +38,37 @@
     gtree = "git log --oneline --graph --all --decorate --color";
     glog = "git log --oneline --graph --all --decorate --color";
 
-    urb = "systemctl status urbania-backend";
-    urbl = "journalctl -u urbania-backend -f -n 100";
-    urbp = "systemctl status urbania-pipeline";
-    urbd = "systemctl status urbania-deploy";
-    urbstart = "sudo systemctl start urbania-backend";
-    urbstop = "sudo systemctl stop urbania-backend";
-    urbrestart = "sudo systemctl restart urbania-backend";
-
-    logs = "sudo journalctl -xe --no-hostname";
+    # systemd / journal shortcuts
+    ju = "journalctl -u";
+    jf = "journalctl -f --no-pager";
+    jfu = "journalctl -fu";
+    sys = "systemctl";
+    srestart = "sudo systemctl restart";
+    sstart = "sudo systemctl start";
+    logs = "sudo journalctl -xe --no-hostname --no-pager";
     logf = "sudo journalctl -f";
     slog = "sudo journalctl -u";
-    
-    top = "btop";
-    htop = "btop";
     services = "systemctl list-units --type=service --state=running";
     failed = "systemctl list-units --failed";
+
+    # Urbania services
+    ulist = "systemctl list-units --no-pager --type=service | grep urbania";
+    utimer = "systemctl list-timers --no-pager | grep urbania";
+    jb = "journalctl -u urbania-backend --no-pager";
+    jsc = "journalctl -u urbania-scraper --no-pager -o short-precise";
+    jpi = "journalctl -u urbania-pipeline --no-pager -o short-precise";
+    jbu = "journalctl -u urbania-backup --no-pager -o short-precise";
+    jbw = "journalctl -u urbania-backfill-weekly --no-pager -o short-precise";
+    juf = "journalctl -fu urbania-backend --no-pager -o short-precise";
+    stb = "systemctl --no-pager status urbania-backend";
+    sts = "systemctl --no-pager status urbania-scraper";
+    stp = "systemctl --no-pager status urbania-pipeline";
+    stbu = "systemctl --no-pager status urbania-backup";
+    stbw = "systemctl --no-pager status urbania-backfill-weekly";
+    mini-status = "echo '=== TIMERS ===' && systemctl list-timers --no-pager | grep urbania && echo && echo '=== SERVICES ===' && systemctl list-units --no-pager --type=service | grep urbania";
+
+    top = "btop";
+    htop = "btop";
     
     rebuild = "sudo nixos-rebuild switch --flake ~/.config/nixos/#${hostname}";
   };
