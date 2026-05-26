@@ -19,7 +19,7 @@
     };
     scraper.targets = {
       operations    = [ "VENTA" ];
-      propertyTypes = [ "DEPARTAMENTO" "CASA" "OFICINA" ];
+      propertyTypes = [ "DEPARTAMENTO" "CASA" "OFICINA" "TERRENO" ];
       antiquities   = [ "HASTA_50_ANIOS" "MAS_DE_50_ANIOS" ];
       districts     = [ "San Isidro" "Miraflores" "Magdalena" ];
     };
