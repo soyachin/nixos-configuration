@@ -1,7 +1,7 @@
 # hosts/mini/modules/security/service-limits.nix
 # Resource limits por servicio para evitar que un servicio comprometido
 # o bajo ataque consuma todos los recursos del servidor.
-{ ... }:
+{ lib, ... }:
 {
   # --- Servicios base ---
   systemd.services.jellyfin.serviceConfig = {
@@ -85,4 +85,9 @@
     OPENBLAS_NUM_THREADS = "1";
     OMP_NUM_THREADS = "1";
   };
+
+  # services.urbania.backend.extraServiceConfig = {
+  #   SystemCallFilter = lib.mkForce "";
+  #   LockPersonality = lib.mkForce false;
+  # };
 }

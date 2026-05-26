@@ -17,5 +17,7 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
     trusted-users = lib.mkDefault [ "root" ];
+    max-jobs = "auto";
+    cores = lib.mkDefault 4;
   };
 }
