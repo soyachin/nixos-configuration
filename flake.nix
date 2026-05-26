@@ -38,7 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     urbania-test = {
-      url = "git+ssh://git@github.com/soyachin/urbania-py?ref=devin/1778979622-phase-04-schema-constraints";
+      url = "git+ssh://git@github.com/soyachin/urbania-py?ref=feat/tier-1-nix-store";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     sharemii = {
