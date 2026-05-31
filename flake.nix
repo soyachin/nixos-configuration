@@ -47,7 +47,7 @@
     };
 
     trama = {
-      url = "github:soyachin/trama";
+      url = "path:/home/hojas/coding/trama";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
