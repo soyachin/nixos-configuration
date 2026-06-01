@@ -8,6 +8,7 @@
     ./media.nix
     ./wayland.nix
     ./steam.nix
+    ./wine.nix
     ./custom
   ];
 }

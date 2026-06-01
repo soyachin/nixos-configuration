@@ -8,6 +8,7 @@
   programs.wireshark.enable = true;
 
   environment.systemPackages = with pkgs; [
+    sirikali
     # Gaming
     inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.sharemii.packages.${pkgs.system}.default
@@ -30,9 +31,7 @@
     zoom-us
 
     # Browsers
-    librewolf
     ungoogled-chromium
-    google-chrome
     antigravity
 
     # System Utilities
@@ -54,7 +53,7 @@
     bitwig-studio
     krita
     qgis
-
+    prismlauncher
     # Development Tools
     postman
     opencode
