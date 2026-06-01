@@ -9,9 +9,10 @@
 
   environment.systemPackages = with pkgs; [
     sirikali
+    readest
     # Gaming
     inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
-    inputs.sharemii.packages.${pkgs.system}.default
+    inputs.sharemii.packages.${pkgs.stdenv.hostPlatform.system}.default
     # Office & Productivity
     onlyoffice-desktopeditors
     onlyoffice-documentserver
