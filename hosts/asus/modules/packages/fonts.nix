@@ -12,7 +12,6 @@
     hubot-sans
     eurofurence
     dosis
-    manrope
     montserrat
     helvetica-neue-lt-std
     nerd-fonts.fira-code

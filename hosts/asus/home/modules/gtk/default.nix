@@ -20,6 +20,8 @@
     gtk-application-prefer-dark-theme = true;
   };
 
+  gtk.gtk4.theme = config.gtk.theme;
+
   gtk.gtk4.extraConfig = {
     gtk-application-prefer-dark-theme = true;
   };

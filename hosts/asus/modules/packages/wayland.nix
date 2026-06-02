@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     swaybg
-    swww
+    awww
     rofi
     rofi-power-menu
     slurp

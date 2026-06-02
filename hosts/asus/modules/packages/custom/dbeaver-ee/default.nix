@@ -18,10 +18,10 @@ let
 
     buildInputs = with pkgs; [
       gtk3
-      xorg.libX11
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libXi
+      libx11
+      libxrender
+      libxtst
+      libxi
       zlib
       glib
       libsecret
