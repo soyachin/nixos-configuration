@@ -5,5 +5,6 @@
     scrcpy
     quickemu
     gh
+    zathura
 ];
 }
