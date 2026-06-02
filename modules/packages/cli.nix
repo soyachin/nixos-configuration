@@ -30,7 +30,7 @@
     yt-dlp
     wget
     curl
-    nodejs_20
+    nodejs_22
     python3
     cargo
     sops
