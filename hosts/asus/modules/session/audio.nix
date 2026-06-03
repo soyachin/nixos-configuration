@@ -29,10 +29,15 @@
   systemd.user.services.mic-volume = {
     description = "Keep mic at 20%";
     wantedBy = [ "default.target" ];
-    after = [ "wireplumber.service" ];
+    after = [
+      "wireplumber.service"
+      "pipewire.service"
+    ];
+    requires = [ "wireplumber.service" ];
     path = [
       pkgs.wireplumber
       pkgs.pipewire
+      pkgs.pulseaudio
     ];
     serviceConfig = {
       Type = "simple";
@@ -42,7 +47,6 @@
         wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.2
         pactl subscribe | grep --line-buffered "source" | while read -r _; do
           wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.2
-          wpctl set-volume 68 0.2
         done
       '';
     };

@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   services.udiskie = {
     enable = true;
     automount = true;
@@ -13,7 +14,7 @@
       # https://github.com/nix-community/home-manager/issues/632
       program_options = {
         # replace with your favorite file manager
-        file_manager = "${pkgs.nautilus}/bin/nautlilus";
+        file_manager = "${pkgs.nautilus}/bin/nautilus";
       };
     };
   };
