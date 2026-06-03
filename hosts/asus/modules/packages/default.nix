@@ -10,6 +10,7 @@
     ./wayland.nix
     ./steam.nix
     ./wine.nix
+    ./yazi.nix
     ./custom
   ];
 }
