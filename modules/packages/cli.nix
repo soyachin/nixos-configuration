@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, isHeadless, ... }:
 {
-  programs.neovim = {
+  programs.neovim = lib.mkIf isHeadless {
     enable = true;
+    defaultEditor = true;
     withRuby = true;
     withPython3 = true;
   };

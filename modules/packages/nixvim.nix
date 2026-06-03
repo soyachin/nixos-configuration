@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -9,6 +10,9 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+
+    version.enableNixpkgsReleaseCheck = false;
+    nixpkgs.source = inputs.nixpkgs;
 
     globals.mapleader = " ";
 
@@ -50,6 +54,8 @@
         openOnSetup = false;
         autoClose = true;
       };
+
+      bufferline.enable = true;
 
       lsp = {
         enable = true;
@@ -274,6 +280,26 @@
         options.desc = "Toggle relative numbers";
       }
 
+      # Buffer navigation
+      {
+        mode = "n";
+        key = "<Tab>";
+        action = "<cmd>bnext<CR>";
+        options.desc = "Next buffer";
+      }
+      {
+        mode = "n";
+        key = "<S-Tab>";
+        action = "<cmd>bprevious<CR>";
+        options.desc = "Previous buffer";
+      }
+      {
+        mode = "n";
+        key = "<leader>x";
+        action = "<cmd>bdelete<CR>";
+        options.desc = "Close buffer";
+      }
+
       # Format
       {
         mode = "n";
@@ -328,6 +354,32 @@
         options.desc = "Hover";
       }
 
+      # Diagnostics (NvChad-style)
+      {
+        mode = "n";
+        key = "]d";
+        action.__raw = "function() vim.diagnostic.goto_next({ float = { border = 'rounded' } }) end";
+        options.desc = "Next diagnostic";
+      }
+      {
+        mode = "n";
+        key = "[d";
+        action.__raw = "function() vim.diagnostic.goto_prev({ float = { border = 'rounded' } }) end";
+        options.desc = "Previous diagnostic";
+      }
+      {
+        mode = "n";
+        key = "<leader>do";
+        action.__raw = "function() vim.diagnostic.open_float({ border = 'rounded' }) end";
+        options.desc = "Open diagnostic float";
+      }
+      {
+        mode = "n";
+        key = "<leader>dl";
+        action = "<cmd>Telescope diagnostics<CR>";
+        options.desc = "List diagnostics";
+      }
+
       # Typst preview
       {
         mode = "n";
@@ -357,35 +409,6 @@
       for _, plugin in ipairs(disabled_builtins) do
         vim.g["loaded_" .. plugin] = 1
       end
-
-      -- Tree-sitter textobjects config
-      require("nvim-treesitter.configs").setup({
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["ai"] = "@conditional.outer",
-              ["ii"] = "@conditional.inner",
-            },
-          },
-          move = {
-            enable = true,
-            goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["]]"] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
-            },
-          },
-        },
-      })
     '';
   };
 }
