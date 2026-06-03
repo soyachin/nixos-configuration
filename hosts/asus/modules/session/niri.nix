@@ -2,14 +2,9 @@
 {
   programs.niri.enable = true;
 
-  services.displayManager.sessionPackages = [
-    pkgs.niri
-  ];
-
   services.displayManager.sddm.enable = lib.mkForce false;
 
-
-  security.pam.services.swaylock = {};
+  services.displayManager.sessionPackages = [ pkgs.niri ];
 
   programs.dconf.enable = true;
 

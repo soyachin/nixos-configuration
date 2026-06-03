@@ -12,13 +12,6 @@
     nix-direnv.enable = true;
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    withRuby = true;
-    withPython3 = true;
-  };
-
   home.packages = with pkgs; [
     git
     ripgrep
@@ -26,6 +19,4 @@
     lazygit
     nodejs
   ];
-
-  xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
 }

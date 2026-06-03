@@ -5,7 +5,7 @@
 }: {
   services.swayidle = let
     lock = "${config.programs.swaylock.package}/bin/swaylock";
-    display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
+    display = status: "${pkgs.hyprland}/bin/hyprctl dispatch dpms ${status}";
   in {
     enable = true;
     timeouts = [
@@ -24,12 +24,12 @@
       {
         timeout = 2000;
         command = "systemctl suspend";
-      } # 60 min
+      } # ~33 min
     ];
     events = {
-      before-sleep = (display "off") + "; " + lock;
+      before-sleep = "${display "off"} ; ${lock}";
       after-resume = display "on";
-      lock = (display "off") + "; " + lock;
+      lock = "${display "off"} ; ${lock}";
       unlock = display "on";
     };
   };
