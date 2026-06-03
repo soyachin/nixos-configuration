@@ -38,6 +38,7 @@ let
     inputs.home-manager.nixosModules.home-manager
     inputs.noctalia.nixosModules.default
     inputs.aagl.nixosModules.default
+    inputs.nixvim.nixosModules.nixvim
   ];
 in
 {

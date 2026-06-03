@@ -21,6 +21,9 @@
     aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-26.05";
     aagl.inputs.nixpkgs.follows = "nixpkgs"; # Name of nixpkgs input you want to use
 
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     zen-browser = {

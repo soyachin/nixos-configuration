@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ../../../../modules/packages
+    ../../../../modules/packages/nixvim.nix
     ./cli.nix
     ./gui.nix
     ./dev.nix

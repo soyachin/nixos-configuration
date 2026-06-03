@@ -7,10 +7,14 @@
     rofi-power-menu
     slurp
     mako
-    xwayland-satellite
     wl-clipboard
     kitty
     apple-cursor
     tuigreet
+    obs-studio
+    grimblast
+    hyprlock
+    hypridle
+    hyprpicker
   ];
 }
