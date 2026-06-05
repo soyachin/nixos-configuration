@@ -6,6 +6,7 @@
     ./cava.nix
     ./clock-rs.nix
     ./fastfetch.nix
+    ./btop.nix
     ./services
     ./gtk
     ./swaylock
