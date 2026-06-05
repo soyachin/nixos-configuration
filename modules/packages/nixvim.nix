@@ -38,8 +38,7 @@
       conceallevel = 2;
     };
 
-    colorschemes.ayu.enable = true;
-    colorschemes.ayu.settings.mirage = false;
+    colorschemes.gruvbox-baby.enable = true;
 
     plugins = {
       which-key.enable = true;
@@ -131,6 +130,7 @@
           typescript
           vim
           vimdoc
+          typst
         ];
       };
 
@@ -161,7 +161,10 @@
         autoInstall.enable = true;
         settings = {
           formatters_by_ft = {
-            nix = [ "alejandra" "nixfmt" ];
+            nix = [
+              "alejandra"
+              "nixfmt"
+            ];
             lua = [ "stylua" ];
             javascript = [ "prettier" ];
             typescript = [ "prettier" ];
@@ -256,7 +259,11 @@
         options.desc = "Save file";
       }
       {
-        mode = [ "n" "i" "v" ];
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
         key = "<C-s>";
         action = "<cmd>w<CR>";
         options.desc = "Save file";
@@ -298,6 +305,32 @@
         key = "<leader>x";
         action = "<cmd>bdelete<CR>";
         options.desc = "Close buffer";
+      }
+
+      # System clipboard (Wayland)
+      {
+        mode = "v";
+        key = "<leader>y";
+        action = "\"+y";
+        options.desc = "Yank to system clipboard";
+      }
+      {
+        mode = "n";
+        key = "<leader>Y";
+        action = "\"+Y";
+        options.desc = "Yank line to system clipboard";
+      }
+      {
+        mode = "n";
+        key = "<leader>p";
+        action = "\"+p";
+        options.desc = "Paste from system clipboard";
+      }
+      {
+        mode = "v";
+        key = "<leader>p";
+        action = "\"+p";
+        options.desc = "Paste from system clipboard";
       }
 
       # Format
