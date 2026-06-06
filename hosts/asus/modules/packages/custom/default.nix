@@ -9,5 +9,6 @@
 
   environment.systemPackages = [
     (pkgs.callPackage ./turtle-language-server {})
+    (pkgs.callPackage ./prttl {})
   ];
 }

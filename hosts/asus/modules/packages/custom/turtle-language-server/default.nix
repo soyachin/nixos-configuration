@@ -36,6 +36,7 @@ stdenv.mkDerivation rec {
     description = "LSP server for W3C standard Turtle RDF syntax";
     homepage = "https://github.com/stardog-union/stardog-language-servers";
     license = licenses.asl20;
+    mainProgram = "turtle-language-server";
     platforms = platforms.all;
   };
 }

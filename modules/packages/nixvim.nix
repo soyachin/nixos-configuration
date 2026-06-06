@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   inputs,
@@ -73,7 +74,13 @@
           pyright.enable = true;
           yamlls.enable = true;
           cmake.enable = true;
-          turtle_ls.enable = false;
+          turtle_ls = {
+            enable = true;
+            cmd = [
+              (lib.getExe (pkgs.callPackage ../../hosts/asus/modules/packages/custom/turtle-language-server { }))
+              "--stdio"
+            ];
+          };
           tinymist = {
             enable = true;
             settings = {
@@ -113,25 +120,8 @@
         folding.enable = true;
         highlight.enable = true;
         indent.enable = true;
-        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-          bash
-          c
-          comment
-          cpp
-          css
-          html
-          javascript
-          json
-          lua
-          markdown
-          markdown_inline
-          nix
-          python
-          svelte
-          typescript
-          vim
-          vimdoc
-          typst
+        grammarPackages = config.programs.nixvim.plugins.treesitter.package.allGrammars ++ [
+          pkgs.tree-sitter-grammars.tree-sitter-turtle
         ];
       };
 
@@ -174,9 +164,13 @@
             markdown = [ "prettier" ];
             c = [ "clang-format" ];
             cpp = [ "clang-format" ];
+            turtle = [ "prttl" ];
           };
-          format_on_save = {
-            timeout_ms = 500;
+
+          formatters.prttl = {
+            command = "prttl";
+            args = [ "$FILENAME" ];
+            stdin = false;
           };
         };
       };
@@ -431,30 +425,76 @@
 
     autoCmd = [
       {
-        event   = [ "BufRead" "BufNewFile" ];
+        event = [
+          "BufRead"
+          "BufNewFile"
+        ];
         pattern = [ "*.ttl" ];
         command = "set filetype=turtle";
       }
     ];
 
-    extraPackages = [ (pkgs.callPackage ../../hosts/asus/modules/packages/custom/turtle-language-server {}) ];
+    extraPlugins = [
+      (pkgs.stdenv.mkDerivation {
+        name = "sparql-completer-nvim";
+        src = pkgs.fetchFromGitHub {
+          owner = "aminem0";
+          repo = "sparql-completer.nvim";
+          rev = "5db31c2208197fe591e0e58fad79d52c1713f086";
+          sha256 = "145zfvbdy6dsi865yc1rcrvw8l9zi96nvdlydy18nrccb8zf340d";
+        };
+        installPhase = ''
+          mkdir -p $out
+          cp -r . $out/
+        '';
+      })
+    ];
+
+    extraPackages = [
+      (pkgs.callPackage ../../hosts/asus/modules/packages/custom/turtle-language-server { })
+      (pkgs.callPackage ../../hosts/asus/modules/packages/custom/prttl { })
+    ];
+
+    extraFiles."queries/turtle/highlights.scm".text = builtins.readFile ./turtle-highlights.scm;
 
     extraConfigLua = ''
-      -- Disable unused built-in plugins (NvChad-like optimization)
-      local disabled_builtins = {
-        "2html_plugin", "tohtml", "getscript", "getscriptPlugin",
-        "gzip", "logipat", "netrw", "netrwPlugin",
-        "netrwSettings", "netrwFileHandlers", "matchit",
-        "tar", "tarPlugin", "rrhelper", "spellfile_plugin",
-        "vimball", "vimballPlugin", "zip", "zipPlugin",
-        "tutor", "rplugin", "syntax", "synmenu",
-        "optwin", "compiler", "bugreport", "ftplugin",
-      }
-      for _, plugin in ipairs(disabled_builtins) do
-        vim.g["loaded_" .. plugin] = 1
-      end
+            -- Disable unused built-in plugins (NvChad-like optimization)
+       local disabled_builtins = {
+              "2html_plugin", "tohtml", "getscript", "getscriptPlugin",
+              "gzip", "logipat", "netrw", "netrwPlugin",
+              "netrwSettings", "netrwFileHandlers", "matchit",
+              "tar", "tarPlugin", "rrhelper", "spellfile_plugin",
+              "vimball", "vimballPlugin", "zip", "zipPlugin",
+              "tutor", "rplugin", "syntax", "synmenu",
+              "optwin", "compiler", "bugreport", "ftplugin",
+            }
+            for _, plugin in ipairs(disabled_builtins) do
+              vim.g["loaded_" .. plugin] = 1
+            end
 
-      require("lspconfig").turtle_language_server.setup({})
+            require('sco').setup({
+        -- solo los vocabularios relevantes para trama
+        sources = { "owl", "rdf", "rdfs", "xsd", "skos", "dcterms", "vann", "void" },
+        enable_keymaps = false,   -- evita conflicto con <leader>ra (rename)
+        enable_autocmds = false,  -- los autocmds son para .sparql/.rq de todas formas
+      })
+
+      -- activar sparql_completer para turtle manteniendo tus otras sources
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'turtle',
+        callback = function()
+          require('cmp').setup.buffer({
+            sources = {
+              { name = 'sparql_completer', priority = 100 },
+              { name = 'nvim_lsp' },
+              { name = 'luasnip' },
+              { name = 'buffer' },
+            }
+          })
+        end,
+      })
+
+            -- turtle_ls configurado vía nixvim LSP module
     '';
   };
 }
