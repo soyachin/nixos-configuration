@@ -1,10 +1,6 @@
-# My NixOS configuration
+# my nixos configuration
 
-NixOS configuration using Niri with noctalia-shell as a momentary shell. I managed to use flakes (kinda) and when I got the time I'll minimize the usage of HM since it's too bloaty.
+NixOS configuration using hyprland with noctalia-shell. managed with flakes and different hosts.
 
-<img width="1920" height="1080" alt="Screenshot of my workspace" src="https://github.com/user-attachments/assets/386c1380-d6c3-44d3-95ac-324fe4f6cac3" />
+<img width="1926" height="1075" alt="image" src="https://github.com/user-attachments/assets/4812d7ed-ca3b-47ef-a368-2b12d6aae17d" />
 
-
-Thanks to [Grazen0](https://github.com/Grazen0) here on Github (and [vimjoyer](https://github.com/vimjoyer) ofc) for teaching me the NixOS way. i've got lots to learn! (˶ˆᗜˆ˵)
-
-(my config files MIGHT not be up to date since i'm always trying out new things).
