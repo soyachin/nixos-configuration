@@ -73,6 +73,7 @@
           pyright.enable = true;
           yamlls.enable = true;
           cmake.enable = true;
+          turtle_ls.enable = false;
           tinymist = {
             enable = true;
             settings = {
@@ -428,6 +429,16 @@
       }
     ];
 
+    autoCmd = [
+      {
+        event   = [ "BufRead" "BufNewFile" ];
+        pattern = [ "*.ttl" ];
+        command = "set filetype=turtle";
+      }
+    ];
+
+    extraPackages = [ (pkgs.callPackage ../../hosts/asus/modules/packages/custom/turtle-language-server {}) ];
+
     extraConfigLua = ''
       -- Disable unused built-in plugins (NvChad-like optimization)
       local disabled_builtins = {
@@ -442,6 +453,8 @@
       for _, plugin in ipairs(disabled_builtins) do
         vim.g["loaded_" .. plugin] = 1
       end
+
+      require("lspconfig").turtle_language_server.setup({})
     '';
   };
 }
