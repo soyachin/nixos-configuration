@@ -39,7 +39,7 @@
       conceallevel = 2;
     };
 
-    colorschemes.gruvbox-baby.enable = true;
+    colorschemes.ayu.enable = true;
 
     plugins = {
       which-key.enable = true;
