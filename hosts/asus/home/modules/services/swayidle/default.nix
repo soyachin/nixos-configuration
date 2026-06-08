@@ -2,35 +2,52 @@
   config,
   pkgs,
   ...
-}: {
-  services.swayidle = let
-    lock = "${config.programs.swaylock.package}/bin/swaylock";
-    display = status: "${pkgs.hyprland}/bin/hyprctl dispatch dpms ${status}";
-  in {
-    enable = true;
-    timeouts = [
-      {
-        timeout = 600;
-        command = "notify-send 'Bloqueando en 2 minutos'";
-      }
-      {
-        timeout = 720;
-        command = lock;
-      } # 12 min
-      {
-        timeout = 1200;
-        command = display "off";
-      } # 20 min
-      {
-        timeout = 2000;
-        command = "systemctl suspend";
-      } # ~33 min
-    ];
-    events = {
-      before-sleep = "${display "off"} ; ${lock}";
-      after-resume = display "on";
-      lock = "${display "off"} ; ${lock}";
-      unlock = display "on";
+}:
+{
+  services.swayidle =
+    let
+      lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+      display = status: "hyprctl dispatch dpms ${status}";
+    in
+    {
+      enable = true;
+      timeouts = [
+        {
+          timeout = 600; # in seconds
+          command = "${pkgs.libnotify}/bin/notify-send 'Locking in 2min'";
+        }
+        {
+          timeout = 720;
+          command = lock;
+        }
+        {
+          timeout = 1200;
+          command = display "off";
+          resumeCommand = display "on";
+        }
+        {
+          timeout = 2000;
+          command = "${pkgs.systemd}/bin/systemctl suspend";
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          # adding duplicated entries for the same event may not work
+          command = (display "off") + "; " + lock;
+        }
+        {
+          event = "after-resume";
+          command = display "on";
+        }
+        {
+          event = "lock";
+          command = (display "off") + "; " + lock;
+        }
+        {
+          event = "unlock";
+          command = display "on";
+        }
+      ];
     };
-  };
 }
