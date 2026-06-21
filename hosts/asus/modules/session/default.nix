@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./hyprland.nix
+    ./sway.nix
     ./greetd.nix
     ./xdg.nix
     ./theme.nix

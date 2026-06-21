@@ -12,9 +12,7 @@
     apple-cursor
     tuigreet
     obs-studio
-    grimblast
-    hyprlock
-    hypridle
-    hyprpicker
+    sway-contrib.grimshot
+    grim
   ];
 }

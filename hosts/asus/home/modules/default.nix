@@ -10,5 +10,6 @@
     ./services
     ./gtk
     ./swaylock
+    ./sway.nix
   ];
 }

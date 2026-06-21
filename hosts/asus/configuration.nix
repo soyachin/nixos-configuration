@@ -51,7 +51,7 @@
 
     # 1. Deshabilitar Interfaz Gráfica y Software de Escritorio
     services.greetd.enable = lib.mkForce false;
-    programs.niri.enable = lib.mkForce false;
+    programs.sway.enable = lib.mkForce false;
     services.xserver.enable = lib.mkForce false;
 
 
