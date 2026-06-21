@@ -8,4 +8,6 @@
       AllowUsers = lib.mkDefault [ ];
     };
   };
+
+  programs.ssh.startAgent = true;
 }

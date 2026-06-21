@@ -1,4 +1,6 @@
 { pkgs, ... }: {
+  home.packages = [ pkgs.autotiling ];
+
   wayland.windowManager.sway = {
     enable = true;
     checkConfig = false;
@@ -16,10 +18,26 @@
         };
       };
 
+      defaultWorkspace = "1";
+      bars = [];
+      workspaceOutputAssign = [
+        { workspace = "1"; output = "eDP-1"; }
+        { workspace = "2"; output = "eDP-1"; }
+        { workspace = "3"; output = "eDP-1"; }
+        { workspace = "4"; output = "eDP-1"; }
+        { workspace = "5"; output = "eDP-1"; }
+        { workspace = "6"; output = "HDMI-A-1"; }
+        { workspace = "7"; output = "HDMI-A-1"; }
+        { workspace = "8"; output = "HDMI-A-1"; }
+        { workspace = "9"; output = "HDMI-A-1"; }
+      ];
+
       startup = [
         { command = "swaybg --image /home/hojas/Pictures/Waterhouse_Echo_and_Narcissus_wall.jpg"; }
         { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway GTK_THEME=Gruvbox-Dark"; }
         { command = "noctalia-shell > /tmp/noctalia.log 2>&1"; always = true; }
+        { command = "autotiling"; always = true; }
+        { command = "swaymsg focus output eDP-1"; }
       ];
 
       input = {
