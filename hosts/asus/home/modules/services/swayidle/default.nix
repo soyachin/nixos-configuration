@@ -6,7 +6,7 @@
 {
   services.swayidle =
     let
-      lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+      lock = "${config.programs.swaylock.package}/bin/swaylock";
       display = status: "swaymsg output '*' power ${status}";
     in
     {
