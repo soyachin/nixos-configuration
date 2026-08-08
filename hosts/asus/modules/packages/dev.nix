@@ -24,5 +24,6 @@
     pyright
     vscode-langservers-extracted
     lua-language-server
+    claude-code
   ];
 }
