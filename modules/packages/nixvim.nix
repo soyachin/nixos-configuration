@@ -110,8 +110,8 @@
             { name = "path"; }
             { name = "buffer"; }
           ];
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
         };
-        snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
       };
 
       treesitter = {

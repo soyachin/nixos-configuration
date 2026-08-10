@@ -9,7 +9,6 @@
 
   environment.systemPackages = with pkgs; [
     sirikali
-    koodo-reader
     # Gaming
     inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
     inputs.sharemii.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -33,10 +32,8 @@
 
     # Browsers
     ungoogled-chromium
-    antigravity
 
     # System Utilities
-    wireshark
     filezilla
     bottles
     burpsuite
@@ -53,10 +50,10 @@
     # Creative
     bitwig-studio
     krita
-    qgis
     prismlauncher
     # Development Tools
     postman
     opencode
+    positron-bin
   ];
 }

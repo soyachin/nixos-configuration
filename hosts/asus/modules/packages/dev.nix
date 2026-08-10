@@ -15,6 +15,12 @@
   environment.systemPackages = with pkgs; [
     nil
     alejandra
+
+    # R base + LSP para Positron
+    R
+    (rWrapper.override {
+      packages = with rPackages; [ languageserver ];
+    })
     tailwindcss-language-server
     svelte-language-server
     cmake
