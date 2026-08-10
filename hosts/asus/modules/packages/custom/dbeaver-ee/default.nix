@@ -5,7 +5,7 @@ let
 
   src = pkgs.fetchurl {
     url = "https://dbeaver.com/files/dbeaver-ee-latest-linux.gtk.x86_64.tar.gz";
-    sha256 = "1cchr0aiyl9bfy4l9gxlaiv3f91bdqha0arvm6v533j3nhgykj6a";
+    sha256 = "1vpabvdqk8hrxksrbykhj4ccf15w8lw0v5cy194nh25gigldgxvh";
   };
 
   dbeaver-ee = pkgs.stdenv.mkDerivation {
