@@ -10,6 +10,15 @@ in
   programs.zsh = {
     enable = true;
     initContent = ''
+      function _nix_shell_prompt() {
+        if [[ -n "$IN_NIX_SHELL" ]]; then
+          RPROMPT="%F{cyan}[nix-shell]%f"
+        else
+          RPROMPT=""
+        fi
+      }
+      add-zsh-hook precmd _nix_shell_prompt
+
       function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
         command yazi "$@" --cwd-file="$tmp"
