@@ -202,11 +202,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1785985024,
-        "narHash": "sha256-0KG7KonSoFTqGSGE8lAED/LTiaT8FvfI1snPtgWFYcA=",
+        "lastModified": 1786154251,
+        "narHash": "sha256-WaTwQh00dCEMdfKg1W/ws0VGVTWj3+rrVu+v+dtptpQ=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "2ca1aa5a3f7bf09cbbaced70f4f744e31c70ed9e",
+        "rev": "6f307da698065bb7e07a8eaf1f76edd1e2d260d6",
         "type": "github"
       },
       "original": {
@@ -525,11 +525,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786152811,
-        "narHash": "sha256-jdNQJtx6+eoqauso3vmCB9orqeaEATTpILCb+C3LTRs=",
+        "lastModified": 1786157098,
+        "narHash": "sha256-Yu495DLQKY0C30AQunNO5DZVbSoQSAkLHWTdAQe3Fmk=",
         "ref": "main",
-        "rev": "c5f9d5743fe240ae6dabdab626c62976775e0cc6",
-        "revCount": 195,
+        "rev": "d7d8e3d5dc7f6f6c6549ddedea01bfdaccae998c",
+        "revCount": 201,
         "type": "git",
         "url": "ssh://git@github.com/soyachin/urbania-py"
       },

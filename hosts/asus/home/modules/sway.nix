@@ -66,7 +66,7 @@
           command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway GTK_THEME=Gruvbox-Dark";
         }
         {
-          command = "noctalia-shell > /tmp/noctalia.log 2>&1";
+          command = "noctalia > /tmp/noctalia.log 2>&1";
           always = true;
         }
         {
@@ -153,19 +153,19 @@
           "${mod}+space" = "exec tmux-session-picker";
           "Alt+Tab" = "exec rofi -show window";
 
-          "${mod}+Alt+comma" = "exec noctalia-shell ipc call settings toggle";
-          "${mod}+p" = "exec noctalia-shell ipc call bar toggle";
-          "${mod}+Shift+r" = "exec killall noctalia-shell; noctalia-shell > /tmp/noctalia.log 2>&1";
+          "${mod}+Alt+comma" = "exec noctalia msg settings-toggle";
+          "${mod}+p" = "exec noctalia msg bar-toggle";
+          "${mod}+Shift+r" = "exec killall noctalia; noctalia > /tmp/noctalia.log 2>&1";
 
           "${mod}+s" =
             "exec echo -e '󰍃 Logout\\n󰜉 Reboot\\n󰐥 Shutdown' | rofi -dmenu -p 'Power' -theme-str 'window {width: 10em; height: 15%;} listview {lines: 3;} inputbar { enabled: false; }' | xargs -I{} sh -c 'case \"{}\" in *Logout*) swaymsg exit ;; *Reboot*) systemctl reboot ;; *Shutdown*) systemctl poweroff ;; esac'";
 
-          "XF86AudioRaiseVolume" = "exec noctalia-shell ipc call volume increase";
-          "XF86AudioLowerVolume" = "exec noctalia-shell ipc call volume decrease";
-          "XF86AudioMute" = "exec noctalia-shell ipc call volume muteOutput";
-          "XF86AudioMicMute" = "exec noctalia-shell ipc call volume muteInput";
-          "XF86MonBrightnessUp" = "exec noctalia-shell ipc call brightness increase";
-          "XF86MonBrightnessDown" = "exec noctalia-shell ipc call brightness decrease";
+          "XF86AudioRaiseVolume" = "exec noctalia msg volume-up";
+          "XF86AudioLowerVolume" = "exec noctalia msg volume-down";
+          "XF86AudioMute" = "exec noctalia msg volume-mute";
+          "XF86AudioMicMute" = "exec noctalia msg mic-mute";
+          "XF86MonBrightnessUp" = "exec noctalia msg brightness-up";
+          "XF86MonBrightnessDown" = "exec noctalia msg brightness-down";
 
           "${mod}+q" = "kill";
           "${mod}+v" = "floating toggle";
