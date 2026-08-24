@@ -10,14 +10,29 @@ in
   programs.zsh = {
     enable = true;
     initContent = ''
-      function _nix_shell_prompt() {
+      autoload -Uz colors && colors
+      autoload -Uz vcs_info
+      autoload -Uz add-zsh-hook
+      setopt prompt_subst
+
+      zstyle ':vcs_info:git:*' check-for-changes true
+      zstyle ':vcs_info:git:*' unstagedstr '%F{red}●%f'
+      zstyle ':vcs_info:git:*' stagedstr '%F{red}●%f'
+      zstyle ':vcs_info:git:*' formats '%F{yellow}‹%b%f%u%c%F{yellow}› %f'
+      zstyle ':vcs_info:git:*' actionformats '%F{yellow}‹%b|%a%f%u%c%F{yellow}› %f'
+
+      function _bira_prompt() {
+        vcs_info
+        local return_code="%(?..%F{red}%? ↵%f)"
+        RPROMPT="%B''${return_code}%b"
         if [[ -n "$IN_NIX_SHELL" ]]; then
-          RPROMPT="%F{cyan}[nix-shell]%f"
-        else
-          RPROMPT=""
+          RPROMPT+=" %F{cyan}[nix-shell]%f"
         fi
       }
-      add-zsh-hook precmd _nix_shell_prompt
+      add-zsh-hook precmd _bira_prompt
+
+      PROMPT='╭─%B%(!.%F{red}.%F{green})%n@%m%f%b %B%F{blue}%~ %f%b''${vcs_info_msg_0_}
+╰─%B%(!.#.$)%b '
 
       function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -39,11 +54,15 @@ in
 
     # initContent = tmuxEarlyInit;
 
-    oh-my-zsh = {
-      enable = true;
-      theme = "bira";
-    };
-
+    enableCompletion = true;
+    completionInit = ''
+      autoload -Uz compinit
+      if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+        compinit
+      else
+        compinit -C
+      fi
+    '';
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     history.size = 10000;

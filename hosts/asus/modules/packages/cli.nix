@@ -6,5 +6,6 @@
     quickemu
     gh
     zathura
+    foot
 ];
 }

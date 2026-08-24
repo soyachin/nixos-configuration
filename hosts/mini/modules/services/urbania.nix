@@ -8,6 +8,7 @@
 
   services.urbania = {
     enable = true;
+    alertTopic = "urb1-mand_notis";
     backend = {
       cfAccessTeam = "sillao";
       corsOrigins = [

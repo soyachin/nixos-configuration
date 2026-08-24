@@ -23,7 +23,8 @@
       buildInputs = [ makeWrapper ];
       postBuild = ''
         wrapProgram $out/bin/protege \
-          --set _JAVA_AWT_WM_NONREPARENTING 1
+          --set _JAVA_AWT_WM_NONREPARENTING 1 \
+          --set _JAVA_OPTIONS "-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel"
       '';
     })
     # Communication
