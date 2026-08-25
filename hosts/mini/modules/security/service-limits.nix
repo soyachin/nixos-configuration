@@ -23,55 +23,10 @@
     TasksMax = 32;
   };
 
-  systemd.services.cockpit.serviceConfig = {
-    MemoryMax = "256M";
-    CPUQuota = "50%";
-    TasksMax = 32;
-  };
-
   systemd.services.glance.serviceConfig = {
     MemoryMax = "128M";
     CPUQuota = "25%";
     TasksMax = 16;
-  };
-
-  systemd.services.vector.serviceConfig = {
-    MemoryMax = "256M";
-    CPUQuota = "50%";
-    TasksMax = 32;
-  };
-
-  # --- digital-solutions (Odoo, n8n, containers) ---
-  systemd.services.odoo.serviceConfig = {
-    MemoryMax = "1G";
-    MemoryHigh = "768M";
-    CPUQuota = "150%";
-    TasksMax = 64;
-  };
-
-  systemd.services.n8n.serviceConfig = {
-    MemoryMax = "512M";
-    MemoryHigh = "384M";
-    CPUQuota = "100%";
-    TasksMax = 64;
-  };
-
-  systemd.services."podman-evolution-api".serviceConfig = {
-    MemoryMax = "512M";
-    CPUQuota = "100%";
-    TasksMax = 64;
-  };
-
-  systemd.services."podman-mongodb".serviceConfig = {
-    MemoryMax = "512M";
-    CPUQuota = "100%";
-    TasksMax = 64;
-  };
-
-  systemd.services."podman-postiz".serviceConfig = {
-    MemoryMax = "512M";
-    CPUQuota = "100%";
-    TasksMax = 64;
   };
 
   # --- urbania ---

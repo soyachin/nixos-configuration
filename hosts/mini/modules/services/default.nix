@@ -11,8 +11,6 @@
     ./glance
     urbaniaPkg.nixosModules.urbania
     ./urbania.nix
-    ./cockpit
-    ./vector
     ./vaultwarden.nix
     ./trama.nix
   ];
