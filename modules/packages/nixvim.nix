@@ -14,6 +14,7 @@
 
     version.enableNixpkgsReleaseCheck = false;
     nixpkgs.source = inputs.nixpkgs;
+    nixpkgs.config.allowUnfree = true;
 
     globals.mapleader = " ";
 
@@ -178,6 +179,31 @@
       gitsigns.enable = true;
 
       comment.enable = true;
+
+      molten = {
+        enable = true;
+        python3Dependencies = p: with p; [
+          pynvim
+          jupyter-client
+          cairosvg
+          ipykernel
+          nbformat
+        ];
+        settings = {
+          auto_open_output = false;
+          wrap_output = true;
+          image_provider = "image.nvim";
+          output_win_max_height = 20;
+        };
+      };
+
+      image = {
+        enable = true;
+        settings = {
+          backend = "kitty";
+          processor = "magick_cli";
+        };
+      };
 
       render-markdown.enable = true;
 
@@ -408,6 +434,50 @@
         options.desc = "List diagnostics";
       }
 
+      # Molten
+      {
+        mode = "n";
+        key = "<leader>mi";
+        action = "<cmd>MoltenInit<CR>";
+        options.desc = "Molten: init kernel";
+      }
+      {
+        mode = "n";
+        key = "<leader>me";
+        action = "<cmd>MoltenEvaluateOperator<CR>";
+        options.desc = "Molten: evaluate operator";
+      }
+      {
+        mode = "n";
+        key = "<leader>ml";
+        action = "<cmd>MoltenEvaluateLine<CR>";
+        options.desc = "Molten: evaluate line";
+      }
+      {
+        mode = "v";
+        key = "<leader>mv";
+        action = ":<C-u>MoltenEvaluateVisual<CR>gv";
+        options.desc = "Molten: evaluate visual selection";
+      }
+      {
+        mode = "n";
+        key = "<leader>mr";
+        action = "<cmd>MoltenReevaluateCell<CR>";
+        options.desc = "Molten: re-evaluate cell";
+      }
+      {
+        mode = "n";
+        key = "<leader>mo";
+        action = "<cmd>MoltenShowOutput<CR>";
+        options.desc = "Molten: show output";
+      }
+      {
+        mode = "n";
+        key = "<leader>mh";
+        action = "<cmd>MoltenHideOutput<CR>";
+        options.desc = "Molten: hide output";
+      }
+
       # Typst preview
       {
         mode = "n";
@@ -453,6 +523,7 @@
     extraPackages = [
       (pkgs.callPackage ../../hosts/asus/modules/packages/custom/turtle-language-server { })
       (pkgs.callPackage ../../hosts/asus/modules/packages/custom/prttl { })
+      pkgs.imagemagick
     ];
 
     extraFiles."queries/turtle/highlights.scm".text = builtins.readFile ./turtle-highlights.scm;

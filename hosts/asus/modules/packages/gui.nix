@@ -8,6 +8,8 @@
   programs.wireshark.enable = true;
 
   environment.systemPackages = with pkgs; [
+    google-chrome
+    godot
     sirikali
     # Gaming
     inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.osu-lazer-bin
@@ -16,7 +18,10 @@
     onlyoffice-desktopeditors
     onlyoffice-documentserver
     obsidian
-    xournalpp
+    (pkgs.writeShellScriptBin "xournalpp" ''
+      export GTK_THEME=Adwaita:dark
+      exec ${pkgs.xournalpp}/bin/xournalpp "$@"
+    '')
     (symlinkJoin {
       name = "protege";
       paths = [ protege ];
@@ -54,7 +59,7 @@
     prismlauncher
     # Development Tools
     postman
-    opencode
+    unstable.opencode
     positron-bin
   ];
 }

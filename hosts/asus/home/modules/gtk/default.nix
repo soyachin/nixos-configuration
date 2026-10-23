@@ -29,7 +29,7 @@
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       font-name = "ComicShannsMono Nerd Font Mono 12";
-      monospace-font-name = "ComicShannsMono Nerd Font Mono 12"; 
+      monospace-font-name = "ComicShannsMono Nerd Font Mono 12";
       document-font-name = "ComicShannsMono Nerd Font Mono 12";
       gtk-theme = "Gruvbox-Dark";
       icon-theme = "Adwaita";
@@ -39,7 +39,11 @@
     };
   };
 
-qt = {
+  home.sessionVariables = {
+    GTK_THEME = "Gruvbox-Dark:dark";
+  };
+
+  qt = {
     enable = true;
     platformTheme.name = "gtk"; # Cambiado de "gnome" a "gtk"
     style.name = "adwaita-dark"; # Esto satisface la aserción y se verá oscuro
