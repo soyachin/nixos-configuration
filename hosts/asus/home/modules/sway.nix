@@ -61,7 +61,6 @@
       ];
 
       startup = [
-        { command = "swaybg --image /home/hojas/Pictures/Waterhouse_Echo_and_Narcissus_wall.jpg"; }
         {
           command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway GTK_THEME=Gruvbox-Dark";
         }
